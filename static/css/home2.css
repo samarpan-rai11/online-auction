@@ -55,6 +55,10 @@ h2{
       transition: all 0.3s ease-out;
       color: #ffffff;
     }
+    strong {
+      transition: all 0.3s ease-out;
+      color: #ffffff;
+    }
   }
 
 .container{

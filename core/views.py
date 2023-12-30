@@ -1,17 +1,19 @@
 from django.shortcuts import render
 from django.contrib.humanize.templatetags.humanize import intcomma
-from product.models import Category, Product
+from product.models import Category, Product, Auction
 # from django.contrib.auth import login, authenticate
 # from .forms import SignUpForm, LogInForm
 
 
 def index(request):
     products = Product.objects.filter(is_sold=False)[0:6]
+    auctions = Auction.objects.all()[0:6]
     categories = Category.objects.all()
 
     return render(request,"index.html",{
         'categories': categories,
         'products': products,
+        'auctions': auctions,
     })
 
 

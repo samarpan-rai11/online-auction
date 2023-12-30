@@ -1,15 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .models import Product
+from .models import Product, Auction
 from .forms import NewProductForm
 
 # Create your views here.
 def detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
+    auction = get_object_or_404(Auction, pk=pk)
     related_products = Product.objects.filter(category=product.category, is_sold=False).exclude(pk=pk)[0:3]
 
     return render(request, 'product/detail.html', {
+        'auction': auction,
         'product': product,
         'related_products': related_products
     })

@@ -9,6 +9,7 @@ from datetime import timedelta
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    image = models.ImageField(upload_to='category_images', blank=True)
 
     class Meta():
         ordering = ('name',)
@@ -37,3 +38,17 @@ class Product(models.Model):
         return self.title
 
 
+
+class Auction(models.Model):
+    categori = models.ForeignKey(Category, related_name='auctions', on_delete=models.CASCADE)
+
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    bid = models.DecimalField(max_digits=10, decimal_places=0)
+    image = models.ImageField(upload_to='product_images', blank=True)
+
+    made_by = models.ForeignKey(User, related_name='auction', on_delete=models.CASCADE)
+    on_stock = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name

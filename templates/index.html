@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
-{% load humanize %}
 {% load static %}
 
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+<link rel="stylesheet" href="{% static 'css/home2.css' %}" />
 
 <div class="mt-6 mx-5 mb-5 px-6 py-12 bg-gray-100 rounded-xl">
     <h2 class="mb-12 text-2xl text-center">Latest Products</h2>
@@ -37,6 +36,7 @@
             <div>
                 <a href="#">
                     <div class="p-6 bg-white rounded-xl">
+                        <img src="{{ category.image.url }}" class="rounded-t-xl border-1" id="product">
                         <h2 class="text-2xl">{{ category.name }}</h2>
                         <p class="text-gray-500 text-center">{{ category.products.count }} items</p>
                     </div>
@@ -50,18 +50,21 @@
     <h2 class="mb-12 text-2xl text-center">Latest Auctions</h2>
 
     <div class="container" id="p-section">
-        {% for product in products %}
+        {% for auction in auctions %}
             <div class="card">
-                <a href="{% url 'product:detail' product.id %}" class="detail">
+                <a href="{% url 'product:detail' auction.id %}" class="detail">
                     <div>
-                        <img src="{{ product.image.url }}" class="rounded-t-xl border-1" id="product">
+                        <img src="{{ auction.image.url }}" class="rounded-t-xl border-1" id="product">
                     </div>
 
                     <div class="p-6 border-t-2 bg-white w-70 card1">
-                        <h3 class="text-xl text-center">{{ product.title }}</h3>
-                        <p class="text-gray-700 text-center"><span id="price">$</span>{{ product.price }}</p>
-                        <div class="go-arrow">
-                            →
+                        <h3 class="text-xl text-center">{{ auction.name }}</h3>
+                        <div class="flex">
+                            <strong class="text-gray-900">Current Bid:</strong>
+                            <p class="text-gray-700 text-center ml-2"><span id="price">$</span>{{ auction.bid }}</p>
+                            <div class="go-arrow">
+                                →
+                            </div>
                         </div>
                     </div>
                 </a>

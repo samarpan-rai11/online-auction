@@ -11,28 +11,20 @@ def home(request):
 def signup(request):
     if request.method == 'POST':
         signup_form = SignUpForm(request.POST)
-        # login_form = LogInForm(request, request.POST)
         if signup_form.is_valid():
             user = signup_form.save()
             username = signup_form.cleaned_data.get('username')
             messages.success(request, f"Hey {username}, Your account was created successfully.")
-            login(request, user)
             return redirect('userauth:login')  # Redirect to your home page after signup
-        # elif login_form.is_valid():
-        #     user = authenticate(request, **login_form.get_user())
-        #     if user is not None:
-        #         login(request, user)
-        #         return redirect('core:index.html')#Redirect to your home page after login
         
         if request.user.is_authenticated:
             return redirect('core:index')
     else:
         signup_form = SignUpForm()
-        # login_form = LogInForm()
 
     return render(request, 'userauth/signup.html', {
         'signup_form': signup_form,})
-        # 'login_form': login_form,}
+
 
 
 def login_view(request):
