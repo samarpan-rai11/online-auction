@@ -6,8 +6,8 @@ from product.models import Category, Product, Auction
 
 
 def index(request):
-    products = Product.objects.filter(is_sold=False)[0:6]
-    auctions = Auction.objects.all()[0:6]
+    products = Product.objects.filter(is_sold=False)
+    auctions = Auction.objects.all()
     categories = Category.objects.all()
 
     return render(request,"index.html",{

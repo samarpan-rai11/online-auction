@@ -9,7 +9,7 @@ from datetime import timedelta
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    image = models.ImageField(upload_to='category_images', blank=True)
+    image = models.ImageField(upload_to='category_images', default='default.png')
 
     class Meta():
         ordering = ('name',)
