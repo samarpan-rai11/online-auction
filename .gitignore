@@ -1,0 +1,12 @@
+bin
+include
+lib
+pyvenv.cfg
+db.sqlite3
+*.pyc
+*/*.pyc
+*/*/*.pyc
+.DS_Store
+*/.DS_Store
+*/*/.DS_Store
+pictures

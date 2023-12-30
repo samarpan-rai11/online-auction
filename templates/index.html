@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+
+<div class="mt-6 mx-5 mb-5 px-6 py-12 bg-gray-100 rounded-xl">
+    <h2 class="mb-12 text-2xl text-center">Latest Products</h2>
+
+    <div class="container" id="p-section">
+        {% for product in products %}
+            <div class="card">
+                <a href="{% url 'product:detail' product.id %}" class="detail">
+                    <div>
+                        <img src="{{ product.image.url }}" class="rounded-t-xl border-1" id="product">
+                    </div>
+
+                    <div class="p-6 border-t-2 bg-white w-70 card1">
+                        <h3 class="text-xl text-center">{{ product.title }}</h3>
+                        <p class="text-gray-700 text-center"><span id="price">$</span>{{ product.price }}</p>
+                        <div class="go-arrow">
+                            →
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+</div>
+
+<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+    <h2 class="mb-12 text-2xl text-center">Categories</h2>
+
+    <div class="grid grid-cols-3 gap-3">
+        {% for category in categories %}
+            <div>
+                <a href="#">
+                    <div class="p-6 bg-white rounded-xl">
+                        <h2 class="text-2xl">{{ category.name }}</h2>
+                        <p class="text-gray-500 text-center">{{ category.products.count }} items</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="mt-6 mx-5 mb-5 px-6 py-12 bg-gray-100 rounded-xl">
+    <h2 class="mb-12 text-2xl text-center">Latest Auctions</h2>
+
+    <div class="container" id="p-section">
+        {% for product in products %}
+            <div class="card">
+                <a href="{% url 'product:detail' product.id %}" class="detail">
+                    <div>
+                        <img src="{{ product.image.url }}" class="rounded-t-xl border-1" id="product">
+                    </div>
+
+                    <div class="p-6 border-t-2 bg-white w-70 card1">
+                        <h3 class="text-xl text-center">{{ product.title }}</h3>
+                        <p class="text-gray-700 text-center"><span id="price">$</span>{{ product.price }}</p>
+                        <div class="go-arrow">
+                            →
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+</div>
+{% endblock %}

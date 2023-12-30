@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap');
+
+* {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.signin-login {
+  padding: 1rem 0 3rem 0;
+  align-items: center;
+  justify-content: center;
+  background: -webkit-linear-gradient(to right, #FFFFFF,#E7ECFF);
+  background: linear-gradient(to right,#e4e4e4,#E7ECFF);
+}
+
+.wrapper {
+  margin: 1rem auto auto auto;
+  position: relative;
+  width: 800px;
+  min-height: 560px;
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(35, 34, 34, 0.35);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.wrapper a {
+  color: #333;
+  font-size: 13px;
+  text-decoration: none;
+  margin: 15px 0 10px;
+}
+
+.form-wrapper {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.wrapper form {
+  height: 100%;
+  background: #fff;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.socials {
+  margin: 20px 0;
+}
+
+.socials a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 20%;
+  margin: 0 3px;
+  transition: 0.6s;
+}
+
+.socials a:hover {
+  background: #DB4437;
+  color: #fff;
+  border-color: #DB4437;
+}
+
+.socials #twitter:hover {
+  background: #14171A;
+  border-color: #14171A;
+}
+
+.socials #facebook:hover {
+  background: #4267B2;
+  border-color: #4267B2;
+}
+
+.wrapper span {
+  font-size: 12px;
+}
+
+.wrapper input {
+  width: 100%;
+  background: #eee;
+  border: none;
+  outline: none;
+  padding: 10px 15px;
+  margin: 8px 0;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.wrapper button {
+  background: #262f4e;
+  padding: 10px 45px;
+  border: 1px solid transparent;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.wrapper button:hover {
+  background: #4c5e98;
+}
+
+.signin {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.toggle-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 15px 0 0 15px;
+  z-index: 1000;
+  transition: all 0.6s ease-in-out;
+}
+
+.toggle {
+  position: relative;
+  height: 100%;
+  width: 200%;
+  background: #262f4e;
+  color: #fff;
+  left: -100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.panel {
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 30px;
+  text-align: center;
+  top: 0;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+
+.right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.wrapper p {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.3px;
+  margin: 20px 0;
+}
+
+.wrapper .panel button {
+  background-color: transparent;
+  border-color: #fff;
+}
+
+.wrapper.active .toggle-wrapper {
+  border-radius: 0 15px 15px 0;
+  transform: translateX(-100%);
+}
+
+.wrapper.active .toggle {
+  transform: translateX(50%);
+}
+
+.wrapper.active .right {
+  transform: translateX(200%);
+}
+
+.left {
+  transform: translateX(-200%);
+}
+
+.wrapper.active .left {
+  transform: translateX(0);
+}
+
+.wrapper.active .signin {
+  transform: translateX(100%);
+}
+
+.signup {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+
+.wrapper.active .signup {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: anim 0.6s linear;
+}
+
+@keyframes anim {
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}

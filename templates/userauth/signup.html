@@ -1,0 +1,109 @@
+{% load static %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+<!--css file-->
+<link rel="stylesheet" href="{% static 'css/style2.css' %}" />
+<script src="{% static 'js/signup.js' %}" defer></script>
+<script src="https://cdn.tailwindcss.com" defer></script>
+
+<!-- signin -->
+<div class="signin-login">
+  <div class="wrapper">
+    <div class="form-wrapper signin">
+      <form method="POST" method="post" action="">
+
+        <h1 class="text-2xl font-bold">Log In</h1>
+        
+        <div class="socials">
+          <a href="#"><i class="fab fa-google"></i></a>
+          <a href="#" id="facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" id="twitter"><i class="fab fa-x-twitter"></i></a>
+        </div>
+        <span>or use your email and password</span>
+        
+        {% if login_form.errors %}
+        <div class="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 w-full" role="alert">
+          <span class="block sm:inline">
+            {% for field, error_messages in login_form.errors.items %}
+              {% for error_message in error_messages %}
+                {{ error_message }}
+                <br>
+              {% endfor %}
+            {% endfor %}
+          </span>
+        </div>
+        {% endif %}
+
+        <a href="#">Forgot Password?</a>
+      </form>
+    </div>
+      
+      <!-- signup or login -->
+      <div class="form-wrapper signup">
+        <form method="POST" method="post" action="">
+          {% csrf_token %}
+
+          {{ form.non_field_errors }}
+          <h1 class="text-2xl font-bold">Create Account</h1>
+          <div class="socials">
+            <a href="#"><i class="fab fa-google"></i></a>
+            <a href="#" id="facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" id="twitter"><i class="fab fa-x-twitter"></i></a>
+          </div>
+          <span>or use your email for registeration</span>
+
+          {% if signup_form.errors %}
+            <div class="mt-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 w-full" role="alert">
+              <span class="block sm:inline">
+                {% for field, error_messages in signup_form.errors.items %}
+                  {% for error_message in error_messages %}
+                    {{ error_message }} <br>
+                  {% endfor %}
+                {% endfor %}
+              </span>
+            </div>
+
+          {% endif %}
+
+          <div>
+            {{ signup_form.username }}
+            {{ signup_form.email }}
+            {{ signup_form.password1 }}
+            {{ signup_form.password2 }}
+          </div>
+          
+          {% if form.errors or form.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                {% for field in form %}
+                    {{ field.errors }}
+                {% endfor %}
+
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+      
+      <div class="toggle-wrapper">
+        <div class="toggle">
+          <div class="panel right">
+            <h1 class="text-2xl font-bold">Welcome!</h1>
+            <p>Create your Auction account to access our services</p>
+            <button class="signupBtn">Sign Up</button>
+          </div>
+          
+          <div class="panel left">
+            <h1 class="text-2xl font-bold">Welcome Back!</h1>
+            <p>Login in into your Auction account to access our services</p>
+            <button class="loginBtn">Sign In</button>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="mt-2 p-2 text-gray-600 flex justify-center">
+    <a href="{% url 'core:terms' %}" class="hover:text-gray-800 text-l text-center pr-4">Terms & Conditions</a>
+    <a href="#" class="hover:text-gray-800 text-l text-center">About</a>
+  </div>
+</div>
+

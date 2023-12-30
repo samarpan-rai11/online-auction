@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
+  <h1 class="mb-6 text-3xl text-center font-semibold">Add a product</h1>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+  
+    <div class="mb-3">
+      <label class="inline-block mb-2">Category</label>
+      {{ form.category }}
+    </div>
+
+    <div class="mb-3">
+      <label class="inline-block mb-2">Name</label>
+      {{ form.title }}
+    </div>
+
+    <div class="mb-3">
+      <label class="inline-block mb-2">Type</label>
+      {{ form.product_type }}
+    </div>
+    
+
+    <div class="mb-3" id="duration-field" style="display: none;">
+      <label class="inline-block mb-2"></label>
+      {{ form.duration.label_tag }}
+      {{ form.duration }}
+    </div>
+
+
+    <div class="mb-3">
+      <label class="inline-block mb-2">Description</label><br>
+      {{ form.description }}
+    </div>
+
+    <div class="mb-3">
+      <label class="inline-block mb-2">Price</label>
+      {{ form.price }}
+    </div>
+    
+    <div class="mb-3">
+      <label class="inline-block mb-2">Image</label>
+      {{ form.image }}
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var productTypeField = document.getElementById('id_product_type');
+        var durationField = document.getElementById('duration-field');
+
+        function toggleDurationField() {
+          durationField.style.display = (productTypeField.value === 'auction') ? 'block' : 'none';
+        }
+
+        // Initial toggle based on the initial value of product type
+        toggleDurationField();
+
+        // Toggle the duration field whenever the product type changes
+        productTypeField.addEventListener('change', toggleDurationField);
+      });
+    </script>
+
+    <button class="py-1 w-full text-lg bg-indigo-950 hover:bg-indigo-900 rounded-md text-white">Submit</button>
+</div>
+{% endblock %}
