@@ -9,7 +9,7 @@
     </div>
 
     <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
-        <h1 class="mb-6 text-3xl">{{ auction.name }}</h1>
+        <h1 class="mb-6 text-2xl">{{ auction.name }}</h1>
         <p class="text-gray-500"><strong>Current Bid: </strong>${{ auction.bid }}</p>
         <p class="text-gray-500"><strong>Seller: </strong>{{ auction.made_by.username }}</p>
     
@@ -24,8 +24,8 @@
             <div class="mt-6 p-6 bg-white rounded-xl">
                 <p>This is your auction!</p>
 
-                <a href="#" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl">Edit</a>
-                <a href="#" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Delete</a>
+                <a href="#" class="inline-block mt-6 px-5 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Edit</a>
+                <a href="#" class="inline-block mt-6 px-5 py-2 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700">Delete</a>
             </div>
         {% else %}  
             <a href="#" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact seller</a>
