@@ -46,3 +46,5 @@ def new(request):
         'form': form,
         'title': 'New product',
     })
+
+

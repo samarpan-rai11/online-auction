@@ -1,16 +1,18 @@
 from django.urls import path
-from django.conf.urls import handler404
 from . import views
 from .views import custom_404_view
-from django.conf import settings
-from django.conf.urls.static import static
-from django.views.generic import TemplateView
 
 app_name = 'core'
 
 urlpatterns = [
+    #Home Page
     path('',views.index,name='index'),
+
+    #Terms & Condition Page
     path('terms',views.terms, name='terms'),
+
+    #Vendor List Page
+    path('vendors/',views.vendor_list_view, name='vendor-list'),
 ]
 
 handler404 = custom_404_view

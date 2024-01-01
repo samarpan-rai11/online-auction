@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;800&display=swap');
 
 .page_404{ 
   padding:40px 0; 
   background:#fff; 
-  font-family: 'Arvo', serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .page_404  img{ width:100%;}
