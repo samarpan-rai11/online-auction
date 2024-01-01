@@ -5,11 +5,11 @@
 {% block content %}
 <div class="grid grid-cols-5 gap-6">
     <div class="col-span-3">
-        <img src="{{ product.image.url }}" class="rounded-xl">
+        <img src="{{ product.image.url }}" class="rounded-md ml-4 mt-4">
     </div>
 
-    <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
-        <h1 class="mb-6 text-2xl">{{ product.title }}</h1>
+    <div class="col-span-2 p-6 bg-gray-100 rounded-xl mt-4 mr-4">
+        <h1 class="mb-6 text-2xl font-medium">{{ product.title }}</h1>
         <p class="text-gray-500"><strong>Price: </strong>${{ product.price }}</p>
         <p class="text-gray-500"><strong>Seller: </strong>{{ product.created_by.username }}</p>
     
@@ -24,17 +24,17 @@
             <div class="mt-6 p-5 bg-white rounded-xl">
                 <p>This is your product!</p>
 
-                <a href="#" class="inline-block mt-6 px-5 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Edit</a>
-                <a href="#" class="inline-block mt-6 px-5 py-2 text-lg font-semibold bg-red-500 text-white rounded-xl hover:bg-red-700">Delete</a>
+                <a href="#" class="inline-block mt-6 px-5 py-2 text-lg font-semibold bg-emerald-500 text-white rounded-xl hover:bg-emerald-500">Edit</a>
+                <a href="#" class="inline-block mt-6 px-5 py-2 text-lg font-semibold bg-rose-600 text-white rounded-xl hover:bg-rose-700">Delete</a>
             </div>
         {% else %}  
-            <a href="#" class="inline-block mt-6 px-4 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact seller</a>
+            <a href="#" class="inline-block mt-6 px-4 py-2 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-700">Contact seller</a>
         {% endif %}
     </div>
 </div>
 
-<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-    <h2 class="mb-12 text-2xl text-center">Related products</h2>
+<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl mx-4 mb-4">
+    <h2 class="mb-12 text-2xl text-center font-semibold">Related products</h2>
 
     <div class="grid grid-cols-3 gap-3">
         {% for product in related_products %}

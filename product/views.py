@@ -5,9 +5,9 @@ from .models import Product, Auction
 from .forms import NewProductForm
 
 # Create your views here.
-def detail(request, pk):
+def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
-    related_products = Product.objects.filter(category=product.category, is_sold=False).exclude(pk=pk)[0:3]
+    related_products = Product.objects.filter(category=product.category, is_sold=False).exclude(pk=pk)[0:4]
 
 
     return render(request, 'product/detail.html', {
@@ -19,7 +19,7 @@ def detail(request, pk):
 
 def auction_detail(request, pk):
     auction = get_object_or_404(Auction, pk=pk)
-    related_auctions = Auction.objects.filter(categori=auction.categori).exclude(pk=pk)[0:3]
+    related_auctions = Auction.objects.filter(categori=auction.categori).exclude(pk=pk)[0:4]
 
     return render(request, 'product/auction_detail.html', {
         'auction': auction,

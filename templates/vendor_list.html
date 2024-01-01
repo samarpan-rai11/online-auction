@@ -22,23 +22,21 @@
 <div class="flex">
     <ul>
         {% for vendor in vendors %}
-            <a href="#">
-                <li class="bg-white p-4 mb-6 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] flex items-center mx-6 rounded-lg">
-                    {% if vendor.image %}
-                        <div class="mr-16 ml-4">
-                            <img src="{{ vendor.image.url }}" alt="{{ vendor.title }} Image" class="rounded-full mr-8 mb-2" style="max-width: 80px;">
-                            <span class="text-green-600">{{ vendor.vendor.all.count }} Products</span>
-                        </div>
-                    {% endif %}
-                    <div>
-                        <h3 class="text-xl font-bold">{{ vendor.title }}</h3>
-                        <p class="mb-4">{{ vendor.description }}</p>
-                        <p class="text-gray-700">{{ vendor.address }}</p>
-                        <p class="text-gray-700">{{ vendor.contact }}</p>
-                
+            <li class="bg-white p-4 mb-6 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] flex items-center mx-6 rounded-lg">
+                {% if vendor.image %}
+                    <div class="mr-20 ml-4 flex flex-col justify-items-center justify-center items-center">
+                        <img src="{{ vendor.image.url }}" alt="{{ vendor.title }} Image" class="rounded-lg mb-2" style="max-width: 400px;">
+                        <span class="text-green-600">{{ vendor.vendor.all.count }} Products</span>
+                        <a href="{% url 'core:vendor-detail' vendor.id %}" class="bg-emerald-500 px-3 py-2 rounded-lg text-white hover:bg-emerald-700">Visit &rarr;</a>
                     </div>
-                </li>
-            </a>
+                {% endif %}
+                <div>
+                    <h3 class="text-xl font-bold">{{ vendor.title }}</h3>
+                    <p class="mb-4">{{ vendor.description }}</p>
+                    <p class="text-gray-700">{{ vendor.address }}</p>
+                    <p class="text-gray-700">{{ vendor.contact }}</p>
+                </div>
+            </li>
         {% endfor %}
     </ul>
 </div>

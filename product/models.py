@@ -63,7 +63,7 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=0)
-    old_price = models.DecimalField(max_digits=10, decimal_places=0,null=True,blank=True)
+    old_price = models.DecimalField(max_digits=10, decimal_places=0,default=0)
     image = models.ImageField(upload_to='product_images', blank=True)
     
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, null=True, related_name='vendor')
