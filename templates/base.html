@@ -7,7 +7,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;800&display=swap" rel="stylesheet">
+
+    <script src="{% static 'js/node_modules/jquery/dist/jquery.min.js' %}" defer></script>
     <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="{% static 'js/function.js' %}" defer></script>
+
     <title>{% block title %} {% endblock %} Online Auction</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
 </head>
@@ -29,7 +33,7 @@
         </formmr-8>
     </div>
 
-    
+    <!-- navigation bar -->
     <nav class="bg-gray-700 text-gray-100 py-4 px-6 flex justify-around items-center border-y border-gray-200 shadow-lg">
     
         <div class="space-x-6">
@@ -58,10 +62,27 @@
 
         {% if request.user.is_authenticated %}
             <a href="{% url 'userauth:logout' %}" class="px-4 py-1 text-lg font-semibold bg-rose-600 text-gray-200 rounded-md hover:bg-rose-700">Log Out</a>
-        {% endif %}
-
-        
+        {% endif %}  
     </nav>
+    
+    <!-- flash messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="flex items-center p-4 my-4 mx-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 " role="alert" id="flash-message">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <div>
+                    <span class="font-medium">{{ message }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <script>
+         setTimeout(function () {
+            $('#flash-message').fadeOut();
+        }, 3000);
+    </script>
     
     <main>
         {% block content %}

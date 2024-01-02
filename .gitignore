@@ -10,3 +10,6 @@ db.sqlite3
 */.DS_Store
 */*/.DS_Store
 pictures
+package.json
+package-lock.json
+static/js/node_modules

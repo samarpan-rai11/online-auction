@@ -11,15 +11,18 @@ class AuctionAdmin(admin.ModelAdmin):
 class VendorAdmin(admin.ModelAdmin):
     list_display = ['title','address','contact','user']
 
+class ProductReviewAdmin(admin.ModelAdmin):
+    list_display = ['user','product','review','rating']
+
 admin.site.register(Category)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Auction, AuctionAdmin)
 admin.site.register(Bid)
-admin.site.register(Vendor,VendorAdmin)
+admin.site.register(Vendor, VendorAdmin)
 admin.site.register(Order)
 admin.site.register(CartOrder)
 admin.site.register(Payment)
 admin.site.register(UserProfile)
-admin.site.register(ProductReview)
+admin.site.register(ProductReview, ProductReviewAdmin)
 admin.site.register(Wishlist)
 

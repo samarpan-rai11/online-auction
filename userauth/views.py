@@ -37,6 +37,7 @@ def login_view(request):
 
             if user is not None:
                 login(request, user)
+                messages.success(request, f"Welcome {username}, you are logged in successfully.")
                 return redirect('core:index') #when using redirect use ('appname:name') and when render use .html file
             else:
                 error_message = 'Invalid login credentials.'
