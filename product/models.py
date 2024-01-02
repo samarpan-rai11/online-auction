@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from datetime import datetime
+from taggit.managers import TaggableManager
 
 
 # Create your models here.
@@ -70,6 +71,7 @@ class Product(models.Model):
     is_sold = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
 
+    tags = TaggableManager(blank=True)
     on_stock = models.BooleanField(default=True)
     product_status = models.CharField(choices=STATUS_CHOICE, max_length=10, default="in_review")
 

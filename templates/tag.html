@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ tag.name }} |{% endblock %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home3.css' %}" />
+
+<div class="mt-6 mx-5 mb-5 px-6 py-12 bg-gray-100 rounded-xl">
+    <h2 class="mb-12 font-semibold italic text-2xl text-center">Tags with <span class="text-emerald-500">#{{ tag.name }}</span></h2>
+
+    <p class="text-center">We found <span class="text-emerald-500">{{products.count}}</span> product for you.</p>
+
+    <div class="container mt-8 gap-2" id="p-section">
+        {% for product in products %}
+            <div class="card">
+                <a href="{% url 'product:detail' product.id %}" class="detail">
+                    <div>
+                        <img src="{{ product.image.url }}" class="rounded-t-xl border-1" id="product">
+                    </div>
+
+                    <div class="p-6 border-t-2 bg-white w-70 card1">
+                        <h3 class="text-xl font-medium text-center mb-2">{{ product.title }}</h3>
+                        <p class="text-gray-700 text-center"><span id="price">$</span>{{ product.price }}</p>
+                        <div class="go-arrow">
+                            →
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+</div>
+{% endblock %}

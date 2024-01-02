@@ -10,8 +10,20 @@
 
     <div class="col-span-2 p-6 bg-gray-100 rounded-xl mt-4 mr-4">
         <h1 class="mb-6 text-2xl font-medium">{{ product.title }}</h1>
-        <p class="text-gray-500"><strong>Price: </strong>${{ product.price }}</p>
-        <p class="text-gray-500"><strong>Seller: </strong>{{ product.created_by.username }}</p>
+        <hr>
+        <div class="flex">
+            <p class="mt-3 text-3xl mr-5">${{ product.price }}</p>
+            <s class="text-xl font-medium text-gray-400 relative -bottom-4">${{ product.old_price }}</s>
+        </div>
+        <p class="text-gray-500 mt-1"><strong>Seller: </strong>{{ product.created_by.username }}</p>
+        <p class="text-gray-500 mt-1"><strong>Tags:</strong>
+            {% for tag in product.tags.all %}
+                <a href="{% url 'core:tags' tag.slug %}">
+                    #{{ tag.name }},
+                </a>
+            {% endfor %}
+        </p>
+        
     
         {% if product.description %}
             <p class="text-gray-700">
@@ -21,14 +33,15 @@
         {% endif %}
 
         {% if request.user == product.created_by %}
-            <div class="mt-6 p-5 bg-white rounded-xl">
-                <p>This is your product!</p>
+            <div class="mt-8 p-3 text-center bg-white rounded-xl">
+                <p>This is your Product.</p>
 
-                <a href="#" class="inline-block mt-6 px-5 py-2 text-lg font-semibold bg-emerald-500 text-white rounded-xl hover:bg-emerald-500">Edit</a>
+                <a href="#" class="inline-block mt-6 px-5 py-2 text-lg font-semibold bg-emerald-500 text-white rounded-xl hover:bg-emerald-500 mr-4">Edit</a>
                 <a href="#" class="inline-block mt-6 px-5 py-2 text-lg font-semibold bg-rose-600 text-white rounded-xl hover:bg-rose-700">Delete</a>
             </div>
         {% else %}  
-            <a href="#" class="inline-block mt-6 px-4 py-2 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-700">Contact seller</a>
+            <a href="#" class="bg-emerald-500 p-3 rounded-md text-white hover:bg-emerald-700 mr-3">Add to Cart &rarr;</a>
+            <a href="#" class="inline-block mt-6 px-4 py-2 text-lg font-semibold bg-sky-500 text-white rounded-md hover:bg-sky-700">Contact seller</a>
         {% endif %}
     </div>
 </div>

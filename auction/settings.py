@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 LOGOUT_REDIRECT_URL = "/"
 
-
+TAGGIT_CASE_INSENSITIVE = True
 
 # Application definition
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'taggit',
 
     #Custom Apps
     'core',

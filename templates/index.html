@@ -8,7 +8,7 @@
 <div class="mt-6 mx-5 mb-5 px-6 py-12 bg-gray-100 rounded-xl">
     <h2 class="mb-12 font-semibold italic text-2xl text-center">Latest Products</h2>
 
-    <div class="container" id="p-section">
+    <div class="container gap-2" id="p-section">
         {% for product in products %}
             <div class="card">
                 <a href="{% url 'product:detail' product.id %}" class="detail">
