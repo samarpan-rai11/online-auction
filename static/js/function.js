@@ -1,8 +1,14 @@
 console.log("This is working")
 
+const monthNames = ["Jan", "Feb", "Mar","Apr","May","Jun","Jul",      
+                    "Aug","Sept","Oct","Nov","Dec"];
+
 $(document).ready(function(){
     $("#commentForm").submit(function(e){
         e.preventDefault();
+
+        let dt = new Date();
+        let time = dt.getDay() + " " + monthNames[dt.getUTCMonth()] + "," + dt.getFullYear();
 
         $.ajax({
             data: $(this).serialize(),
@@ -26,11 +32,11 @@ $(document).ready(function(){
 
                     _html+='<div class="flex">'
                     _html+='<h2 class="text-left mr-6 text-emerald-500">'+ response.user +'</h2>'
-                    _html+='<span class="text-gray-400">{{ r.date|date:"d M, Y" }}</span>'
+                    _html+='<span class="text-gray-400">'+ time +'</span>'
                     _html+='</div>'
 
                     for(let i = 1; i<=response.rating; i++){
-                        _html += '<i class="fas fa-star text-warning"></i>'
+                        _html += '<i class="fas fa-star text-warning" style="color: #FFB534;"></i>'
                     }
 
                     _html+='<p>'+ response.review +'</p>'

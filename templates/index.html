@@ -5,8 +5,12 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/home3.css' %}" />
 
+
+<!------------------------------------------------------------------->
+<!--------------------------- Product Section ----------------------->
+<!------------------------------------------------------------------->
 <div class="mt-6 mx-5 mb-5 px-6 py-12 bg-gray-100 rounded-xl">
-    <h2 class="mb-12 font-semibold italic text-2xl text-center">Latest Products</h2>
+    <h2 class="mb-12 font-semibold italic text-2xl text-center underline">Latest Products</h2>
 
     <div class="container gap-2" id="p-section">
         {% for product in products %}
@@ -26,28 +30,34 @@
                 </a>
             </div>
         {% endfor %}
+    </div>
 </div>
 
-<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+
+<div class="mt-6 px-6 py-12">
     <h2 class="mb-12 text-2xl text-center font-semibold italic">Product Categories</h2>
 
     <div class="grid grid-cols-3 gap-3">
         {% for category in categories %}
             <div>
-                <a href="#">
-                    <div class="p-6 bg-white rounded-xl">
-                        <img src="{{ category.image.url }}" class="rounded-t-xl border-1" id="product" alt="Image">
-                        <h2 class="text-2xl font-medium mt-2">{{ category.name }}</h2>
-                        <p class="text-gray-500 text-center">{{ category.products.count }} items</p>
-                    </div>
-                </a>
+                <div class="p-6 bg-white rounded-xl text-center">
+                    <a href="#" class="hover:text-rose-600">
+                        <img src="{{ category.image.url }}" class=" border-1" id="product" alt="Image">
+                        <span class="text-2xl font-medium mt-2">{{ category.name }}</span>
+                    </a>
+                    <p class="text-gray-500 text-center">{{ category.products.count }} items</p>
+                </div>
             </div>
         {% endfor %}
     </div>
 </div>
 
+
+<!------------------------------------------------------------------->
+<!--------------------------- Auction Section ----------------------->
+<!------------------------------------------------------------------->
 <div class="mt-6 mx-5 mb-5 px-6 py-12 bg-gray-100 rounded-xl">
-    <h2 class="mb-12 text-2xl text-center font-semibold italic">Latest Auctions</h2>
+    <h2 class="mb-12 text-2xl text-center font-semibold italic underline">Ongoing Auctions</h2>
 
     <div class="container" id="p-section">
         {% for auction in auctions %}
@@ -70,20 +80,22 @@
                 </a>
             </div>
         {% endfor %}
+    </div>
 </div>
 
-<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+
+<div class="mt-6 px-6 py-12">
     <h2 class="mb-12 text-2xl text-center font-semibold italic">Auction Categories</h2>
     <div class="grid grid-cols-3 gap-3">
         {% for category in categories %}
             <div>
-                <a href="#">
-                    <div class="p-6 bg-white rounded-xl">
-                        <img src="{{ category.image.url }}" class="rounded-t-xl border-1" id="product">
-                        <h2 class="text-2xl font-medium mt-2">{{ category.name }}</h2>
-                        <p class="text-gray-500 text-center">{{ category.auctions.count }} items</p>
-                    </div>
-                </a>
+                <div class="p-6 bg-white rounded-xl text-center">
+                    <a href="#" class="hover:text-rose-600">
+                        <img src="{{ category.image.url }}" class="border-1" id="product">
+                        <span class="text-2xl font-medium mt-2">{{ category.name }}</span>
+                    </a>
+                    <p class="text-gray-500 text-center">{{ category.auctions.count }} items</p>
+                </div>
             </div>
         {% endfor %}
     </div>

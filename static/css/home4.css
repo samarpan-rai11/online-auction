@@ -95,3 +95,9 @@ h2{
     font-size: 9px;
 }
 
+#id_rating{
+  padding: 5px;
+  padding-right: 2.5rem;
+  border-radius: 8px;
+}
+
