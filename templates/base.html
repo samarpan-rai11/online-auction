@@ -19,9 +19,9 @@
 </head>
 
 <body style="font-family: 'Montserrat', sans-serif;">
-    <div class="flex mb-3 mt-3">
+    <div class="flex mb-3 mt-3 justify-around">
         <a href="/" class="py-3 px-4 text-xl font-semibold">Auction</a>
-        <formmr-8>   
+        <form action="{% url 'product:search' %}" method="GET">   
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
             <div class="relative mx-12" id="search-bar">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -29,10 +29,11 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <input type="search" id="default-search" class="block p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search Category, Products..." required>
-                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+                <input type="search" id="default-search" class="block p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50" placeholder="Search Category, Products..." style="min-width: 400px;" name="q" required>
+                <button type="submit" class="absolute end-2.5 bottom-2.5 bg-[#fcbe00] hover:bg-[#fcac10] font-medium rounded-lg text-sm px-4 py-2">Search</button>
             </div>
-        </formmr-8>
+        </form>
+        <a href="#" class="py-3 px-4 text-xl font-medium hover:text-rose-600">My Cart</a>
     </div>
 
     <!-- navigation bar -->
@@ -59,11 +60,11 @@
                 </div>
             </div>
         {% else %}
-            <a href="{% url 'userauth:signup' %}" class="px-4 py-1 text-lg font-semibold bg-sky-500 text-white rounded-md hover:bg-sky-700">Sign up</a>
+            <a href="{% url 'userauth:signup' %}" class="px-4 py-1 text-lg font-medium bg-sky-500 text-white rounded-md hover:bg-sky-700">Sign up</a>
         {% endif %}
 
         {% if request.user.is_authenticated %}
-            <a href="{% url 'userauth:logout' %}" class="px-4 py-1 text-lg font-semibold bg-rose-600 text-gray-200 rounded-md hover:bg-rose-700">Log Out</a>
+            <a href="{% url 'userauth:logout' %}" class="px-4 py-1 text-lg font-medium bg-rose-600 text-gray-200 rounded-md hover:bg-rose-700">Log Out</a>
         {% endif %}  
     </nav>
     

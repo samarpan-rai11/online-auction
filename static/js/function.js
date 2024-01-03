@@ -31,7 +31,7 @@ $(document).ready(function(){
                     _html+='<img src="https://cvhrma.org/wp-content/uploads/2015/07/default-profile-photo.jpg" alt="profile" style="max-width: 50px;" class="rounded-full">'
 
                     _html+='<div class="flex">'
-                    _html+='<h2 class="text-left mr-6 text-emerald-500">'+ response.user +'</h2>'
+                    _html+='<h2 class="text-left mr-6 text-emerald-500 underline">'+ response.user +'</h2>'
                     _html+='<span class="text-gray-400">'+ time +'</span>'
                     _html+='</div>'
 

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Search |{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}" />
+
+<h2 class="font-medium text-xl mt-5">You searched for <span class="text-emerald-500">{{ query }}</span></h2>
+
+<div class="flex mt-10">
+    <!------------------------------------------------------------>
+    <!---------------------- filter section ---------------------->
+    <!------------------------------------------------------------>
+    <div class="border ml-4 mb-4" style="min-width: 250px;">
+        <div>
+            <h2 class="text-xl font-medium mt-3 mb-1">Product categories</h2><hr class="w-48 h-1 mx-auto bg-yellow-400 border-0 rounded mb-3">
+            
+            {% for product in products %}
+                <div class="flex items-center mb-1">
+                    <input id="{{ product.category }}" type="checkbox" value="" class="ml-7 w-4 h-4 border-gray-300 rounded">
+                    <label for="{{ product.category }}" class="ms-2 font-medium text-gray-600">{{ product.category }}</label>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+    <!------------------------------------------------------------>
+    <!------------------ all searched products ------------------->
+    <!------------------------------------------------------------>
+    <div class="container gap-2 mx-4 mb-4" id="p-section" style="min-width: 825px;">
+        {% for product in products %}
+            <div class="card">
+                <a href="{% url 'product:detail' product.id %}" class="detail">
+                    <div>
+                        <img src="{{ product.image.url }}" class=" border-1" id="product">
+                    </div>
+    
+                    <div class="p-6 border-t-2 bg-white w-70 card1">
+                        <h3 class="text-xl font-medium text-center mb-2">{{ product.title }}</h3>
+                        <p class="text-gray-700 text-center"><span id="price">$</span>{{ product.price }}</p>
+                        <div class="go-arrow">
+                            →
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

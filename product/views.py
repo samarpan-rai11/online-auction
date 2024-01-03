@@ -5,6 +5,9 @@ from django.db.models import Avg
 from .models import Product, Auction, ProductReview
 from .forms import NewProductForm
 from core.forms import ProductReviewForm
+from django.db.models import Q
+from django.db.models.functions import Lower
+
 
 # Create your views here.
 def product_detail(request, pk):
@@ -91,3 +94,20 @@ def add_review(request,pk):
         'average_reviews': average_reviews,
         }
     )
+
+
+def search_view(request):
+    query = request.GET.get("q")
+
+    # you should use double underscores to navigate through the relationship and apply icontains to the related field
+    products = Product.objects.filter(
+    Q(title__icontains=query) |
+    Q(description__icontains=query) |
+    Q(tags__name__icontains=query)
+    ).order_by("-date")
+
+
+    return render(request,'product/search.html',{
+        'products': products,
+        'query': query,
+    })

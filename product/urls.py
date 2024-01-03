@@ -10,5 +10,8 @@ urlpatterns = [
     path('new/', views.new, name='new'),
 
     # add review
-    path('add_review/<int:pk>', views.add_review, name='add_review')
+    path('add_review/<int:pk>', views.add_review, name='add_review'),
+
+    # search
+    path('search',views.search_view,name='search'),
 ]
