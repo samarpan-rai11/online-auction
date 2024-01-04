@@ -73,13 +73,25 @@ def new(request):
 
 def shop_view(request):
     categories = Category.objects.all()
-    products = Product.objects.filter(is_sold=False)
+    products = Product.objects.filter(is_sold=False).order_by("-date")
     vendors = Vendor.objects.all()
+
+    vendor_id = request.GET.get('vendor', 0)
+    category_id = request.GET.get('category', 0)
+    
+    if vendor_id:
+        products = products.filter(vendor_id=vendor_id)
+
+    if category_id:
+        products = products.filter(category_id=category_id)
+
 
     return render(request, 'product/shop.html',{
         'categories': categories,
         'products': products,
         'vendors': vendors,
+        'category_id': int(category_id),
+        'vendor_id': int(vendor_id),
     })
 
 #this is form review form
@@ -131,7 +143,7 @@ def search_view(request):
     vendor_id = request.GET.get('vendor', 0)
     category_id = request.GET.get('category', 0)
     categories = Category.objects.all()
-    products = Product.objects.filter(is_sold=False)
+    products = Product.objects.filter(is_sold=False).order_by("-date")
 
     if vendor_id:
         products = products.filter(vendor_id=vendor_id)
