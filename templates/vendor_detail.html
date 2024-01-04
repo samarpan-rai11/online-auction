@@ -24,24 +24,24 @@
 
     <div class="flex flex-col">
         {% for product in products %}
-            <div class="mb-4 shadow-[rgba(0,_0,_0,_0.5)_0px_3px_8px] rounded-md flex">
-                <div>
-                    <a href="{% url 'product:detail' product.id %}">
-                        <img src="{{ product.image.url }}" style="max-width: 400px; max-height: 350px;" class="rounded-tl-md rounded-bl-md border-2 bg-white"> 
-                    </a>
-                </div>
-
-                <div class="p-6 rounded-b-xl ">
-                    <a href="{% url 'product:detail' product.id %}" class="text-2xl font-medium hover:text-rose-700">{{ product.title }}</a>
-                    <p class="text-gray-600">{{ product.category }}</p>
-                    <p class="my-3">{{ product.description }}</p>
-                    <div class="flex mb-7">
-                        <p class="text-3xl font-medium mr-5">${{ product.price }}</p>
-                        <s class="text-xl font-medium text-gray-400 relative -bottom-2">${{ product.old_price }}</s>
-                    </div>
-                    <a href="#" class="bg-emerald-500 p-3 rounded-md text-white">Add to Cart &rarr;</a>
-                </div>
+        <div class="mb-4 shadow-[rgba(0,_0,_0,_0.5)_0px_3px_8px] rounded-md flex" style="max-width: 750px; max-height:230px">
+            <div>
+                <a href="{% url 'product:detail' product.id %}">
+                    <img src="{{ product.image.url }}" style="max-width: 230px; max-height: 230px;" class="rounded-tl-md rounded-bl-md border-2 bg-white object-contain"> 
+                </a>
             </div>
+
+            <div class="p-6 rounded-b-xl ml-4">
+                <a href="{% url 'product:detail' product.id %}" class="text-2xl font-medium hover:text-rose-700">{{ product.title }}</a>
+                <p class="my-3">{{ product.description|truncatechars:50 }}</p>
+                <!---- The number 50 based on the desired length -->
+                <div class="flex mb-5">
+                    <p class="text-3xl font-medium mr-5">${{ product.price }}</p>
+                    <s class="text-xl font-medium text-gray-400 relative -bottom-2">${{ product.old_price }}</s>
+                </div>
+                <a href="#" class="bg-emerald-500 p-2 rounded-md text-white text-sm hover:bg-emerald-700">Add to Cart &rarr;</a>
+            </div>
+        </div>
         {% endfor %}
     </div>
 </div>

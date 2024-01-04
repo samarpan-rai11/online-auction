@@ -6,8 +6,8 @@ from .forms import ProductReviewForm
 
 
 def index(request):
-    products = Product.objects.filter(is_sold=False)
-    auctions = Auction.objects.all()
+    products = Product.objects.filter(is_sold=False,).order_by("-date")[:4]
+    auctions = Auction.objects.all().order_by("-date")[:4]
     categories = Category.objects.all()
 
     return render(request,"index.html",{
@@ -37,7 +37,7 @@ def vendor_list_view(request):
 
 def vendor_detail(request, pk):
     vendor = get_object_or_404(Vendor, pk=pk)
-    products = Product.objects.filter(vendor=vendor)
+    products = Product.objects.filter(vendor=vendor).order_by("-date")
 
     return render(request, 'vendor_detail.html', {
         'vendor': vendor,

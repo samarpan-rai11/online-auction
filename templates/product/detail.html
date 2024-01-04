@@ -14,7 +14,7 @@
     </div>
 
     <div class="col-span-2 p-6 rounded-xl mr-3" style="min-width: 34.375rem;">
-        <h1 class="mb-2 text-2xl font-semibold text-sky-600">{{ product.title }}</h1>
+        <h1 class="mb-2 text-3xl font-medium text-sky-600">{{ product.title }}</h1>
         <div class="mb-3">
             {% if average_rating.rating %}
                 {% for _ in average_rating.rating|int_range %}
