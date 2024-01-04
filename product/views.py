@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Avg
-from .models import Product, Auction, ProductReview
+from .models import Product, Auction, ProductReview, Vendor, Category
 from .forms import NewProductForm
 from core.forms import ProductReviewForm
 from django.db.models import Q
@@ -71,6 +71,17 @@ def new(request):
     })
 
 
+def shop_view(request):
+    categories = Category.objects.all()
+    products = Product.objects.filter(is_sold=False)
+    vendors = Vendor.objects.all()
+
+    return render(request, 'product/shop.html',{
+        'categories': categories,
+        'products': products,
+        'vendors': vendors,
+    })
+
 #this is form review form
 def add_review(request,pk):
     product = Product.objects.get(pk=pk)
@@ -98,6 +109,7 @@ def add_review(request,pk):
 
 def search_view(request):
     query = request.GET.get("q")
+    categories = Category.objects.all()
 
     # you should use double underscores to navigate through the relationship and apply icontains to the related field
     products = Product.objects.filter(
@@ -108,6 +120,7 @@ def search_view(request):
 
 
     return render(request,'product/search.html',{
+        'categories': categories,
         'products': products,
         'query': query,
     })

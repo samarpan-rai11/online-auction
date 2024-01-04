@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from product.models import Category, Product, Auction, Vendor
 from taggit.models import Tag
 from .forms import ProductReviewForm

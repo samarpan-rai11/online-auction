@@ -9,6 +9,9 @@ urlpatterns = [
     path('auction/<int:pk>/', views.auction_detail, name='auction_detail'),
     path('new/', views.new, name='new'),
 
+    # shop page
+    path('shop/',views.shop_view,name='shop'),
+
     # add review
     path('add_review/<int:pk>', views.add_review, name='add_review'),
 
