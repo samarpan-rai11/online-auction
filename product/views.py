@@ -143,6 +143,7 @@ def search_view(request):
     vendor_id = request.GET.get('vendor', 0)
     category_id = request.GET.get('category', 0)
     categories = Category.objects.all()
+    vendors = Vendor.objects.all()
     products = Product.objects.filter(is_sold=False).order_by("-date")
 
     if vendor_id:
@@ -156,6 +157,7 @@ def search_view(request):
 
     return render(request, 'product/search.html', {
         'products': products,
+        'vendors': vendors,
         'query': query,
         'categories': categories,
         'category_id': int(category_id),
