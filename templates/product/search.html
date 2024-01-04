@@ -4,34 +4,48 @@
 {% block title %}Search |{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/search.css' %}" />
+<link rel="stylesheet" href="{% static 'css/search2.css' %}" />
 
 <h2 class="font-medium text-xl mt-5">You searched for <span class="text-emerald-500">{{ query }}</span></h2>
-
-<div class="flex mt-10">
+<div class="flex mt-10 cont1">
     <!------------------------------------------------------------>
     <!---------------------- filter section ---------------------->
     <!------------------------------------------------------------>
-    <div class="ml-4 mb-4" style="min-width: 250px;">
+    <div class="ml-4 mb-4 filter">
+        <!-- Product Categories -->
         <div class="border mb-6">
             <h2 class="text-xl font-semibold mt-3 mb-2">Product categories</h2><hr class="mb-3">
             
             <div class="mb-3">
                 {% for category in categories %}
-                    <div class="flex items-center mb-1">
-                        <input id="{{ category }}" type="checkbox" value="" class="ml-7 w-4 h-4 border-gray-300 rounded">
-                        <label for="{{ category }}" class="ms-2 font-medium text-gray-600">{{ category }} ({{ category.products.count }})</label>
-                    </div>
+                        <li class="text-center list-none py-2 px-2 rounded-xl mx-5{% if category.id == category_id %} bg-gray-200{% endif %}">
+                            <a href="{% url 'product:search' %}?query={{ query }}&category={{ category.id }}">{{ category.name }}</a>
+                        </li>
                 {% endfor %}
             </div>
         </div>
+
+        <!-- Vendors -->
+        <div class="border mb-6">
+            <h2 class="text-xl font-semibold mt-3 mb-2">Vendors</h2>
+            <hr class="mb-3">
+            
+            <div class="mb-3">
+                {% for vendor in vendors %}
+                    <li class="text-center list-none py-2 px-2 rounded-xl mx-5{% if vendor.id == vendor_id %} bg-gray-200{% endif %}">
+                        <a href="{% url 'product:search' %}?query={{ query }}&vendor={{ vendor.id }}">{{ vendor.title }}</a>
+                    </li>
+                {% endfor %}
+            </div>
+        </div>
+
     </div>
 
 
     <!------------------------------------------------------------>
-    <!------------------ all searched products ------------------->
+    <!---------------------- shop products ----------------------->
     <!------------------------------------------------------------>
-    <div class="container gap-2 mx-4 mb-4" id="p-section" style="min-width: 825px;">
+    <div class="flex container mx-4 mb-4" id="p-section1">
         {% for product in products %}
             <div class="card">
                 <a href="{% url 'product:detail' product.id %}" class="detail">

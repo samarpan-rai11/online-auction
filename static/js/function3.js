@@ -48,3 +48,24 @@ $(document).ready(function(){
         })
     });
 });
+
+console.log('hello')
+
+
+$(document).ready(function(){
+    $(".filter-checkbox").on("click", function(){
+        console.log("Checkbox clicked");
+
+        let filter_object = {}
+
+        $(".filer-checkbox").each(function(index){
+            let filter_value = $(this).val()
+            let filter_key = $(this).data("filter") //category or vendor
+            // console.log(filter_value, filter_key);
+            filter_object[filter_key] = Array.from(document.querySelectorAll("input[data-filter="+ filter_key +"]:checked")).map(function(element){
+                return element.value
+            })
+        })
+        console.log(filter_object);
+    })
+})

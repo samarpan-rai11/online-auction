@@ -12,7 +12,7 @@
 
     <script src="{% static 'js/node_modules/jquery/dist/jquery.min.js' %}" defer></script>
     <script src="https://cdn.tailwindcss.com" defer></script>
-    <script src="{% static 'js/function.js' %}" defer></script>
+    <script src="{% static 'js/function3.js' %}" defer></script>
 
     <title>{% block title %} {% endblock %} Online Auction</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
@@ -21,7 +21,7 @@
 <body style="font-family: 'Montserrat', sans-serif;">
     <div class="flex mb-3 mt-3 justify-around">
         <a href="/" class="py-3 px-4 text-xl font-semibold">Auction</a>
-        <form action="{% url 'product:search' %}" method="GET">   
+        <form action="{% url 'product:search' %}" method="GET get">   
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
             <div class="relative mx-12" id="search-bar">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -29,7 +29,8 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <input type="search" id="default-search" class="block p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50" placeholder="Search Category, Products..." style="min-width: 400px;" name="q" required>
+                <!-- the name attribute in input tag should be same as query field used variable -->
+                <input type="text" value="{{ query }}" id="default-search" class="block p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50" placeholder="Search Category, Products..." style="min-width: 400px;" name="query" required>
                 <button type="submit" class="absolute end-2.5 bottom-2.5 bg-[#fcbe00] hover:bg-[#fcac10] font-medium rounded-lg text-sm px-4 py-2">Search</button>
             </div>
         </form>

@@ -108,19 +108,44 @@ def add_review(request,pk):
 
 
 def search_view(request):
-    query = request.GET.get("q")
+    # products = Product.objects.filter(is_sold=False)
+    # query = request.GET.get("query", "")
+    # categories = Category.objects.all()
+
+    # # you should use double underscores to navigate through the relationship and apply icontains to the related field
+    # if query:
+    #     products = products.filter(
+    #     Q(title__icontains=query) |
+    #     Q(description__icontains=query) |
+    #     Q(tags__name__icontains=query)
+    #     ).order_by("-date")
+
+
+    # return render(request,'product/search.html',{
+    #     'categories': categories,
+    #     'products': products,
+    #     'query': query,
+    # })
+
+    query = request.GET.get('query', '')
+    vendor_id = request.GET.get('vendor', 0)
+    category_id = request.GET.get('category', 0)
     categories = Category.objects.all()
+    products = Product.objects.filter(is_sold=False)
 
-    # you should use double underscores to navigate through the relationship and apply icontains to the related field
-    products = Product.objects.filter(
-    Q(title__icontains=query) |
-    Q(description__icontains=query) |
-    Q(tags__name__icontains=query)
-    ).order_by("-date")
+    if vendor_id:
+        products = products.filter(vendor_id=vendor_id)
 
+    if category_id:
+        products = products.filter(category_id=category_id)
 
-    return render(request,'product/search.html',{
-        'categories': categories,
+    if query:
+        products = products.filter(Q(title__icontains=query) | Q(description__icontains=query))
+
+    return render(request, 'product/search.html', {
         'products': products,
         'query': query,
+        'categories': categories,
+        'category_id': int(category_id),
+        'vendor_id': int(vendor_id),
     })
