@@ -23,26 +23,29 @@
             
             <div class="mb-3">
                 {% for category in categories %}
-                        <li class="text-center list-none py-2 px-2 rounded-xl mx-5{% if category.id == category_id %} bg-gray-200{% endif %}">
+                        <li class="flex text-center list-none py-1 px-2 rounded-md mx-4{% if category.id == category_id %} bg-[#fcac10] text-white{% endif %}">
+                            <img src="{{ category.image.url }}" alt="image" style="height: 25px; width: 30px;" class="rounded-full mr-2">
                             <a href="{% url 'product:shop' %}?query={{ query }}&category={{ category.id }}">{{ category.name }}</a>
                         </li>
                 {% endfor %}
             </div>
         </div>
 
-        <!-- Vendors -->
+        <!------------------------- Vendors ------------------------->
         <div class="border mb-6">
             <h2 class="text-xl font-semibold mt-3 mb-2">Vendors</h2>
             <hr class="mb-3">
             
             <div class="mb-3">
                 {% for vendor in vendors %}
-                    <li class="text-center list-none py-2 px-2 rounded-xl mx-5{% if vendor.id == vendor_id %} bg-gray-200{% endif %}">
+                    <li class="text-center list-none py-1 px-2 rounded-md mx-4{% if vendor.id == vendor_id %} bg-[#fcbe00] text-white{% endif %}">
                         <a href="{% url 'product:shop' %}?query={{ query }}&vendor={{ vendor.id }}">{{ vendor.title }}</a>
                     </li>
                 {% endfor %}
             </div>
         </div>
+
+        <a href="{% url 'product:shop' %}" class="mt-2 py-2 w-full inline-block bg-rose-600 text-center text-lg rounded-md text-white hover:bg-rose-700">Clear Filters</a>
 
     </div>
 
@@ -70,4 +73,5 @@
         {% endfor %}
     </div>
 </div>
+
 {% endblock %}

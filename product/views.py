@@ -6,7 +6,8 @@ from .models import Product, Auction, ProductReview, Vendor, Category
 from .forms import NewProductForm
 from core.forms import ProductReviewForm
 from django.db.models import Q
-from django.db.models.functions import Lower
+from django.db.models import Min, Max
+from django.template.loader import render_to_string
 
 
 # Create your views here.
@@ -75,6 +76,7 @@ def shop_view(request):
     categories = Category.objects.all()
     products = Product.objects.filter(is_sold=False).order_by("-date")
     vendors = Vendor.objects.all()
+    min_max_price = Product.objects.aggregate(Min("price"), Max("price"))
 
     vendor_id = request.GET.get('vendor', 0)
     category_id = request.GET.get('category', 0)
@@ -90,6 +92,7 @@ def shop_view(request):
         'categories': categories,
         'products': products,
         'vendors': vendors,
+        'min_max_price': min_max_price,
         'category_id': int(category_id),
         'vendor_id': int(vendor_id),
     })
@@ -146,6 +149,7 @@ def search_view(request):
     vendors = Vendor.objects.all()
     products = Product.objects.filter(is_sold=False).order_by("-date")
 
+
     if vendor_id:
         products = products.filter(vendor_id=vendor_id)
 
@@ -163,3 +167,4 @@ def search_view(request):
         'category_id': int(category_id),
         'vendor_id': int(vendor_id),
     })
+
