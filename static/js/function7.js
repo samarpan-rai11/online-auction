@@ -53,17 +53,25 @@ $(document).ready(function(){
 
 
 
-// Add to cart function
-$("#add-to-cart-btn").on("click", function(){
-    let qunatity = $("#product-quantity").val()
-    let product_title = $(".product-title").val()
-    let product_id = $(".product-id").val()
-    let product_price = $("#current-price").text()
+// Add to cart button
+$(".add-to-cart-btn").on("click", function(){
+
     let this_val = $(this)
+    let _index = this_val.attr("data-index")
+
+    let qunatity = $(".product-quantity-"+_index).val()
+    let product_title = $(".product-title-"+_index).val()
+    let product_id = $(".product-id-"+_index).val()
+    let product_pid = $(".product-pid-"+_index).val()
+    let product_image = $(".product-image-"+_index).val()
+    let product_price = $(".current-price-"+_index).text()
 
     console.log("Quantity:", qunatity)
     console.log("product title:", product_title)
     console.log("product id:", product_id)
+    console.log("product pid:", product_pid)
+    console.log("Index:", _index)
+    console.log("product image:", product_image)
     console.log("product price:", product_price)
     console.log("This is:", this_val)
 
@@ -71,6 +79,8 @@ $("#add-to-cart-btn").on("click", function(){
         url: '/add-to-cart',
         data: {
             'id': product_id,
+            'pid': product_pid,
+            'image': product_image,
             'qty': qunatity,
             'title': product_title,
             'price': product_price
@@ -81,7 +91,7 @@ $("#add-to-cart-btn").on("click", function(){
             // this_val.html("Added to Cart")
         },
         success:function(response){
-            this_val.html("Added to cart")
+            this_val.html("&#10003;")
             console.log("Added product to cart")
             // console.log(response);
             $(".cart-items-count").text(response.totalcartitems)

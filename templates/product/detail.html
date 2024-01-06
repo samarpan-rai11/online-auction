@@ -6,15 +6,15 @@
 
 {% block content %}
 <!-- main detail section -->
-<link rel="stylesheet" href="{% static 'css/home4.css' %}" />
+<link rel="stylesheet" href="{% static 'css/detail.css' %}" />
 
 <div class="flex mt-4">
     <div class="mr-2">
-        <img src="{{ product.image.url }}" class="rounded-md ml-4" style="max-width: 25rem;">
+        <img src="{{ p.image.url }}" class="rounded-md ml-4" style="max-width: 25rem;">
     </div>
 
     <div class="col-span-2 p-6 rounded-xl mr-3" style="min-width: 34.375rem;">
-        <h1 class="mb-2 text-3xl font-medium text-sky-600">{{ product.title }}</h1>
+        <h1 class="mb-2 text-3xl font-medium text-sky-600">{{ p.title }}</h1>
         <div class="mb-3">
             {% if average_rating.rating %}
                 {% for _ in average_rating.rating|int_range %}
@@ -27,12 +27,12 @@
         </div>
         <hr>
         <div class="flex">
-            <span class="mt-3 text-3xl font-medium">$</span><p class="mt-3 text-3xl mr-5 font-medium" id="current-price">{{ product.price }}</p>
-            <s class="text-xl font-medium text-gray-400 relative -bottom-4">${{ product.old_price }}</s>
+            <span class="mt-3 text-3xl font-medium">$</span><p class="mt-3 text-3xl mr-5 font-medium current-price current-price-{{ p.id }}">{{ p.price }}</p>
+            <s class="text-xl font-medium text-gray-400 relative -bottom-4">${{ p.old_price }}</s>
         </div>
-        <p class="text-gray-500 mt-1 "><strong>Seller: </strong><span class="text-emerald-600">{{ product.created_by.username }}</span></p>
+        <p class="text-gray-500 mt-1 "><strong>Seller: </strong><span class="text-emerald-600">{{ p.created_by.username }}</span></p>
         <p class="text-gray-500 mt-1 mb-2"><strong>Tags:</strong>
-            {% for tag in product.tags.all %}
+            {% for tag in p.tags.all %}
                 <a href="{% url 'core:tags' tag.slug %}" class="text-emerald-600">
                     #{{ tag.name }},
                 </a>
@@ -41,16 +41,16 @@
         <hr>
         
     
-        {% if product.description %}
+        {% if p.description %}
             <p class="text-gray-700 mt-3">
                 <strong class="text-gray-500">Description:</strong><br>
-                {{ product.description }}
+                {{ p.description }}
             </p>
         {% endif %}
     </div>
 
     <div class="bg-gray-100 w-full rounded-xl p-4 mr-4">
-        {% if request.user == product.created_by %}
+        {% if request.user == p.created_by %}
             <div class="p-3 text-center bg-white rounded-xl" style="min-width: 12.5rem;">
                 <p>This is your Product.</p>
                 <a href="#" class="inline-block mt-6 px-5 py-2 font-medium bg-emerald-500 text-white rounded-md hover:bg-emerald-500 mr-4 w-full">Edit</a><br>
@@ -59,21 +59,31 @@
         {% else %}  
         <div class="flex">
             <div class="w-full p-2 h-3/4 rounded-lg text-center">
-                <p>Buy: <span class="relative -right-11 text-2xl text-rose-700">${{ product.price }}</span></p>
+                <p>Buy: <span class="relative -right-11 text-2xl text-rose-700">${{ p.price }}</span></p>
     
                 <p class="mb-6">
-                    <s class="relative -right-24 text-lg text-gray-600 mt-2 mb-4">${{ product.old_price }}</s><br>
+                    <s class="relative -right-24 text-lg text-gray-600 mt-2 mb-4">${{ p.old_price }}</s><br>
                 </p>
     
                 <p class="text-sky-700">FREE delivery</p><br>
 
-                <div class="text-center">
-                    <input type="number" value="1" class="bg-gray-100 mb-4 p-3 w-14 rounded-md border-2 border-emerald-500" name="" id="product-quantity">
+                <div class="text-center" id="home-cart">
+                    <input type="number" value="1" class="bg-gray-100 mb-4 p-3 w-14 rounded-md border-2 border-amber-400 product-quantity-{{ p.id }}" name="" id="product-quantity">
+
+                    <input type="hidden" value="{{ p.id }}" class="product-pid-{{ p.id }}">
+
+                    <input type="hidden" value="{{ p.image.url }}"
+                    class="product-image-{{ p.id }}">
+
+                    <input type="hidden" value="{{ p.id }}" class="product-id-{{ p.id }}">
+
+                    <input type="hidden" value="{{ p.title }}" class="product-title-{{ p.id }}">
+
+                    <!-- <button class="add add-to-cart-btn bg-yellow-400 text-white py-.5 px-3 hover:bg-yellow-600" id="add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i></button>
+                    <button type="submit" id="add-to-cart-btn" class="add add-to-cart-btn inline-block bg-amber-400 px-6 py-2 rounded-md text-md text-white font-medium hover:bg-amber-600 w-full text-center" data-index="{{ p.id }}">Add to Cart &nbsp; &rarr;</button> -->
                 </div>
 
-                <input type="hidden" class="product-id" value="{{ product.id }}" name="" id="">
-                <input type="hidden" class="product-title" value="{{ product.title }}" name="" id="">
-                <button type="submit" id="add-to-cart-btn" class="inline-block bg-emerald-500 px-6 py-2 rounded-md text-white font-medium hover:bg-emerald-700 w-full text-center">Add to Cart &nbsp; &rarr;</button>
+                <button type="submit" id="add-to-cart-btn" class="add add-to-cart-btn inline-block bg-amber-400 px-6 py-2 rounded-md text-xl text-white font-medium hover:bg-amber-600 w-full text-center" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i> &nbsp;Add to Cart</button>
             </div>
         </div>
         {% endif %}
@@ -108,7 +118,7 @@
             <div class="mt-10">
                 <h3 class="mt-3 text-xl font-medium hide_form">Add a review</h3>
                 <span class="font-medium text-emerald-500" id="review"></span>
-                <form action="{% url 'product:add_review' product.id %}" id="commentForm" method="POST" class="hide_form">
+                <form action="{% url 'product:add_review' p.id %}" id="commentForm" method="POST" class="hide_form">
                     {% csrf_token %}
                     <div class="mt-3">
                         {{ review_form.review }}
@@ -146,22 +156,37 @@
 <div class="mt-4 px-6 py-5 bg-gray-100 rounded-xl mx-4 mb-4">
     <h2 class="mb-12 text-2xl text-center font-semibold">Similar products</h2>
 
-    <div class="container mt-8 gap-2" id="p-section">
-        {% for product in related_products %}
+    <div class="container gap-2" id="p-section">
+        {% for p in related_products %}
             <div class="card">
-                <a href="{% url 'product:detail' product.id %}" class="detail">
+                <div class="detail">
                     <div>
-                        <img src="{{ product.image.url }}" class="rounded-t-xl border-1" id="product">
+                        <img src="{{ p.image.url }}" class="rounded-t-xl border-1" id="product">
+                        <!-- we are making all hidden input so that function.js can take the value of the product and add to cart from homepage -->
+                        <div class="text-center" id="home-cart">
+                            <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.id }}" class="product-pid-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.image.url }}"
+                            class="product-image-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.id }}" class="product-id-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.title }}" class="product-title-{{ p.id }}">
+
+                            <button class="add add-to-cart-btn bg-yellow-400 text-white py-.5 px-3 hover:bg-yellow-600" id="add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i></button>
+                        </div>
                     </div>
 
-                    <div class="p-6 border-t-2 bg-white w-70 card1">
-                        <h3 class="text-xl font-medium text-center mb-2">{{ product.title }}</h3>
-                        <p class="text-gray-700 text-center"><span id="price">$</span>{{ product.price }}</p>
+                    <a href="{% url 'product:detail' p.id %}" class="px-5 pt-3 border-t-2 bg-white w-70 card1">
+                        <h3 class="text-xl font-medium text-center mb-2">{{ p.title }}</h3>
+                        <p class="text-gray-800 font-semibold text-center text-xl"><span id="price">$</span><span class="current-price-{{ p.id }}">{{ p.price }}</span><s class="ml-2 text-sm text-gray-400">${{ p.old_price }}</s></p>
                         <div class="go-arrow">
                             →
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         {% endfor %}
     </div>

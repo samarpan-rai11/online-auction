@@ -100,10 +100,26 @@ h2{
   border-radius: 8px;
 }
 
-.cont .filter{
-    width: 250px;
+
+#filter{
+  width: 250px;
 }
 
-#p-section{
-    width: 1110px;
+#p-section1{
+  width: 1110px;
+}
+
+#home-cart{
+  background-color: inherit;
+}
+
+#home-cart button{
+  position: absolute;
+  top: 48%;
+  right: 8%;
+  border-radius: 100%;
+}
+
+#add-to-cart-btn{
+  font-size: 25px;
 }

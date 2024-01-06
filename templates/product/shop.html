@@ -4,7 +4,7 @@
 {% block title %}Shop |{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/shop.css' %}" />
+<link rel="stylesheet" href="{% static 'css/shop2.css' %}" />
 
 
 <div class="mt-5">
@@ -53,22 +53,37 @@
     <!------------------------------------------------------------>
     <!---------------------- shop products ----------------------->
     <!------------------------------------------------------------>
-    <div class="flex container mx-4 mb-4" id="p-section">
-        {% for product in products %}
+    <div class="container gap-2" id="p-section">
+        {% for p in products %}
             <div class="card">
-                <a href="{% url 'product:detail' product.id %}" class="detail">
+                <div class="detail">
                     <div>
-                        <img src="{{ product.image.url }}" class=" border-1" id="product">
+                        <img src="{{ p.image.url }}" id="product">
+                        <!-- we are making all hidden input so that function.js can take the value of the product and add to cart from homepage -->
+                        <div class="text-center" id="home-cart">
+                            <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.id }}" class="product-pid-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.image.url }}"
+                            class="product-image-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.id }}" class="product-id-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.title }}" class="product-title-{{ p.id }}">
+
+                            <button class="add add-to-cart-btn bg-yellow-400 text-white py-.5 px-3 hover:bg-yellow-600" id="add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i></button>
+                        </div>
                     </div>
-    
-                    <div class="p-6 border-t-2 bg-white w-70 card1">
-                        <h3 class="text-xl font-medium text-center mb-2">{{ product.title }}</h3>
-                        <p class="text-gray-700 text-center"><span id="price">$</span>{{ product.price }}</p>
+
+                    <a href="{% url 'product:detail' p.id %}" class="px-5 pt-3 border-t-2 bg-white w-70 card1">
+                        <h3 class="text-xl font-medium text-center mb-2">{{ p.title }}</h3>
+                        <p class="text-gray-800 font-semibold text-center text-xl"><span id="price">$</span><span class="current-price-{{ p.id }}">{{ p.price }}</span><s class="ml-2 text-sm text-gray-400">${{ p.old_price }}</s></p>
                         <div class="go-arrow">
                             →
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         {% endfor %}
     </div>

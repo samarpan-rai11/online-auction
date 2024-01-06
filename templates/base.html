@@ -12,15 +12,15 @@
 
     <script src="{% static 'js/node_modules/jquery/dist/jquery.min.js' %}" defer></script>
     <script src="https://cdn.tailwindcss.com" defer></script>
-    <script src="{% static 'js/function6.js' %}" defer></script>
+    <script src="{% static 'js/function7.js' %}" defer></script>
 
     <title>{% block title %} {% endblock %} Online Auction</title>
-    <link rel="stylesheet" href="{% static 'css/base2.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base5.css' %}" />
 </head>
 
 <body style="font-family: 'Montserrat', sans-serif;">
-    <div class="flex mb-3 mt-3 justify-around">
-        <a href="/" class="py-3 px-4 text-xl font-semibold">Auction</a>
+    <div class="flex mb-3 mt-4 justify-around">
+        <a href="/" class="py-3 px-4 text-2xl font-semibold">Auction</a>
         <form action="{% url 'product:search' %}" method="GET get">   
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
             <div class="relative mx-12" id="search-bar">
@@ -35,7 +35,7 @@
             </div>
         </form>
         <div>
-            <a href="#" class="flex py-3 px-4 text-xl font-medium hover:text-rose-600 text-gray-500"><img src="https://nest.apexcode.info/static/assets/imgs/theme/icons/icon-cart.svg" class="mr-1" alt="">Cart<span id="cart-number" class="cart-items-count text-xs antialiased text-white bg-emerald-500 px-1 py-.5">{{ request.session.cart_data_obj|length }}</span></a>
+            <a href="#" class="flex py-3 px-4 text-xl font-medium hover:text-rose-600 text-gray-500"><img src="https://nest.apexcode.info/static/assets/imgs/theme/icons/icon-cart.svg" class="mr-1" alt="">Cart<span id="cart-number" class="cart-items-count text-sm antialiased text-black bg-yellow-400 px-2.5 py-1">{{ request.session.cart_data_obj|length }}</span></a>
         </div>
     </div>
 

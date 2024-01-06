@@ -18,25 +18,26 @@
                 <div class="detail">
                     <div>
                         <img src="{{ p.image.url }}" class="rounded-t-xl border-1" id="product">
+                        <!-- we are making all hidden input so that function.js can take the value of the product and add to cart from homepage -->
                         <div class="text-center" id="home-cart">
-                            <input type="hidden" value="1" id="product-quantity">
+                            <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ p.id }}">
 
                             <input type="hidden" value="{{ p.id }}" class="product-pid-{{ p.id }}">
 
                             <input type="hidden" value="{{ p.image.url }}"
-                            class="">
+                            class="product-image-{{ p.id }}">
 
-                            <input type="hidden" value="1" name="" id="product-quantity">
+                            <input type="hidden" value="{{ p.id }}" class="product-id-{{ p.id }}">
 
-                            <input type="hidden" value="1" name="" id="product-quantity">
+                            <input type="hidden" value="{{ p.title }}" class="product-title-{{ p.id }}">
 
-                            <button class="bg-emerald-500 text-white py-1 px-3 hover:bg-emerald-700"><i class="fa-regular fa-cart-shopping"></i></button>
+                            <button class="add add-to-cart-btn bg-yellow-400 text-white py-.5 px-3 hover:bg-yellow-600" id="add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i></button>
                         </div>
                     </div>
 
                     <a href="{% url 'product:detail' p.id %}" class="px-5 pt-3 border-t-2 bg-white w-70 card1">
                         <h3 class="text-xl font-medium text-center mb-2">{{ p.title }}</h3>
-                        <p class="text-gray-800 font-semibold text-center text-xl"><span id="price">$</span>{{ p.price }} <s class="text-sm text-gray-500">${{ p.old_price }}</s></p>
+                        <p class="text-gray-800 font-semibold text-center text-xl"><span id="price">$</span><span class="current-price-{{ p.id }}">{{ p.price }}</span><s class="ml-2 text-sm text-gray-400">${{ p.old_price }}</s></p>
                         <div class="go-arrow">
                             →
                         </div>

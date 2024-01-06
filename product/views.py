@@ -29,7 +29,7 @@ def product_detail(request, pk):
             make_review = False
 
     return render(request, 'product/detail.html', {
-        'product': product,
+        'p': product,
         'average_rating': average_rating,
         'reviews': reviews,
         'make_review': make_review,
