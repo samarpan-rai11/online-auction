@@ -1,52 +1,80 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}{{ auction.name }}{% endblock %}
 
 {% block content %}
-<div class="grid grid-cols-5 gap-6">
-    <div class="col-span-3">
-        <img src="{{ auction.image.url }}" class="rounded-md ml-4 mt-4">
+<link rel="stylesheet" href="{% static 'css/home4.css' %}" />
+<div class="flex mt-4">
+    <div class="mr-2">
+        <img src="{{ auction.image.url }}" class="rounded-md ml-4" style="max-width: 25rem;">
     </div>
 
-    <div class="col-span-2 p-6 bg-gray-100 rounded-xl mt-4 mr-4">
-        <h1 class="mb-6 text-2xl font-medium">{{ auction.name }}</h1>
-        <p class="text-gray-500"><strong>Current Bid: </strong>${{ auction.bid }}</p>
-        <p class="text-gray-500"><strong>Seller: </strong>{{ auction.made_by.username }}</p>
-    
+    <div class="col-span-2 p-6 rounded-xl mr-3" style="min-width: 34.375rem;">
+        <h1 class="mb-2 text-3xl font-medium text-sky-600">{{ auction.name }}</h1>
+        <hr>
+        <div class="flex">
+            <p class="mt-3 text-3xl mr-5 font-medium"><span class="text-gray-400">Current Bid: </span>${{ auction.bid }}</p>
+        </div>
+        <p class="text-gray-500 mt-1"><strong>Seller: </strong>{{ auction.made_by.username }}</p>
+        <p class="text-gray-500 mt-1 mb-2"><strong>Tags:</strong>
+            {% for tag in auction.tags.all %}
+                <a href="{% url 'core:tags' tag.slug %}">
+                    #{{ tag.name }},
+                </a>
+            {% endfor %}
+        </p>
+        <hr>
+        
         {% if auction.description %}
-            <p class="text-gray-700">
+            <p class="text-gray-700 mt-3">
                 <strong class="text-gray-500">Description:</strong><br>
                 {{ auction.description }}
             </p>
         {% endif %}
+    </div>
 
+    <div class="bg-gray-100 rounded-xl p-4 mr-4">
         {% if request.user == auction.made_by %}
-            <div class="mt-6 p-6 bg-white rounded-xl">
-                <p>This is your auction!</p>
-
-                <a href="#" class="inline-block mt-6 px-5 py-2 text-lg font-semibold bg-emerald-500 text-white rounded-xl hover:bg-emerald-500">Edit</a>
-                <a href="#" class="inline-block mt-6 px-5 py-2 text-lg font-semibold bg-rose-600 text-white rounded-xl hover:bg-rose-700">Delete</a>
+            <div class="p-3 text-center bg-white rounded-xl" style="min-width: 12.5rem;">
+                <p>This is your Product.</p>
+                <a href="#" class="inline-block mt-6 px-5 py-2 font-medium bg-emerald-500 text-white rounded-md hover:bg-emerald-500 mr-4 w-full">Edit</a><br>
+                <a href="#" class="inline-block mt-3 px-5 py-2 font-medium bg-rose-600 text-white rounded-md hover:bg-rose-700 w-full">Delete</a>
             </div>
         {% else %}  
-            <a href="#" class="inline-block mt-6 px-4 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-700">Contact seller</a>
+        <div class="flex" style="min-width: 12.5rem;">
+            <div class="w-full p-2 h-3/4 rounded-lg text-center">
+                <p class="mb-4">Buy: <span class="ml-10 text-2xl text-rose-700">${{ auction.bid }}</span></p>
+                <p class="text-sky-700">FREE delivery</p><br>
+                
+                <a href="#" class="inline-block mt-4 py-2 font-medium bg-sky-500 text-white rounded-md hover:bg-sky-700 w-full text-center">Bid</a>
+            </div>
+        </div>
         {% endif %}
     </div>
 </div>
 
+
+<!-- similar auctions section -->
 <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl mx-4 mb-4">
     <h2 class="mb-12 text-2xl text-center font-semibold">Related auctions</h2>
 
-    <div class="grid grid-cols-3 gap-3">
+    <div class="container mt-8 gap-2" id="p-section">
         {% for auction in related_auctions %}
-            <div>
-                <a href="{% url 'product:auction_detail' auction.id %}">
+            <div class="card">
+                <a href="{% url 'product:auction_detail' auction.id %}" class="detail">
                     <div>
-                        <img src="{{ auction.image.url }}" class="rounded-t-xl">
+                        <img src="{{ auction.image.url }}" class="rounded-t-xl border-1" id="product">
                     </div>
 
-                    <div class="p-6 bg-white rounded-b-xl">
-                        <h2 class="text-2xl">{{ auction.name }}</h2>
-                        <p class="text-gray-500">Current Bid: ${{ auction.bid }}</p>
+                    <div class="p-6 border-t-2 bg-white w-70 card1">
+                        <h3 class="text-xl font-medium text-center mb-2">{{ auction.name }}</h3>
+                        <div class="flex">
+                            <strong class="text-gray-900">Current Bid:</strong>
+                            <p class="text-gray-700 text-center ml-2"><span id="price">$</span>{{ auction.bid }}</p>
+                            <div class="go-arrow">
+                                →
+                            </div>
+                        </div>
                     </div>
                 </a>
             </div>

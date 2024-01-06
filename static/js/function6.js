@@ -3,6 +3,8 @@ console.log("This is working")
 const monthNames = ["Jan", "Feb", "Mar","Apr","May","Jun","Jul",      
                     "Aug","Sept","Oct","Nov","Dec"];
 
+
+//This is for dynamic review of the product 
 $(document).ready(function(){
     $("#commentForm").submit(function(e){
         e.preventDefault();
@@ -48,3 +50,43 @@ $(document).ready(function(){
         })
     });
 });
+
+
+
+// Add to cart function
+$("#add-to-cart-btn").on("click", function(){
+    let qunatity = $("#product-quantity").val()
+    let product_title = $(".product-title").val()
+    let product_id = $(".product-id").val()
+    let product_price = $("#current-price").text()
+    let this_val = $(this)
+
+    console.log("Quantity:", qunatity)
+    console.log("product title:", product_title)
+    console.log("product id:", product_id)
+    console.log("product price:", product_price)
+    console.log("This is:", this_val)
+
+    $.ajax({
+        url: '/add-to-cart',
+        data: {
+            'id': product_id,
+            'qty': qunatity,
+            'title': product_title,
+            'price': product_price
+        },
+        dataType: 'json',
+        beforeSend:function(){
+            console.log("Adding product to cart...")
+            // this_val.html("Added to Cart")
+        },
+        success:function(response){
+            this_val.html("Added to cart")
+            console.log("Added product to cart")
+            // console.log(response);
+            $(".cart-items-count").text(response.totalcartitems)
+            // this_val.attr('disabled',false);
+        }
+    });
+
+})

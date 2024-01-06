@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from product.models import Category, Product, Auction, Vendor
+from product.models import Category, Product, Auction, Vendor, ProductReview
+from django.db.models import Avg
 from taggit.models import Tag
-from .forms import ProductReviewForm
+from django.http import JsonResponse
 
 
 def index(request):
@@ -62,4 +63,35 @@ def tag_list(request,tag_slug=None):
         'tag': tag,
     })
 
+
+
+def add_to_cart(request):
+    cart_product = {}
+
+    cart_product[str(request.GET['id'])] = {
+        'title': request.GET['title'],
+        'qty': request.GET['qty'],
+        'price': request.GET['price'],
+    }
+
+    if 'cart_data_obj' in request.session:
+        #if the product is in session
+        if str(request.GET['id']) in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj']
+            cart_data[str(request.GET['id'])]['qty'] = int(cart_product[str(request.GET['id'])]['qty'])
+            cart_data.update(cart_data)
+            request.session['cart_data_obj'] = cart_data
+        #if the product is not in session
+        else:
+            cart_data = request.session['cart_data_obj']
+            cart_data.update(cart_product)
+            request.session['cart_data_obj'] = cart_data
+            
+    else:
+        request.session['cart_data_obj'] = cart_product
+
+    return JsonResponse({
+        "data":request.session['cart_data_obj'],
+        'totalcartitems': len(request.session['cart_data_obj']),
+        })
 

@@ -58,6 +58,24 @@ class Vendor(models.Model):
     
 
 
+class Auctioneer(models.Model):
+    title = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='auctioneer_images', blank=True)
+    description = models.TextField(blank=True, null=True)
+
+    address = models.CharField(max_length=100, default="1")
+    contact = models.CharField(max_length=100, default="+123 456 789")
+
+    authentic_rating = models.CharField(max_length=50, default="100")
+    warrenty_period = models.CharField(max_length=50, default="100")
+
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.title
+    
+
+
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     
@@ -96,11 +114,14 @@ class Auction(models.Model):
     bid = models.DecimalField(max_digits=10, decimal_places=0)
     image = models.ImageField(upload_to='product_images', blank=True)
 
+    auctioneer = models.ForeignKey(Auctioneer, on_delete=models.CASCADE, null=True, related_name='auctioneer')
     duration= models.PositiveIntegerField(choices=AUCTION_DURATION, blank=True, null=True)
 
     auction_status = models.CharField(choices=STATUS_CHOICE, max_length=10, default="in_review")
     made_by = models.ForeignKey(User, related_name='auction', on_delete=models.CASCADE)
     on_stock = models.BooleanField(default=True)
+
+    tags = TaggableManager(blank=True)
 
     date = models.DateTimeField(default=datetime.now,blank=True)
     update = models.DateTimeField(null=True,blank=True)

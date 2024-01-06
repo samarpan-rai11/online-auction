@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/home4.css' %}" />
+<link rel="stylesheet" href="{% static 'css/home5.css' %}" />
 
 
 <!------------------------------------------------------------------->
@@ -13,21 +13,35 @@
     <h2 class="mb-12 font-semibold italic text-2xl text-center underline">Latest Products</h2>
 
     <div class="container gap-2" id="p-section">
-        {% for product in products %}
+        {% for p in products %}
             <div class="card">
-                <a href="{% url 'product:detail' product.id %}" class="detail">
+                <div class="detail">
                     <div>
-                        <img src="{{ product.image.url }}" class="rounded-t-xl border-1" id="product">
+                        <img src="{{ p.image.url }}" class="rounded-t-xl border-1" id="product">
+                        <div class="text-center" id="home-cart">
+                            <input type="hidden" value="1" id="product-quantity">
+
+                            <input type="hidden" value="{{ p.id }}" class="product-pid-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.image.url }}"
+                            class="">
+
+                            <input type="hidden" value="1" name="" id="product-quantity">
+
+                            <input type="hidden" value="1" name="" id="product-quantity">
+
+                            <button class="bg-emerald-500 text-white py-1 px-3 hover:bg-emerald-700"><i class="fa-regular fa-cart-shopping"></i></button>
+                        </div>
                     </div>
 
-                    <div class="p-6 border-t-2 bg-white w-70 card1">
-                        <h3 class="text-xl font-medium text-center mb-2">{{ product.title }}</h3>
-                        <p class="text-gray-700 text-center"><span id="price">$</span>{{ product.price }}</p>
+                    <a href="{% url 'product:detail' p.id %}" class="px-5 pt-3 border-t-2 bg-white w-70 card1">
+                        <h3 class="text-xl font-medium text-center mb-2">{{ p.title }}</h3>
+                        <p class="text-gray-800 font-semibold text-center text-xl"><span id="price">$</span>{{ p.price }} <s class="text-sm text-gray-500">${{ p.old_price }}</s></p>
                         <div class="go-arrow">
                             →
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         {% endfor %}
     </div>

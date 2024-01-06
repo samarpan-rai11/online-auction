@@ -12,6 +12,9 @@ urlpatterns = [
     # shop page
     path('shop/',views.shop_view,name='shop'),
 
+    # bid list page
+    path('bid/',views.bid_view,name='bid'),
+
     # add review
     path('add_review/<int:pk>', views.add_review, name='add_review'),
 

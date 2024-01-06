@@ -17,6 +17,9 @@ urlpatterns = [
 
     #Tags Page
     path('products/tag/<slug:tag_slug>/',views.tag_list, name='tags'),
+    
+    # add to cart
+    path('add-to-cart/', views.add_to_cart, name="add-to-cart"),
 
 ]
 

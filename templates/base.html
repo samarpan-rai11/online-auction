@@ -12,10 +12,10 @@
 
     <script src="{% static 'js/node_modules/jquery/dist/jquery.min.js' %}" defer></script>
     <script src="https://cdn.tailwindcss.com" defer></script>
-    <script src="{% static 'js/function4.js' %}" defer></script>
+    <script src="{% static 'js/function6.js' %}" defer></script>
 
     <title>{% block title %} {% endblock %} Online Auction</title>
-    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base2.css' %}" />
 </head>
 
 <body style="font-family: 'Montserrat', sans-serif;">
@@ -34,7 +34,9 @@
                 <button type="submit" class="absolute end-2.5 bottom-2.5 bg-[#fcbe00] hover:bg-[#fcac10] font-medium rounded-lg text-sm px-4 py-2">Search</button>
             </div>
         </form>
-        <a href="#" class="py-3 px-4 text-xl font-medium hover:text-rose-600">My Cart</a>
+        <div>
+            <a href="#" class="flex py-3 px-4 text-xl font-medium hover:text-rose-600 text-gray-500"><img src="https://nest.apexcode.info/static/assets/imgs/theme/icons/icon-cart.svg" class="mr-1" alt="">Cart<span id="cart-number" class="cart-items-count text-xs antialiased text-white bg-emerald-500 px-1 py-.5">{{ request.session.cart_data_obj|length }}</span></a>
+        </div>
     </div>
 
     <!-- navigation bar -->
@@ -43,7 +45,7 @@
         <div class="space-x-6">
             <a href="/" class="text-lg font-semibold hover:text-gray-400">Home</a>
             <a href="{% url 'product:shop' %}" class="text-lg font-semibold hover:text-gray-400">Shop</a>
-            <a href="#" class="text-lg font-semibold hover:text-gray-400">Bid</a>
+            <a href="{% url 'product:bid' %}" class="text-lg font-semibold hover:text-gray-400">Bid</a>
             <a href="{% url 'core:vendor-list' %}" class="text-lg font-semibold hover:text-gray-400">Vendors</a>
             <a href="#about" class="text-lg font-semibold hover:text-gray-400">About</a>
         </div>
