@@ -1,7 +1,6 @@
 # This is an Online Auction Website
----
 
-some screenshots of the project
+Some screenshots of the project
 
 ![](assets/ss.png)
 
@@ -9,29 +8,72 @@ some screenshots of the project
 
 ![](assets/ss2.png)
 
-clone the repo or download it 
+Clone the repo or download it 
+---
+### For Mac/Linux Users
 
-create virtual environment in python within the auction folder
+Create virtual environment in python within the auction folder
 ```
 python -m venv .
 ```
 
-activate the virtual environment
+
+Activate the virtual environment
 ```
 source bin/activate
 ```
 
-install the requirements
+
+Install the requirements
 ```
 pip install -r requirements.txt
 ```
 
-migrate all the migrations
+
+Migrate all the migrations
 ```
 python manage.py migrate
 ```
 
-finally run the sever
+
+Finally run the server
+```
+python manage.py runserver
+```
+
+### For Windows Users
+
+Install python and pip first
+
+For pip:
+```
+python3 get-pip.py
+```
+
+
+Create virtual environment in python within the auction folder
+```
+python3 -m venv env
+```
+
+Activate the virtual environment
+```
+env\Scripts\activate
+```
+
+Install the requirements
+```
+pip install -r requirements.txt
+```
+
+
+Migrate all the migrations
+```
+python manage.py migrate
+```
+
+
+Finally run the server
 ```
 python manage.py runserver
 ```
