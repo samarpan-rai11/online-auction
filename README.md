@@ -40,6 +40,7 @@ Finally run the server
 ```
 python manage.py runserver
 ```
+---
 
 ### For Windows Users
 
