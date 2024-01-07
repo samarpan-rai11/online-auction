@@ -149,3 +149,36 @@ def delete_from_cart(request):
         'data':context,
         'totalcartitems':len(request.session['cart_data_obj']),
         })
+
+
+
+def update_cart(request):
+    product_id = str(request.GET['id'])
+    qunatity = request.GET['qty'] #this gets from ajax code of js in object/dictionary which has 'data' key
+
+    if 'cart_data_obj' in request.session:
+        #if the product is in session then this will delete the product
+        if product_id in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj']
+
+            #this will get the qunatity of the product and update it
+            cart_data[str(request.GET['id'])]['qty'] = qunatity
+            
+            request.session['cart_data_obj'] = cart_data
+        
+    cart_total_price = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_price += int(item['qty']) * float(item['price'])
+
+    context = render_to_string("async/cart.html",{
+        "cart_data":request.session['cart_data_obj'],
+        'totalcartitems': len(request.session['cart_data_obj']),
+        'cart_total_price': cart_total_price,
+        })
+    
+    #this 'data' is what is passed on js with #cart-list 
+    return JsonResponse({
+        'data':context,
+        'totalcartitems':len(request.session['cart_data_obj']),
+        })

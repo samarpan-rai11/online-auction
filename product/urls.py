@@ -20,4 +20,7 @@ urlpatterns = [
 
     # search
     path('search',views.search_view,name='search'),
+
+    # checkout
+    path('checkout',views.checkout_view,name='checkout'),
 ]

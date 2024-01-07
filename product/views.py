@@ -172,3 +172,7 @@ def search_view(request):
         'vendor_id': int(vendor_id),
     })
 
+
+
+def checkout_view(request):
+    return render(request, 'product/checkout.html')

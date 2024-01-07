@@ -6,14 +6,14 @@
 
 {% block content %}
 <!-- main detail section -->
-<link rel="stylesheet" href="{% static 'css/detail.css' %}" />
+<link rel="stylesheet" href="{% static 'css/detail2.css' %}" />
 
 <div class="flex mt-4">
     <div class="mr-2">
         <img src="{{ p.image.url }}" class="rounded-md ml-4" style="max-width: 25rem;">
     </div>
 
-    <div class="col-span-2 p-6 rounded-xl mr-3" style="min-width: 34.375rem;">
+    <div class="col-span-2 p-6 rounded-xl mr-3 pdetail">
         <h1 class="mb-2 text-3xl font-medium text-sky-600">{{ p.title }}</h1>
         <div class="mb-3">
             {% if average_rating.rating %}
@@ -49,44 +49,43 @@
         {% endif %}
     </div>
 
-    <div class="bg-gray-100 w-full rounded-xl p-4 mr-4">
-        {% if request.user == p.created_by %}
-            <div class="p-3 text-center bg-white rounded-xl" style="min-width: 12.5rem;">
-                <p>This is your Product.</p>
-                <a href="#" class="inline-block mt-6 px-5 py-2 font-medium bg-emerald-500 text-white rounded-md hover:bg-emerald-500 mr-4 w-full">Edit</a><br>
-                <a href="#" class="inline-block mt-3 px-5 py-2 font-medium bg-rose-600 text-white rounded-md hover:bg-rose-700 w-full">Delete</a>
-            </div>
-        {% else %}  
-        <div class="flex">
-            <div class="w-full p-2 h-3/4 rounded-lg text-center">
-                <p>Buy: <span class="relative -right-11 text-2xl text-rose-700">${{ p.price }}</span></p>
-    
-                <p class="mb-6">
-                    <s class="relative -right-24 text-lg text-gray-600 mt-2 mb-4">${{ p.old_price }}</s><br>
-                </p>
-    
-                <p class="text-sky-700">FREE delivery</p><br>
-
-                <div class="text-center" id="home-cart">
-                    <input type="number" value="1" class="bg-gray-100 mb-4 p-3 w-14 rounded-md border-2 border-amber-400 product-quantity-{{ p.id }}" name="" id="product-quantity">
-
-                    <input type="hidden" value="{{ p.id }}" class="product-pid-{{ p.id }}">
-
-                    <input type="hidden" value="{{ p.image.url }}"
-                    class="product-image-{{ p.id }}">
-
-                    <input type="hidden" value="{{ p.id }}" class="product-id-{{ p.id }}">
-
-                    <input type="hidden" value="{{ p.title }}" class="product-title-{{ p.id }}">
-
-                    <!-- <button class="add add-to-cart-btn bg-yellow-400 text-white py-.5 px-3 hover:bg-yellow-600" id="add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i></button>
-                    <button type="submit" id="add-to-cart-btn" class="add add-to-cart-btn inline-block bg-amber-400 px-6 py-2 rounded-md text-md text-white font-medium hover:bg-amber-600 w-full text-center" data-index="{{ p.id }}">Add to Cart &nbsp; &rarr;</button> -->
+    <div class="product-pay">
+        <div class="bg-gray-100 rounded-xl p-4 mr-4">
+            {% if request.user == p.created_by %}
+                <div class="p-3 text-center bg-white rounded-xl">
+                    <p>This is your Product.</p>
+                    <a href="#" class="inline-block mt-6 px-5 py-2 font-medium bg-emerald-500 text-white rounded-md hover:bg-emerald-500 mr-4">Edit</a><br>
+                    <a href="#" class="inline-block mt-3 px-5 py-2 font-medium bg-rose-600 text-white rounded-md hover:bg-rose-700">Delete</a>
                 </div>
-
-                <button type="submit" id="add-to-cart-btn" class="add add-to-cart-btn inline-block bg-amber-400 px-6 py-2 rounded-md text-xl text-white font-medium hover:bg-amber-600 w-full text-center" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i> &nbsp;Add to Cart</button>
+            {% else %}  
+            <div>
+                <div class=" p-2 h-3/4 rounded-lg text-center">
+                    <p>Buy: <span class="relative -right-11 text-2xl text-rose-700">${{ p.price }}</span></p>
+        
+                    <p class="mb-6">
+                        <s class="relative -right-24 text-lg text-gray-600 mt-2 mb-4">${{ p.old_price }}</s><br>
+                    </p>
+        
+                    <p class="text-sky-700">FREE delivery</p><br>
+    
+                    <div class="text-center" id="home-cart">
+                        <input type="number" value="1" class="bg-gray-100 mb-4 p-3 w-14 rounded-md border-2 border-amber-400 product-quantity-{{ p.id }}" name="" id="product-quantity">
+    
+                        <input type="hidden" value="{{ p.id }}" class="product-pid-{{ p.id }}">
+    
+                        <input type="hidden" value="{{ p.image.url }}"
+                        class="product-image-{{ p.id }}">
+    
+                        <input type="hidden" value="{{ p.id }}" class="product-id-{{ p.id }}">
+    
+                        <input type="hidden" value="{{ p.title }}" class="product-title-{{ p.id }}">
+                    </div>
+    
+                    <button type="submit" id="add-to-cart-btn" class="add add-to-cart-btn bg-amber-400 px-6 py-2 rounded-md text-xl text-white font-medium hover:bg-amber-600 text-center" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i> &nbsp;Add to Cart</button>
+                </div>
             </div>
+            {% endif %}
         </div>
-        {% endif %}
     </div>
 </div>
 
@@ -138,11 +137,13 @@
             </div>
             {% endif %}
         </div>
-    
-        <div class="bg-white ml-4 mt-3 bg-white p-4 rounded-xl" style="min-width: 24.063rem; max-height: 31.25rem;">
-            <h2 class="text-xl font-medium">Customer Reviews</h2>
-            <div>
-                <h3 class="mt-4 text-center"><span class="text-emerald-500">{{ average_rating.rating|floatformat }}</span> out of 5.0</h3>
+        
+        <div>
+            <div class="bg-white ml-4 mt-3 bg-white p-4 rounded-xl" style="min-width: 24.063rem; max-height: 31.25rem;">
+                <h2 class="text-xl font-medium mt-4">Customer Reviews</h2>
+                <div>
+                    <h3 class="mt-4 text-center mb-4"><span class="text-emerald-500">{{ average_rating.rating|floatformat }}</span> out of 5.0</h3>
+                </div>
             </div>
         </div>
     </div>

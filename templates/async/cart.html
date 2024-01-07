@@ -9,16 +9,20 @@
     <div class="flex mb-5 justify-around">
         <div class="shop-summary">
     
-            <h2 class="text-center font-medium mb-5 text-xl">There {% if totalcartitems == 1 %}
-                is
-              {% else %}
-                are
-              {% endif %} <span class="text-emerald-500">{{ totalcartitems }}</span> {% if totalcartitems == 1 %}
-                Product
-              {% else %}
-                Products
-              {% endif %} in your cart</h2>
-    
+            <h2 class="text-center font-medium mb-4 text-xl">There 
+                {% if totalcartitems == 1 %}
+                    is
+                {% else %}
+                    are
+                {% endif %} 
+                <span class="text-emerald-500">{{ totalcartitems }}</span> 
+                {% if totalcartitems == 1 %}
+                    Product
+                {% else %}
+                    Products
+                {% endif %} in your cart
+            </h2>
+            
             <table class="table-cart w-full text-center border-2">
                 <thead class="bg-gray-100">
                     <tr class="main-heading">
@@ -50,9 +54,9 @@
     
                             <td class="text-emerald-500 px-3 py-3">${% widthratio item.price 1 item.qty %}</td>
     
-                            <td class="px-3 py-3"><a href="#"><i class="fa fa-refresh hover:text-rose-600"></i></a></td>
+                            <td class="px-3 py-3"><button class="update-product" data-product="{{ product_id }}"><i class="fa fa-refresh hover:text-rose-600"></i></button></td>
     
-                            <td class="px-3 py-3 delete-product" data-product="{{ product_id }}"><button><i class="fa-thin fa-trash hover:text-rose-600"></i></button></td>
+                            <td class="px-3 py-3"><button class="delete-product" data-product="{{ product_id }}"><i class="fa-thin fa-trash hover:text-rose-600"></i></button></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -67,6 +71,14 @@
                 <img src="{% static 'empty.png' %}" alt="image" style="height: 300px; width: 300px;">
             </p>
             <h2 class="text-4xl text-center font-bold mb-8">Your Cart is Empty</h2>
+
+            <div class="text-center mb-10 text-lg">
+                <p>Add something to the cart</p>
+                <p>Start <a href="{% url 'product:shop' %} " class="text-emerald-500 font-medium">shopping</a> to view products in your cart</p>
+            </div>
+            <div class="text-center p-2 mb-20">
+                <a href="{% url 'core:index' %}" class="p-3 bg-emerald-500 rounded-md text-xl text-white hover:bg-emerald-700"><i class="fa-thin fa-home"></i>&nbsp;  Back To Home Page</a>
+            </div>
         {% endif %}
     
         {% if totalcartitems %}

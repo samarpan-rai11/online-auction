@@ -27,7 +27,8 @@ urlpatterns = [
     # delete product from cart
     path('delete-from-cart/', views.delete_from_cart, name="delete-from-cart"),
 
-
+    # update product price from cart
+    path('update-cart/', views.update_cart, name="update-cart"),
 
 ]
 

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Checkout |{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/cart5.css' %}" />
+
+<main>
+    <div class="mt-8 mb-10 ">
+        <h2 class="text-4xl text-[#253D4E] font-bold text-center mb-4">Checkout</h2>
+        <h3 class="text-center"><a href="{% url 'core:index' %}" class="text-gray-500 hover:text-orange-500"><i id="home" class="fa fa-home text-xs"></i> Home</a> / Checkout</h3>
+    </div>
+
+    <div class="flex justify-around">
+        <div class="billing-detail border-2 mb-10 p-4 rounded-lg">
+            <h2 class="text-2xl font-medium mb-3">Billing Details</h2>
+            <hr>
+            <div>
+                <form action="" class="flex flex-col my-4">
+                    <div class="flex w-full">
+                        <input type="text" class="mt-3 mr-2 mb-4 p-3 border rounded-lg w-1/2" name="" placeholder="First Name *" required>
+    
+                        <input type="text" class="w-1/2 ml-2 mt-3 mb-4 p-3 border rounded-lg" name="" placeholder="Last Name *" required>
+                    </div>
+
+                    <input type="text" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="City *">
+
+                    <input type="text" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="State *">
+
+                    <input type="text" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="Country *">
+
+                    <input type="email" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="Email *">
+
+                    <input type="number" class="mt-2 mb-2 p-3 border rounded-lg" name="" placeholder="Phone no. *">
+
+                </form>
+            </div>
+        </div>
+
+        <div class="order">
+            <div class="border-2 mb-10 p-4 rounded-lg w-auto">
+                <h2 class="text-2xl font-medium mb-3">Your Order</h2>
+                <hr class="mb-2">
+                <div class="flex justify-between">
+                    <h2>Product</h2>
+                    <p>Price</p>
+                </div>
+            </div>
+
+            <div class="text-center text-white bg-emerald-500 p-3 rounded-lg hover:bg-emerald-700">
+                <button>Place Order &nbsp;<i class="fab fa-bitcoin"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}
