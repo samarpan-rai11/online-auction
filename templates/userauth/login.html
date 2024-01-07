@@ -10,6 +10,7 @@
   <div class="wrapper">
     <div class="form-wrapper signin">
       <form method="POST" method="post" action="">
+        <!-- Cross Site Request Forgery (CSRF) -->
         {% csrf_token %}
 
         {{ form.non_field_errors }}

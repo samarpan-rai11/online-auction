@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-from product.models import Category, Product, Auction, Vendor, ProductReview
+from django.shortcuts import render, get_object_or_404, redirect
+from product.models import Category, Product, Auction, Vendor
 from django.db.models import Avg
 from taggit.models import Tag
 from django.http import JsonResponse
+from django.contrib import messages
 
 
 def index(request):
@@ -17,12 +18,15 @@ def index(request):
     })
 
 
+
 def custom_404_view(request, exception=None):
     return render(request, '404.html', status=404)
 
 
+
 def terms(request):
     return render(request, "terms.html")
+
 
 
 def vendor_list_view(request):
@@ -35,6 +39,7 @@ def vendor_list_view(request):
     })
 
 
+
 def vendor_detail(request, pk):
     vendor = get_object_or_404(Vendor, pk=pk)
     products = Product.objects.filter(vendor=vendor).order_by("-date")
@@ -43,6 +48,7 @@ def vendor_detail(request, pk):
         'vendor': vendor,
         'products': products,
     })
+
 
 
 def tag_list(request,tag_slug=None):
@@ -65,6 +71,7 @@ def tag_list(request,tag_slug=None):
 
 
 
+# this is for adding products to cart button
 def add_to_cart(request):
     cart_product = {}
 
@@ -97,3 +104,19 @@ def add_to_cart(request):
         'totalcartitems': len(request.session['cart_data_obj']),
         })
 
+
+
+def cart_view(request):
+    cart_total_price = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_price += int(item['qty']) * float(item['price'])
+            
+        return render(request, 'cart.html',{
+        "cart_data":request.session['cart_data_obj'],
+        'totalcartitems': len(request.session['cart_data_obj']),
+        'cart_total_price': cart_total_price,
+        })
+    else:
+        messages.warning(request,"Your Cart is empty")
+        return redirect('core:index')

@@ -1,0 +1,36 @@
+.shop-summary{
+    width: 56.25rem;
+}
+
+.cart-total-price{
+    width: 19.688rem;
+    height: 8.438rem;
+}
+
+.shop-summary .table-cart thead{
+    font-size: 20px;
+}
+
+.shop-summary .table-cart tbody, .total{
+    font-size: 18px;
+}
+
+#home{
+    position: relative;
+    top: -1.6px;
+}
+
+#product-thumbnail img{
+    height: 6.875rem;
+    width: 6.25rem;
+}
+
+#item-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#qty input{
+    width: 3.438rem;
+}

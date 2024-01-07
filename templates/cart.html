@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Cart |{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/cart2.css' %}" />
+
+<div class="mt-8 mb-10 ">
+    <h2 class="text-4xl text-[#253D4E] font-bold text-center mb-4">Your Cart</h2>
+    <h3 class="text-center"><a href="{% url 'core:index' %}" class="text-gray-500 hover:text-orange-500"><i id="home" class="fa fa-home text-xs"></i> Home</a> / Cart</h3>
+</div>
+
+<div class="flex mb-5 justify-around">
+    <div class="shop-summary">
+        
+        <h2 class="text-center font-medium mb-5 text-xl">There {% if totalcartitems == 1 %}
+            is
+          {% else %}
+            are
+          {% endif %} <span class="text-emerald-500">{{ totalcartitems }}</span> {% if totalcartitems == 1 %}
+            Product
+          {% else %}
+            Products
+          {% endif %} in your cart</h2>
+
+        <table class="table-cart w-full text-center border-2">
+            <thead class="bg-gray-100">
+                <tr class="main-heading">
+                    <th class="p-3">Image</th>
+                    <th class="p-3">Product Title</th>
+                    <th class="py-3 px-5">Price</th>
+                    <th class="py-3 px-5">Quantity</th>
+                    <th class="py-3 px-5">Total</th>
+                    <th class="py-3 px-5">Refresh</th>
+                    <th class="py-3 px-5">Remove</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for product_id, item in cart_data.items %}
+                    <tr class="border-b">
+                        <td id="product-thumbnail" class="image p-3">
+                            <img src="{{ item.image }}" alt="#" class="border rounded-lg object-contain">
+                        </td>
+                        <td>
+                            <p id="item-name"><a href="{% url 'product:detail' item.pid %}" class="hover:text-rose-700">{{ item.title|truncatechars:30 }}</a></p>
+                        </td>
+
+                        <td class="text-emerald-500 pl-4 pr-3 py-3">${{ item.price|floatformat:2 }}</td>
+
+                        <td class="px-3 py-3" id="qty">
+                            <input type="number" class="p-2 border border-emerald-500 rounded-md" value="{{ item.qty }}" name="" id="">
+                        </td>
+
+                        <td class="text-emerald-500 px-3 py-3">${% widthratio item.price 1 item.qty %}</td>
+
+                        <td class="px-3 py-3"><a href="#"><i class="fa fa-refresh hover:text-rose-600"></i></a></td>
+
+                        <td class="px-3 py-3"><a href="#"><i class="fa-thin fa-trash hover:text-rose-600"></i></a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr class="my-5">
+
+        <input type="text" name="" id="" placeholder="Enter Coupon Code..." class="border py-2 px-3 rounded-md">
+        <button class="py-2 px-3 bg-[#253D4E] text-white rounded-md hover:bg-[#252D50] mb-4">Apply</button>
+    </div>
+
+    
+    <div>
+        <h2 class="text-2xl font-semibold text-center mb-4">Cart Totals</h2>
+        <div class="total cart-total-price border-2">
+            <div class="my-2 flex justify-between font-medium mx-5">
+                Subtotal
+                <p class="text-emerald-500">${{cart_total_price}}</p>
+            </div>
+            <div class="mb-2 flex justify-between font-medium mx-5">
+                Items
+                <p>{{totalcartitems}}</p>
+            </div>
+            <hr>
+            <div class="my-3 font-semibold flex justify-between mx-5">
+                Total
+                <p class="text-emerald-500">${{cart_total_price}}</p>
+            </div>
+        </div>
+        <button class="bg-emerald-500 text-white font-medium p-2 rounded-md w-full mt-5 hover:bg-emerald-700">Procced to Checkout  <i class="fa fa-sign-out"></i></button>
+    </div>
+
+</div>
+
+{% endblock %}

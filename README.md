@@ -2,11 +2,11 @@
 
 Some screenshots of the project
 
-![](assets/ss.png)
+![](assets/ss/ss.png)
 
-![](assets/ss1.png)
+![](assets/ss/ss1.png)
 
-![](assets/ss2.png)
+![](assets/ss/ss2.png)
 
 Clone the repo or download it 
 ---
