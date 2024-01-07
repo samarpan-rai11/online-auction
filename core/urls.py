@@ -24,6 +24,9 @@ urlpatterns = [
     # cart list page
     path('cart-list/', views.cart_view, name="cart-list"),
 
+    # delete product from cart
+    path('delete-from-cart/', views.delete_from_cart, name="delete-from-cart"),
+
 
 
 ]

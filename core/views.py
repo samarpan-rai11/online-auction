@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string
 from product.models import Category, Product, Auction, Vendor
 from django.db.models import Avg
 from taggit.models import Tag
@@ -120,3 +121,31 @@ def cart_view(request):
     else:
         messages.warning(request,"Your Cart is empty")
         return redirect('core:index')
+
+
+
+def delete_from_cart(request):
+    product_id = str(request.GET['id'])
+    if 'cart_data_obj' in request.session:
+        #if the product is in session then this will delete the product
+        if product_id in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj']
+            del request.session['cart_data_obj'][product_id]
+            request.session['cart_data_obj'] = cart_data
+        
+    cart_total_price = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_price += int(item['qty']) * float(item['price'])
+
+    context = render_to_string("async/cart.html",{
+        "cart_data":request.session['cart_data_obj'],
+        'totalcartitems': len(request.session['cart_data_obj']),
+        'cart_total_price': cart_total_price,
+        })
+    
+    #this 'data' is what is passed on js with #cart-list 
+    return JsonResponse({
+        'data':context,
+        'totalcartitems':len(request.session['cart_data_obj']),
+        })

@@ -88,12 +88,10 @@ $(".add-to-cart-btn").on("click", function(){
         dataType: 'json',
         beforeSend:function(){
             console.log("Adding product to cart...")
-            // this_val.html("Added to Cart")
         },
         success:function(response){
             this_val.html("&#10003;")
             console.log("Added product to cart")
-            // console.log(response);
             $(".cart-items-count").text(response.totalcartitems)
             // this_val.attr('disabled',false);
         }
