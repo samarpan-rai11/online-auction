@@ -1,8 +1,7 @@
 .dropbtn {
-    background-color: #607274;
-    color: white;
+    color: #F5F7F8;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 3px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -10,14 +9,14 @@
   
 .dropdown {
     position: relative;
-    display: inline-block;
+    display: block;
 }
   
 .dropdown-content {
     display: none;
     position: absolute;
-    top: 3.2rem;
-    border-radius: 5px;
+    top: 2rem;
+    border-radius: 3px;
     background-color: #f9f9f9;
     min-width: 150px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -31,15 +30,14 @@
     display: block;
 }
   
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
   
 .dropdown:hover .dropdown-content {
     display: block;
 }
-  
-.dropdown:hover .dropbtn {
-    background-color: #4c5a5c;
-}  
 
 #cart-number{
     position: absolute;

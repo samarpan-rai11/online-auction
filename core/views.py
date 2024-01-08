@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
-from product.models import Category, Product, Auction, Vendor, CouponCode 
-from django.db.models import Avg
+from product.models import Category, Product, Auction, Vendor, CouponCode, Order, UserProfile
 from taggit.models import Tag
 from django.http import JsonResponse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -106,7 +106,7 @@ def add_to_cart(request):
         })
 
 
-
+# cart list view
 def cart_view(request):
     cart_total_price = 0
     if 'cart_data_obj' in request.session:
@@ -141,6 +141,7 @@ def cart_view(request):
 
 
 
+# deleting from cart list page
 def delete_from_cart(request):
     product_id = str(request.GET['id'])
     if 'cart_data_obj' in request.session:
@@ -169,6 +170,7 @@ def delete_from_cart(request):
 
 
 
+# updating from the cart list page
 def update_cart(request):
     product_id = str(request.GET['id'])
     qunatity = request.GET['qty'] #this gets from ajax code of js in object/dictionary which has 'data' key
@@ -199,3 +201,22 @@ def update_cart(request):
         'data':context,
         'totalcartitems':len(request.session['cart_data_obj']),
         })
+
+
+@login_required
+def customer_dashboard(request):
+    orders = Order.objects.filter(user=request.user)
+
+    return render(request,'dashboard.html',{
+        'orders':orders,
+    })
+
+
+
+@login_required
+def user_profile(request):
+    profile = UserProfile.objects.get(user=request.user)
+
+    return render(request,'user-profile.html',{
+        'profile': profile,
+    })

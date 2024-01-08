@@ -15,7 +15,7 @@
     <script src="{% static 'js/function7.js' %}" defer></script>
 
     <title>{% block title %} {% endblock %} Online Auction</title>
-    <link rel="stylesheet" href="{% static 'css/base5.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base6.css' %}" />
 </head>
 
 <body style="font-family: 'Quicksand', sans-serif;">
@@ -56,20 +56,17 @@
 
         {% if request.user.is_authenticated %}
             <div class="dropdown">
-                <button class="dropbtn px-5">{{ request.user.username }}</button>
+                <span class="dropbtn px-3 bg-emerald-500 hover:bg-emerald-600"><i class="fas fa-user"></i> &nbsp;{{ request.user.username }}</span>
                 <div class="dropdown-content">
-                    <a href="#">Profile</a>
-                    <a href="#">Link 2</a>
-                    <a href="{% url 'userauth:logout' %}">Sign out</a>
+                    <a href="{% url 'core:profile' %}"><i class="fas fa-user"></i> &nbsp;Profile</a>
+                    <a href="{% url 'core:dashboard' %}"><i class="fa-solid fa-layer-group"></i> &nbsp;Dashboard</a>
+                    <a href="{% url 'userauth:logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp;Sign out</a>
                 </div>
             </div>
         {% else %}
             <a href="{% url 'userauth:signup' %}" class="px-4 py-1 text-lg font-medium bg-sky-500 text-white rounded-md hover:bg-sky-700">Sign up</a>
         {% endif %}
-
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'userauth:logout' %}" class="px-4 py-1 text-lg font-medium bg-rose-600 text-gray-200 rounded-md hover:bg-rose-700">Log Out</a>
-        {% endif %}  
+ 
     </nav>
     
     <!-- flash messages -->

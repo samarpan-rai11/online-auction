@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}{{request.user}}'s Dashboard |{% endblock %}
+
+{% block content %}
+<div>
+    <div class="p-4 text-center my-10">
+        <h2 class="text-4xl font-bold mb-2">Hello {{ request.user }}</h2>
+        <hr>
+        <p class="mt-2 font-medium">From you account dashboard. You can easily check & view your recent orders and other settings</p>
+    </div>
+
+    <div class="p-4 text-center mb-10">
+        <h2 class="text-4xl font-bold mb-4">Your Orders</h2>
+        <hr class="mb-5">
+        {% if orders %}
+            <table class="w-full text-center p-2">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="p-3">Image</th>
+                        <th class="p-3">Product Title</th>
+                        <th class="py-3 px-5">Date</th>
+                        <th class="py-3 px-5">Order Status</th>
+                        <th class="py-3 px-5">Paid Status</th>
+                        <th class="py-3 px-5">Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for o in orders %}
+                        <tr class="border-b">
+                            <td id="product-thumbnail" class="image p-3">
+                                {{o.id}}
+                            </td>
+                            <td>
+                                <p> <a href="{% url 'product:detail' o.id %}" class="hover:text-rose-700">{{ o.product|truncatechars:30 }}</a></p>
+                            </td>
+
+                            <td class="pl-4 pr-3 py-3">{{ o.order_date }}</td>
+
+                            <td class="pl-4 pr-3 py-3">{{ o.order_status|title }}</td>
+
+                            <td class="px-3 py-3" id="qty">
+                                {% if o.paid_status %}
+                                    ✅
+                                {% else %}
+                                    ❌
+                                {%endif%}
+                            </td>
+
+                            <td class="text-emerald-500 px-3 py-3">
+                                ${% widthratio o.product.price 1 o.quantity %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-xl font-medium mb-4">You don't have any Orders</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

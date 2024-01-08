@@ -180,17 +180,10 @@ def checkout_view(request):
         for p_id, item in request.session['cart_data_obj'].items():
             cart_total_price += int(item['qty']) * float(item['price'])
 
-
-    coupon_discount = None
-    if request.method == "POST":
-        coupon_discount = request.POST.get('coupon_discount')
-
-
     return render(request, 'product/checkout.html',{
         "cart_data":request.session['cart_data_obj'],
         'totalcartitems': len(request.session['cart_data_obj']),
         'cart_total_price': cart_total_price,
-        'coupon_discount': coupon_discount,
         })
     
 

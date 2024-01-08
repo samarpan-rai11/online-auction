@@ -191,8 +191,9 @@ class Payment(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/',default='user-default.png')
     contact = models.CharField(max_length=70,default="+123 456 789", blank=True)
+    verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username

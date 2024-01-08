@@ -30,6 +30,9 @@ urlpatterns = [
     # update product price from cart
     path('update-cart/', views.update_cart, name="update-cart"),
 
+    path('dashboard/', views.customer_dashboard, name="dashboard"),
+    path('user-profile/', views.user_profile, name="profile"),
+
 ]
 
 handler404 = custom_404_view
