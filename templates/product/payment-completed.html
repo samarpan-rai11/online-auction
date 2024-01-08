@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Payment</title>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
+    <script src="{% static 'js/node_modules/jquery/dist/jquery.min.js' %}" defer></script>
+  \
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="{% static 'js/invoice1.js' %}" defer></script>
+</head>
+
+<body class="bg-gray-50" style="font-family: 'Quicksand', sans-serif;">
+    <!-- Invoice -->
+    <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto my-4 sm:my-10">
+      <div class="sm:w-11/12 lg:w-3/4 mx-auto">
+        <!-- Card -->
+        <div class="flex flex-col p-4 sm:p-10 bg-white shadow-md rounded-xl" id="invoice_wrapper">
+          <!-- Grid -->
+          <div class="flex justify-between">
+            <div>
+              <a href="{% url 'core:index' %}" class="mt-2 text-3xl font-bold text-[#253D4E] ">Auction</a>
+            </div>
+            <!-- Col -->
+  
+            <div class="text-end">
+              <h2 class="text-2xl md:text-2xl font-semibold text-gray-800 ">Invoice No.</h2>
+              <span class="mt-1 block text-emerald-500">#36823</span>
+  
+              <address class="mt-4 not-italic text-gray-800">
+                Bhanu Chowk, Dharan<br>
+                Nepal<br>
+              </address>
+            </div>
+            <!-- Col -->
+          </div>
+          <!-- End Grid -->
+          <hr class="mt-2">
+  
+          <!-- Grid -->
+          <div class="mt-8 grid sm:grid-cols-2 gap-3">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Invoice to:</h3>
+              <h3 class="text-lg font-semibold text-amber-500">{{ request.user }}</h3>
+              <!-- <address class="mt-2 not-italic text-gray-500">
+                280 Suzanne Throughway,<br>
+                Breannabury, OR 45801,<br>
+                United States<br>
+              </address> -->
+            </div>
+            <!-- Col -->
+  
+            <div class="sm:text-end space-y-2">
+              <!-- Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2">
+                <dl class="grid sm:grid-cols-5 gap-x-3">
+                  <dt class="col-span-3 font-semibold text-gray-800 ">Invoice date:</dt>
+                  <dd class="col-span-2 text-gray-500">{% now "jS F Y" %}</dd>
+                </dl>
+              </div>
+              <!-- End Grid -->
+            </div>
+            <!-- Col -->
+          </div>
+          <!-- End Grid -->
+  
+          <!-- Table -->
+          <div class="mt-6">
+            <div class="border border-gray-200 p-4 rounded-lg space-y-4">
+                <div class="hidden sm:grid sm:grid-cols-5">
+                    <div class="sm:col-span-2 text-xs font-medium text-gray-500 uppercase">Product</div>
+                    <div class="text-start text-xs font-medium text-gray-500 uppercase">Rate</div>
+                    <div class="text-start text-xs font-medium text-gray-500 uppercase">Qty</div>
+                    <div class="text-end text-xs font-medium text-gray-500 uppercase">Amount</div>
+                </div>
+                <div class="hidden sm:block border-b border-gray-200"></div>
+                
+                {% for product_id, item in cart_data.items %}
+  
+                    <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                        <div class="col-span-full sm:col-span-2">
+                            <p class="font-medium text-gray-800">{{ item.title }}</p>
+                        </div>
+                    <div>
+                        <p class="text-gray-800">${{ item.price }}</p>
+                    </div>
+                    <div>
+                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Qty</h5>
+                        <p class="text-gray-800">x{{ item.qty }}</p>
+                    </div>
+                    <div>
+                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Amount</h5>
+                        <p class="sm:text-end text-gray-800">${% widthratio item.price 1 item.qty %}</p>
+                    </div>
+                </div>
+  
+                {% endfor %}
+            </div>
+          </div>
+          <!-- End Table -->
+  
+          <!-- Flex -->
+          <div class="mt-8 flex sm:justify-end">
+            <div class="w-full max-w-2xl sm:text-end space-y-2">
+              <!-- Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2">
+                <dl class="grid sm:grid-cols-5 gap-x-3">
+                  <dt class="col-span-3 font-semibold text-gray-800">Subtotal:</dt>
+                  <dd class="col-span-2 text-gray-500">${{ cart_total_price }}</dd>
+                </dl>
+  
+                <dl class="grid sm:grid-cols-5 gap-x-3">
+                  <dt class="col-span-3 font-semibold text-gray-800">Tax:</dt>
+                  <dd class="col-span-2 text-gray-500">$15.00</dd>
+                </dl>
+                <hr class="ml-60">
+  
+                <dl class="grid sm:grid-cols-5 gap-x-3">
+                  <dt class="col-span-3 font-semibold text-gray-800 ">Amount paid:</dt>
+                  <dd class="col-span-2 text-emerald-500">${{ cart_total_price|add:15|floatformat:2 }}</dd>
+                </dl>
+              </div>
+              <!-- End Grid -->
+            </div>
+          </div>
+          <!-- End Flex -->
+  
+          <div class="mt-8 sm:mt-10">
+            <h4 class="text-lg font-semibold text-gray-800">Thank you!</h4>
+            <p class="text-gray-500">If you have any questions concerning this invoice, use the following contact information:</p>
+            <div class="mt-2">
+              <p class="block text-sm font-medium text-gray-800 ]">auction@site.com</p>
+              <p class="block text-sm font-medium text-gray-800">+977-98000000</p>
+            </div>
+          </div>
+          <p class="mt-5 text-center text-sm text-gray-500">© 2024 Auction.</p>
+        </div>
+        <!-- End Card -->
+  
+        <!-- Buttons -->
+        <div class="mt-6 flex justify-center gap-x-3">
+          <button id="invoice_download_btn" class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 transition-all text-sm" href="#">
+            <i class="fa fa-download"></i>
+            Invoice PDF
+          </button>
+          <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-[#253D4E] text-white hover:bg-[#252D50] disabled:opacity-50 disabled:pointer-events-none" href="#">
+            <i class="fa-light fa-print"></i>
+            Print
+          </a>
+        </div>
+        <!-- End Buttons -->
+      </div>
+    </div>
+    <!-- End Invoice -->
+</body>
+</html>

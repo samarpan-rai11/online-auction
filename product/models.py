@@ -198,9 +198,9 @@ class UserProfile(models.Model):
         return self.user.username
     
 
-######################## Product Review, Wishlist ##################
-######################## Product Review, Wishlist ##################
-######################## Product Review, Wishlist ##################
+############################ Product Review #########################
+############################ Product Review #########################
+############################ Product Review #########################
 
 
 class ProductReview(models.Model):
@@ -214,14 +214,16 @@ class ProductReview(models.Model):
         return self.product.title
     
     def get_rating(self):
-        return self.rating
-    
+        return self.rating    
 
 
-class Wishlist(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
-    
+########################## Coupon Code ##############################
+
+
+class CouponCode(models.Model):
+    code = models.CharField(max_length=100)
+    discount = models.IntegerField()
+
+
     def __str__(self):
-        return self.product.title
+        return self.code

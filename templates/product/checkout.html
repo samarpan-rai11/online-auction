@@ -3,7 +3,7 @@
 {% block title %}Checkout |{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/cart6.css' %}" />
+<link rel="stylesheet" href="{% static 'css/cart7.css' %}" />
 
 <main>
     <div class="mt-8 mb-12 ">
@@ -57,7 +57,7 @@
             <div class="order-container mb-12 p-4 rounded-lg w-auto">
                 <h2 class="text-2xl font-medium mb-3">Your Order</h2>
                 <hr class="mb-2">
-                <table class="table-cart w-full text-center">
+                <table class="w-full text-center">
                     <tbody>
                         {% for product_id, item in cart_data.items %}
                             <tr class="border-b">
@@ -81,7 +81,7 @@
                 </table>
                 <div class="flex justify-between mt-2 text-xl font-semibold">
                     <h2>Total</h2>
-                    <p class="text-emerald-500">${{ cart_total_price|floatformat:2 }}</p>
+                    <p class="text-emerald-500" id="total">${{ cart_total_price|floatformat:2 }}</p>
                 </div>
             </div>
 
@@ -96,8 +96,8 @@
                             <img src="{% static 'assets/esewa_logo.png' %}" alt="" width="100" class="ml-2">
                         </label>
                     </div>
-    
                 </div>
+                
                 <button type="submit" class="bg-emerald-500 text-white p-3 rounded-lg hover:bg-emerald-700 w-full">Place Order &nbsp; <i class="fab fa-bitcoin"></i></button>
             </div>
         </div>

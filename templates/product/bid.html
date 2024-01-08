@@ -25,7 +25,7 @@
                 {% for c in categories %}
                         <li class="flex text-center list-none py-1 px-2 rounded-md mx-4{% if c.id == category_id %} bg-[#fcac10] text-white{% endif %}">
                             <img src="{{ c.image.url }}" alt="image" style="height: 25px; width: 30px;" class="rounded-full mr-2">
-                            <a href="{% url 'product:bid' %}?query={{ query }}&c={{ c.id }}">{{ c.name }}</a>
+                            <a href="{% url 'product:bid' %}?query={{ query }}&c={{ c.id }}">{{ c.name }} ({{ c.auctions.all.count }})</a>
                         </li>
                 {% endfor %}
             </div>

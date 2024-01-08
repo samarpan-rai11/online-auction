@@ -173,15 +173,36 @@ def search_view(request):
     })
 
 
-
+@login_required
 def checkout_view(request):
     cart_total_price = 0
     if 'cart_data_obj' in request.session:
         for p_id, item in request.session['cart_data_obj'].items():
             cart_total_price += int(item['qty']) * float(item['price'])
-            
+
+
+    coupon_discount = None
+    if request.method == "POST":
+        coupon_discount = request.POST.get('coupon_discount')
+
+
     return render(request, 'product/checkout.html',{
         "cart_data":request.session['cart_data_obj'],
         'totalcartitems': len(request.session['cart_data_obj']),
         'cart_total_price': cart_total_price,
+        'coupon_discount': coupon_discount,
+        })
+    
+
+@login_required
+def payment_completed(request):
+    cart_total_price = 0
+    for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_price += int(item['qty']) * float(item['price'])
+    context=request.POST
+    return render(request, 'product/payment-completed.html',{
+        "cart_data":request.session['cart_data_obj'],
+        'totalcartitems': len(request.session['cart_data_obj']),
+        'cart_total_price': cart_total_price,
     })
+

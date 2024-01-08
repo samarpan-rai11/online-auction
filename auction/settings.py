@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = "userauth:login"
+
 LOGOUT_REDIRECT_URL = "/"
 
 TAGGIT_CASE_INSENSITIVE = True

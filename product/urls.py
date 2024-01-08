@@ -23,4 +23,8 @@ urlpatterns = [
 
     # checkout
     path('checkout',views.checkout_view,name='checkout'),
+
+    # after payment
+    path('payment-completed', views.payment_completed, 
+         name = 'payment-completed'),
 ]

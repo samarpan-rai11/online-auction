@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
-from product.models import Category, Product, Auction, Vendor
+from product.models import Category, Product, Auction, Vendor, CouponCode 
 from django.db.models import Avg
 from taggit.models import Tag
 from django.http import JsonResponse
@@ -112,11 +112,28 @@ def cart_view(request):
     if 'cart_data_obj' in request.session:
         for p_id, item in request.session['cart_data_obj'].items():
             cart_total_price += int(item['qty']) * float(item['price'])
+
+
+    coupon = None
+    valid_coupon = None
+    invalid_coupon = None
+    if request.method == "GET":
+        coupon_code = request.GET.get('coupon-code')
+        if coupon_code:
+            try:
+                coupon = CouponCode.objects.get(code = coupon_code)
+                valid_coupon = "is applicable on Current Order"
+            except:
+                invalid_coupon = "Invalid coupon code"
+
             
         return render(request, 'cart.html',{
         "cart_data":request.session['cart_data_obj'],
         'totalcartitems': len(request.session['cart_data_obj']),
         'cart_total_price': cart_total_price,
+        'coupon': coupon,
+        'valid_coupon': valid_coupon,
+        'invalid_coupon': invalid_coupon,
         })
     else:
         messages.warning(request,"Your Cart is empty")
