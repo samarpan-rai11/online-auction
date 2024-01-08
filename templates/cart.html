@@ -5,8 +5,8 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/cart7.css' %}" />
 <script defer>
-    var product_amount = {{ cart_total_price }};
-    var coupon_discount = {{ coupon.discount }};
+    var product_amount = "{{ cart_total_price }}";
+    var coupon_discount = "{{ coupon.discount }}";
 </script>
 <script src="{% static 'js/function6.js' %}" defer></script>
 <script src="{% static 'js/coupon1.js' %}" defer></script>
