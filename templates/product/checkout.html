@@ -3,16 +3,30 @@
 {% block title %}Checkout |{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/cart5.css' %}" />
+<link rel="stylesheet" href="{% static 'css/cart6.css' %}" />
 
 <main>
-    <div class="mt-8 mb-10 ">
+    <div class="mt-8 mb-12 ">
         <h2 class="text-4xl text-[#253D4E] font-bold text-center mb-4">Checkout</h2>
         <h3 class="text-center"><a href="{% url 'core:index' %}" class="text-gray-500 hover:text-orange-500"><i id="home" class="fa fa-home text-xs"></i> Home</a> / Checkout</h3>
     </div>
 
+    <h2 class="text-center font-medium mb-8 text-xl">There 
+        {% if totalcartitems == 1 %}
+            is
+        {% else %}
+            are
+        {% endif %} <span class="text-emerald-500">
+            {{ totalcartitems }}</span> 
+        {% if totalcartitems == 1 %}
+            Product
+        {% else %}
+            Products
+        {% endif %} in your cart
+    </h2>
+
     <div class="flex justify-around">
-        <div class="billing-detail border-2 mb-10 p-4 rounded-lg">
+        <div class="billing-detail mb-10 p-4 rounded-lg">
             <h2 class="text-2xl font-medium mb-3">Billing Details</h2>
             <hr>
             <div>
@@ -23,33 +37,68 @@
                         <input type="text" class="w-1/2 ml-2 mt-3 mb-4 p-3 border rounded-lg" name="" placeholder="Last Name *" required>
                     </div>
 
-                    <input type="text" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="City *">
+                    <input type="text" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="City *" required>
 
-                    <input type="text" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="State *">
+                    <input type="text" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="State *" required>
 
-                    <input type="text" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="Country *">
+                    <input type="text" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="Country *" required>
 
-                    <input type="email" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="Email *">
+                    <input type="email" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="Email *" required>
 
-                    <input type="number" class="mt-2 mb-2 p-3 border rounded-lg" name="" placeholder="Phone no. *">
+                    <input type="number" class="mt-2 mb-4 p-3 border rounded-lg" name="" placeholder="Phone no. *" required>
+
+                    <button type="submit" class="bg-emerald-500 text-white p-3 rounded-lg hover:bg-emerald-700"> Submit Details</button>
 
                 </form>
             </div>
         </div>
 
         <div class="order">
-            <div class="border-2 mb-10 p-4 rounded-lg w-auto">
+            <div class="order-container mb-12 p-4 rounded-lg w-auto">
                 <h2 class="text-2xl font-medium mb-3">Your Order</h2>
                 <hr class="mb-2">
-                <div class="flex justify-between">
-                    <h2>Product</h2>
-                    <p>Price</p>
+                <table class="table-cart w-full text-center">
+                    <tbody>
+                        {% for product_id, item in cart_data.items %}
+                            <tr class="border-b">
+                                <td id="product-thumb" class="image p-2">
+                                    <img src="{{ item.image }}" alt="#" class="border rounded-lg object-contain">
+                                </td>
+                                <td>
+                                    <p id="item-name"><a href="{% url 'product:detail' item.pid %}" class="hover:text-rose-700">{{ item.title|truncatechars:25 }}</a></p>
+                                </td>
+        
+                                <td class="text-emerald-500 px-3 py-3">${{ item.price }}</td>
+        
+                                <td class="px-3 py-3 text-gray-500" id="qty">
+                                    x {{ item.qty }}
+                                </td>
+        
+                                <td class="text-emerald-500 px-3 py-3">${% widthratio item.price 1 item.qty %}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="flex justify-between mt-2 text-xl font-semibold">
+                    <h2>Total</h2>
+                    <p class="text-emerald-500">${{ cart_total_price|floatformat:2 }}</p>
                 </div>
             </div>
 
-            <div class="text-center text-white bg-emerald-500 p-3 rounded-lg hover:bg-emerald-700">
-                <button>Place Order &nbsp;<i class="fab fa-bitcoin"></i>
-                </button>
+            <div>
+                <h2 class="text-2xl font-semibold mb-5">Payment</h2>
+                <div class="mb-4">
+                    <input type="radio" name="payment" id="cod">
+                    <label for="cod" class="ml-1 text-lg font-medium">Cash on Delivery</label><br>
+                    <div class="flex mt-1">
+                        <input type="radio" name="payment" id="esewa">
+                        <label for="esewa">
+                            <img src="{% static 'assets/esewa_logo.png' %}" alt="" width="100" class="ml-2">
+                        </label>
+                    </div>
+    
+                </div>
+                <button type="submit" class="bg-emerald-500 text-white p-3 rounded-lg hover:bg-emerald-700 w-full">Place Order &nbsp; <i class="fab fa-bitcoin"></i></button>
             </div>
         </div>
 

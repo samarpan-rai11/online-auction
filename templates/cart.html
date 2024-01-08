@@ -3,7 +3,7 @@
 {% block title %}Cart |{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/cart5.css' %}" />
+<link rel="stylesheet" href="{% static 'css/cart6.css' %}" />
 <script src="{% static 'js/function6.js' %}" defer></script>
 
 <main id="cart-list">
@@ -29,8 +29,8 @@
                     Products
                 {% endif %} in your cart</h2>
     
-            <table class="table-cart w-full text-center border-2">
-                <thead class="bg-gray-100">
+            <table class="table-cart w-full text-center p-2">
+                <thead class="bg-gray-100 rounded-lg">
                     <tr class="main-heading">
                         <th class="p-3">Image</th>
                         <th class="p-3">Product Title</th>
@@ -74,7 +74,7 @@
         </div>
         {% else %}
             <p class="text-center flex justify-center">
-                <img src="{% static 'empty.png' %}" alt="image" style="height: 300px; width: 300px;">
+                <img src="{% static 'assets/empty.png' %}" alt="image" style="height: 300px; width: 300px;">
             </p>
             <h2 class="text-4xl text-center font-bold mb-8">Your Cart is Empty</h2>
 
@@ -90,7 +90,7 @@
         {% if totalcartitems %}
         <div>
             <h2 class="text-2xl font-semibold text-center mb-4">Cart Totals</h2>
-            <div class="total cart-total-price border-2">
+            <div class="total cart-total-price p-1">
                 <div class="my-2 flex justify-between font-medium mx-5">
                     Subtotal
                     <p class="text-emerald-500">${{cart_total_price}}</p>
@@ -105,7 +105,10 @@
                     <p class="text-emerald-500">${{cart_total_price}}</p>
                 </div>
             </div>
-            <button class="bg-emerald-500 text-white font-medium p-2 rounded-md w-full mt-5 hover:bg-emerald-700"><a href="{% url 'product:checkout' %}">Procced to Checkout &nbsp;<i class="fa fa-sign-out"></i></a></button>
+
+            <div class="text-center text-white font-medium mt-6">
+                <a class="bg-emerald-500 px-5 py-2 rounded-md hover:bg-emerald-700" href="{% url 'product:checkout' %}">Procced to Checkout &nbsp;<i class="fa fa-sign-out"></i></href=></a>
+            </div>
         </div>
         {% endif %}
     

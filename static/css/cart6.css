@@ -5,6 +5,11 @@
 .cart-total-price{
     width: 19.688rem;
     height: 8.438rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.table-cart{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .shop-summary .table-cart thead{
@@ -36,9 +41,19 @@
 }
 
 .billing-detail{
-    width: 730px;
+    width: 650px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .order{
-    width: 470px;
+    width: 520px;
+}
+
+.order-container{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#product-thumb{
+    height: 110px;
+    width: 100px;
 }

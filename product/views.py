@@ -175,4 +175,13 @@ def search_view(request):
 
 
 def checkout_view(request):
-    return render(request, 'product/checkout.html')
+    cart_total_price = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_price += int(item['qty']) * float(item['price'])
+            
+    return render(request, 'product/checkout.html',{
+        "cart_data":request.session['cart_data_obj'],
+        'totalcartitems': len(request.session['cart_data_obj']),
+        'cart_total_price': cart_total_price,
+    })

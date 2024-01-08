@@ -68,7 +68,7 @@
         </div>
         {% else %}
             <p class="text-center flex justify-center">
-                <img src="{% static 'empty.png' %}" alt="image" style="height: 300px; width: 300px;">
+                <img src="{% static 'assets/empty.png' %}" alt="image" style="height: 300px; width: 300px;">
             </p>
             <h2 class="text-4xl text-center font-bold mb-8">Your Cart is Empty</h2>
 
@@ -99,7 +99,10 @@
                     <p class="text-emerald-500">${{cart_total_price}}</p>
                 </div>
             </div>
-            <button class="bg-emerald-500 text-white font-medium p-2 rounded-md w-full mt-5 hover:bg-emerald-700">Procced to Checkout  <i class="fa fa-sign-out"></i></button>
+            
+            <div class="text-center text-white font-medium mt-6">
+                <a class="bg-emerald-500 py-2 px-4 rounded-md hover:bg-emerald-700" href="{% url 'product:checkout' %}">Procced to Checkout &nbsp;<i class="fa fa-sign-out"></i></href=></a>
+            </div>
         </div>
         {% endif %}
     
