@@ -9,3 +9,8 @@ if (coupon_discount) {
         console.log(cal_discount);
     }
 }
+
+$(document).on("submit", "#contact-form", function(e){
+    e.preventDefault()
+    console.log("Submited")
+})

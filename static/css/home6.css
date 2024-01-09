@@ -115,3 +115,10 @@ h2{
 #add-to-cart-btn{
   font-size: 25px;
 }
+
+#auction-live{
+  position: absolute;
+  top: 2%;
+  text-transform: none;
+  font-size: 9px;
+}

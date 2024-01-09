@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from datetime import datetime
 from taggit.managers import TaggableManager
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -189,7 +190,7 @@ class Payment(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     bio = models.TextField(blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/',default='user-default.png')
     contact = models.CharField(max_length=70,default="+123 456 789", blank=True)
@@ -228,3 +229,20 @@ class CouponCode(models.Model):
 
     def __str__(self):
         return self.code
+    
+
+### This signal will automatically create instance of UserProfile when user is registerd(signup). 
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    # there is a one-to-one relationship between the User model and a UserProfile model, and profile is the related name for the one-to-one field in the User model. 
+    instance.profile.save()
+
+
+post_save.connect(create_user_profile, sender=User)
+post_save.connect(save_user_profile, sender=User)

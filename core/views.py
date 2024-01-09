@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from product.models import Category, Product, Auction, Vendor, CouponCode, Order, UserProfile
+from core.models import ContactUs
 from taggit.models import Tag
 from django.http import JsonResponse
 from django.contrib import messages
@@ -217,3 +218,32 @@ def user_profile(request):
     return render(request,'user-profile.html',{
         'profile': profile,
     })
+
+
+
+def contact(request):
+    return render(request, 'contact.html')
+
+
+def ajax_contact(request):
+    # this variable is getting data from ajax in js
+    full_name = request.GET['full_name']
+    email = request.GET['email']
+    phone = request.GET['phone']
+    subject = request.GET['subject']
+    message = request.GET['message']
+
+    contact = ContactUs.objects.create(
+        full_name = full_name,
+        email = email,
+        phone = phone,
+        subject = subject,
+        message = message,
+    )
+
+    data={
+        'bool': True,
+        'message': "Message sent Successfully.",
+    }
+
+    return JsonResponse({"data": data})

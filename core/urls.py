@@ -30,8 +30,13 @@ urlpatterns = [
     # update product price from cart
     path('update-cart/', views.update_cart, name="update-cart"),
 
+    # user profile pages
     path('dashboard/', views.customer_dashboard, name="dashboard"),
     path('user-profile/', views.user_profile, name="profile"),
+    
+    # contact
+    path('contact/', views.contact, name="contact"),
+    path('ajax-contact-form/', views.ajax_contact , name="ajax-contact-form"),
 
 ]
 

@@ -8,6 +8,12 @@ Some screenshots of the project
 
 ![](assets/ss/ss2.png)
 
+![](assets/ss/ss3.png)
+
+![](assets/ss/ss4.png)
+
+![](assets/ss/ss5.png)
+
 Clone the repo or download it 
 ---
 ### For Mac/Linux Users

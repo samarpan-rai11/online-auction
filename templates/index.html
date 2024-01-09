@@ -4,7 +4,7 @@
 
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/home5.css' %}" />
+<link rel="stylesheet" href="{% static 'css/home6.css' %}" />
 
 
 <!------------------------------------------------------------------>
@@ -81,6 +81,7 @@
                 <a href="{% url 'product:auction_detail' auction.id %}" class="detail">
                     <div>
                         <img src="{{ auction.image.url }}" class="rounded-t-xl border-1" id="product">
+                        <span class="ml-2 bg-rose-600 text-white py-1 px-3 rounded-md" id="auction-live"><i class="far fa-dot-circle"> Live</i></span>
                     </div>
 
                     <div class="p-6 border-t-2 bg-white w-70 card1">

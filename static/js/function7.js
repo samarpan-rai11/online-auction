@@ -98,3 +98,40 @@ $(".add-to-cart-btn").on("click", function(){
     });
 
 })
+
+
+$(document).on("submit", "#contact-form", function(e){
+    e.preventDefault()
+    console.log("Submited")
+    let full_name = $("#full_name").val()
+    let email = $("#email").val()
+    let phone = $("#phone").val()
+    let subject = $("#subject").val()
+    let message = $("#message").val()
+
+    console.log("Full name:", full_name)
+    console.log("Email:", email)
+    console.log("Phone:", phone)
+    console.log("Subject:", subject)
+    console.log("Message:", message)
+
+    $.ajax({
+        url: '/ajax-contact-form',
+        data: {
+            "full_name": full_name,
+            "email": email,
+            "phone": phone,
+            "subject": subject,
+            "message": message,
+        },
+        dataType: 'json',
+        beforeSend:function(){
+            console.log("Sending data to sercer..");
+        },
+        success:function(response){
+            console.log("Sent data successfully");
+            $("#contact-form").hide()
+            $("#message-after").html("Message sent Successfully")
+        }
+    })
+})
