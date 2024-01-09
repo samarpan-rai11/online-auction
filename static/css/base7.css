@@ -41,7 +41,19 @@
 
 #cart-number{
     position: absolute;
-    top: 1.2%;
+    top: 1.8%;
     right: 11%;
     border-radius: 100%;
+}
+
+#preloader{
+    background: #f4fbfb url(/static/From.gif) no-repeat center center;
+    background-size: 30%;
+    height: 100vh;
+    width: 100%;
+    z-index: 100;
+    position: fixed; /* or fixed, depending on your design */
+    top: 50%; /* Adjust as needed */
+    left: 50%; /* Adjust as needed */
+    transform: translate(-50%, -50%);
 }

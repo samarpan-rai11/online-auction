@@ -86,19 +86,14 @@
             </div>
 
             <div>
-                <h2 class="text-2xl font-semibold mb-5">Payment</h2>
-                <div class="mb-4">
-                    <input type="radio" name="payment" id="cod">
-                    <label for="cod" class="ml-1 text-lg font-medium">Cash on Delivery</label><br>
-                    <div class="flex mt-1">
-                        <input type="radio" name="payment" id="esewa">
-                        <label for="esewa">
-                            <img src="{% static 'assets/esewa_logo.png' %}" alt="" width="100" class="ml-2">
-                        </label>
-                    </div>
+                <h2 class="text-2xl font-semibold mb-8 flex justify-center">Payment</h2>
+                <div class="mb-4 flex justify-center">
+                    <select name="payment" class="py-2 px-5 border rounded-lg">
+                        <option value="cod">Cash on Delivery</option>
+                    </select>
                 </div>
                 
-                <button type="submit" class="bg-emerald-500 text-white p-3 rounded-lg hover:bg-emerald-700 w-full">Place Order &nbsp; <i class="fab fa-bitcoin"></i></button>
+                <a href="{% url 'product:payment-completed' %}" class="flex justify-center bg-emerald-500 text-white px-10 py-3 rounded-lg hover:bg-emerald-700 w-full">Place Order &nbsp; <i class="fab fa-bitcoin relative top-1.5"></i></a>
             </div>
         </div>
 

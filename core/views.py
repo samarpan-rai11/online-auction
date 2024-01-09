@@ -108,12 +108,6 @@ def add_to_cart(request):
 
 # cart list view
 def cart_view(request):
-    cart_total_price = 0
-    if 'cart_data_obj' in request.session:
-        for p_id, item in request.session['cart_data_obj'].items():
-            cart_total_price += int(item['qty']) * float(item['price'])
-
-
     coupon = None
     valid_coupon = None
     invalid_coupon = None
@@ -126,14 +120,17 @@ def cart_view(request):
             except:
                 invalid_coupon = "Invalid coupon code"
 
-            
+    cart_total_price = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_price += int(item['qty']) * float(item['price'])
         return render(request, 'cart.html',{
-        "cart_data":request.session['cart_data_obj'],
-        'totalcartitems': len(request.session['cart_data_obj']),
-        'cart_total_price': cart_total_price,
-        'coupon': coupon,
-        'valid_coupon': valid_coupon,
-        'invalid_coupon': invalid_coupon,
+            'cart_data':request.session['cart_data_obj'],
+            'totalcartitems': len(request.session['cart_data_obj']),
+            'cart_total_price': cart_total_price,
+            'coupon': coupon,
+            'valid_coupon': valid_coupon,
+            'invalid_coupon': invalid_coupon,
         })
     else:
         messages.warning(request,"Your Cart is empty")
