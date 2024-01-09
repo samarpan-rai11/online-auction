@@ -220,6 +220,14 @@ def user_profile(request):
     })
 
 
+def profile_edit(request):
+    profile = UserProfile.objects.get(user=request.user)
+
+    return render(request, 'user-edit.html',{
+        'profile': profile,
+    })
+
+
 
 def contact(request):
     return render(request, 'contact.html')

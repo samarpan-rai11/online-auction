@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="mb-8 flex justify-center">
+    <div class="mb-10 flex justify-center">
         <img src="{{ profile.profile_picture.url }}" alt="" style="width: 120px; height: 120px; object-fit: cover;" class="border rounded-full">
     </div>
 
@@ -20,13 +20,13 @@
         <div class="profile mx-40 border-2 mb-8 p-4 rounded-lg text-center">
             <div class="flex flex-col">
                 <p class="text-2xl font-medium">Username</p>
-                <input type="text" class="mt-3 mr-2 mb-4 p-3 border rounded-lg text-center text-emerald-600 text-xl" name="" value="{{request.user}}" readonly>
+                <input type="text" class="mt-3 mr-2 mb-4 p-3 border rounded-lg text-center text-emerald-600 text-xl" name="" value="{{request.user}}">
     
                 <p class="text-2xl font-medium">Bio</p>
-                <textarea class="mt-2 mb-4 p-3 border rounded-lg text-center text-emerald-600 text-xl" name="" id="" cols="30" rows="5" value="{{ profile.bio }}" readonly></textarea>
+                <textarea class="mt-2 mb-4 p-3 border rounded-lg text-center text-emerald-600 text-xl" name="" id="" cols="30" rows="5" value="{{ profile.bio }}"></textarea>
     
                 <p class="text-2xl font-medium">Contact</p>
-                <input type="text" class="mt-2 mb-4 p-3 border rounded-lg text-center text-emerald-600 text-xl" name="" value="Contact - {{ profile.contact }}" readonly>
+                <input type="text" class="mt-2 mb-4 p-3 border rounded-lg text-center text-emerald-600 text-xl" name="" value="Contact - {{ profile.contact }}">
                 
                 <div class="text-center">
                     {% if profile.verified %}
@@ -40,7 +40,7 @@
     </div>
 
     <div class="flex justify-center mb-12">
-        <a href="{% url 'core:profile-edit' %}" class="text-white bg-emerald-500 py-3 px-8 rounded-lg hover:bg-emerald-600">Edit Profile</a>
+        <button type="submit" class="text-white bg-sky-500 py-3 px-8 rounded-lg hover:bg-sky-600">Save changes</button>
     </div>
 </div>
 {% endblock %}

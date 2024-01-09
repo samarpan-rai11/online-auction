@@ -32,7 +32,8 @@ urlpatterns = [
 
     # user profile pages
     path('dashboard/', views.customer_dashboard, name="dashboard"),
-    path('user-profile/', views.user_profile, name="profile"),
+    path('user/profile/', views.user_profile, name="profile"),
+    path('user/edit/', views.profile_edit, name="profile-edit"),
     
     # contact
     path('contact/', views.contact, name="contact"),

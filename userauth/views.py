@@ -55,4 +55,3 @@ def logout_view(request):
     messages.success(request, "User is logged out.")
     return redirect("/")
 
-        
