@@ -10,10 +10,10 @@
     </div>
 
     <div class="col-span-2 p-5 rounded-xl" style="min-width: 34.375rem;">
-        <h1 class="mb-2 text-3xl font-medium text-sky-600">{{ auction.name }}</h1>
+        <h1 class="mb-2 text-[#ee6846] text-3xl font-medium">{{ auction.name }}</h1>
         <hr>
         <div class="flex">
-            <p class="mt-3 text-2xl mr-5 font-medium"><span class="text-gray-400">Current Bid: </span>${{ auction.bid }}</p>
+            <p class="mt-3 text-2xl mr-5 font-medium"><span class="text-gray-400">Current Bid: </span class="text-[#0f2e40]">${{ auction.bid }}</p>
         </div>
         <p class="text-gray-500 mt-1"><strong>Auctioneer: </strong>{{ auction.auctioneer }}</p>
         <p class="text-gray-500 mt-1 mb-2"><strong>Tags:</strong>
@@ -49,10 +49,10 @@
             <div>
                 <input id="bid-input" name="qty" value="{{auction.bid}}" class="border p-2 rounded-lg">
                   
-                <button onclick="var result = document.getElementById('bid-input'); var sst = result.value; if( !isNaN( sst )) result.value= parseInt(result.value)+parseInt(5); return false;" class="increase items-count px-3 py-2 bg-gray-500 rounded-lg text-white" type="button"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+                <button onclick="var result = document.getElementById('bid-input'); var sst = result.value; if( !isNaN( sst )) result.value= parseInt(result.value)+parseInt(5); return false;" class="increase items-count px-3 py-2 bg-[#0f2e40] rounded-lg text-white" type="button"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
             </div>
 
-            <button class="inline-block py-2 font-medium bg-sky-500 text-white rounded-md hover:bg-sky-700 px-6 text-center"><i class="fa fa-gavel"></i> &nbsp;Bid</button>
+            <button class="inline-block py-2 border border-[#ee6846] font-medium text-[#ee6846] rounded-md hover:bg-[#ee6846] px-6 text-center hover:text-white"><i class="fa fa-gavel"></i> &nbsp;Bid</button>
         </div>
     </div>
 
@@ -67,20 +67,20 @@
             {% else %}  
             <div style="min-width: 12.5rem;">
                 <div class="w-full mb-2 p-2 h-3/4 rounded-lg text-center">
-                    <p class="mb-1 font-semibold text-2xl">Auctioneer</p>
+                    <p class="mb-1 text-[#0f2e40] font-semibold text-2xl">Auctioneer</p>
                 </div>
                 <div class="flex align-middle mb-2 justify-center">
                     <img src="{{ auction.auctioneer.image.url }}" alt="image" style="height: 70px; width: 70px; object-fit: cover;" class="rounded-full mr-4">
-                    <p class="font-semibold flex justify-center items-center text-xl text-emerald-500">
+                    <p class="font-semibold flex justify-center items-center text-xl text-[#ee6846]">
                         {{ auction.auctioneer }}
                     </p>
                 </div>
                 <hr class="mb-3">
                 <div class="mb-1 items-center flex justify-center">
-                    <i class="fa-solid fa-location-dot text-emerald-500"></i> &nbsp;<span class="font-medium mr-1">Address:</span> <span class="ml-1">{{ auction.auctioneer.address }}</span>
+                    <i class="fa-solid fa-location-dot text-[#ee6846]"></i> &nbsp;<span class="font-medium mr-1">Address:</span> <span class="ml-1">{{ auction.auctioneer.address }}</span>
                 </div>
                 <div class="flex items-center justify-center">
-                    <i class="fa fa-phone text-emerald-500"></i> &nbsp;<span class="font-medium mr-1">Contact:</span> <span class="ml-1">{{ auction.auctioneer.contact }}</span>
+                    <i class="fa fa-phone text-[#ee6846]"></i> &nbsp;<span class="font-medium mr-1">Contact:</span> <span class="ml-1">{{ auction.auctioneer.contact }}</span>
                 </div>
             </div>
             {% endif %}
@@ -100,7 +100,7 @@
 </div>
 <!-- similar auctions section -->
 <div class="mt-5 px-6 py-10 mx-4 mb-4">
-    <h2 class="mb-12 text-2xl text-center font-semibold">Related auctions</h2>
+    <h2 class="mb-12 text-2xl text-[#0f2e40] text-center font-semibold">Related auctions</h2>
 
     <div class="container mt-8 gap-2" id="p-section">
         {% for auction in related_auctions %}

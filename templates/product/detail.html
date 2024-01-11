@@ -14,7 +14,7 @@
     </div>
 
     <div class="col-span-2 p-6 rounded-xl mr-3 pdetail">
-        <h1 class="mb-2 text-3xl font-medium text-sky-600">{{ p.title }}</h1>
+        <h1 class="mb-2 text-3xl font-medium text-[#ee6846]">{{ p.title }}</h1>
         <div class="mb-3">
             {% if average_rating.rating %}
                 {% for _ in average_rating.rating|int_range %}
@@ -27,7 +27,7 @@
         </div>
         <hr>
         <div class="flex">
-            <span class="mt-3 text-3xl font-medium">$</span><p class="mt-3 text-3xl mr-5 font-medium current-price current-price-{{ p.id }}">{{ p.price }}</p>
+            <span class="mt-3 text-3xl font-medium text-[#0f2e40]">$</span><p class="mt-3 text-3xl mr-5 font-medium current-price current-price-{{ p.id }} text-[#0f2e40]">{{ p.price }}</p>
             <s class="text-xl font-medium text-gray-400 relative -bottom-4">${{ p.old_price }}</s>
         </div>
         <p class="text-gray-500 mt-1 "><strong>Seller: </strong><span class="text-emerald-600">{{ p.created_by.username }}</span></p>
@@ -42,7 +42,7 @@
         <div class="mt-8">
             <div class=" p-2 h-3/4 rounded-lg text-center">
                 <div class="text-center" id="home-cart">
-                    <input type="number" value="1" class="bg-gray-100 mb-4 p-3 w-14 rounded-md border-2 border-amber-400 product-quantity-{{ p.id }}" name="" id="product-quantity">
+                    <input type="number" value="1" class="bg-gray-100 mb-4 p-3 w-14 rounded-md border-2 border-[#ee6846] product-quantity-{{ p.id }}" name="" id="product-quantity">
 
                     <input type="hidden" value="{{ p.id }}" class="product-pid-{{ p.id }}">
 
@@ -54,7 +54,7 @@
                     <input type="hidden" value="{{ p.title }}" class="product-title-{{ p.id }}">
                 </div>
 
-                <button type="submit" id="add-to-cart-btn" class="add add-to-cart-btn bg-amber-400 px-6 py-2 rounded-md text-xl text-white font-medium hover:bg-amber-600 text-center" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i> &nbsp;Add to Cart</button>
+                <button type="submit" id="add-to-cart-btn" class="add add-to-cart-btn bg-[#ee6846] px-6 py-2 rounded-md text-xl text-white font-medium hover:bg-[#ee5840] text-center" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i> &nbsp;Add to Cart</button>
             </div>
         </div>
         
@@ -71,20 +71,20 @@
             {% else %}  
             <div>
                 <div class="w-full mb-2 p-2 h-3/4 rounded-lg text-center">
-                    <p class="mb-1 font-semibold text-2xl">Vendor</p>
+                    <p class="mb-1 text-[#0f2e40] font-semibold text-2xl">Vendor</p>
                 </div>
                 <div class="flex align-middle mb-4 justify-center">
                     <img src="{{ p.vendor.image.url }}" alt="image" style="height: 70px; width: 70px; object-fit: cover;" class="rounded-full mr-4">
-                    <p class="font-semibold flex justify-center items-center text-xl text-emerald-500">
+                    <p class="font-semibold flex justify-center items-center text-xl text-[#ee6846]">
                         {{ p.vendor }}
                     </p>
                 </div>
                 <hr class="mb-3">
                 <div class="mb-1 flex items-center justify-center">
-                    <i class="fa-solid fa-location-dot text-emerald-500"></i> &nbsp;<span class="font-medium mr-1">Address:</span> <span class="ml-1">{{ p.vendor.address }}</span>
+                    <i class="fa-solid fa-location-dot text-[#ee6846]"></i> &nbsp;<span class="font-medium mr-1">Address:</span> <span class="ml-1">{{ p.vendor.address }}</span>
                 </div>
                 <div class="flex items-center justify-center">
-                    <i class="fa fa-phone text-emerald-500"></i> &nbsp;<span class="font-medium mr-1">Contact:</span> <span class="ml-1">{{ p.vendor.contact }}</span>
+                    <i class="fa fa-phone text-[#ee6846]"></i> &nbsp;<span class="font-medium mr-1">Contact:</span> <span class="ml-1">{{ p.vendor.contact }}</span>
                 </div>
             </div>
             {% endif %}
@@ -140,7 +140,7 @@
                     </div>
                     {% if request.user.is_authenticated %}
                     <div class="mt-5">
-                        <button class="p-3 rounded-md bg-emerald-500 hover:bg-emerald-700 text-white" type="submit">Submit review</button>
+                        <button class="p-3 font-semibold rounded-md border border-[#ee6846] hover:text-white hover:bg-[#ee6846] text-[#ee6846]" type="submit">Submit review</button>
                     </div>
                     {% else %}
                         <p class="mt-5">Please <a href="{% url 'userauth:login' %}" class="text-emerald-500 hover:text-emerald-600">login</a> to add review.</p>

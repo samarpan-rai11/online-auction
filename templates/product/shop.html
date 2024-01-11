@@ -8,7 +8,7 @@
 
 
 <div class="mt-5">
-    <h2 class="mb-3 text-2xl font-semibold">All Products</h2>
+    <h2 class="mb-3 text-2xl text-[#0f2e40] font-semibold">All Products</h2>
     <p class="text-center">We found <span class="text-emerald-500">{{ products.count }}</span> products for you.</p>
 </div>
 
@@ -23,7 +23,7 @@
             
             <div class="mb-3">
                 {% for category in categories %}
-                        <li class="flex text-center list-none py-1 px-2 rounded-md mx-4{% if category.id == category_id %} bg-[#fcac10] text-white{% endif %}">
+                        <li class="flex text-center list-none py-1 px-2 rounded-md mx-4{% if category.id == category_id %} bg-[#ee6846] text-white{% endif %}">
                             <img src="{{ category.image.url }}" alt="image" style="height: 25px; width: 30px;" class="rounded-full mr-1">
                             <a href="{% url 'product:shop' %}?query={{ query }}&category={{ category.id }}">{{ category.name }} ({{ category.products.all.count }})</a>
                         </li>
@@ -38,7 +38,7 @@
             
             <div class="mb-3">
                 {% for vendor in vendors %}
-                    <li class="text-center list-none py-1 px-2 rounded-md mx-4{% if vendor.id == vendor_id %} bg-[#fcbe00] text-white{% endif %}">
+                    <li class="text-center list-none py-1 px-2 rounded-md mx-4{% if vendor.id == vendor_id %} bg-[#ee6846] text-white{% endif %}">
                         <a href="{% url 'product:shop' %}?query={{ query }}&vendor={{ vendor.id }}">{{ vendor.title }}</a>
                     </li>
                 {% endfor %}
@@ -72,7 +72,7 @@
 
                             <input type="hidden" value="{{ p.title }}" class="product-title-{{ p.id }}">
 
-                            <button class="add add-to-cart-btn bg-yellow-400 text-white py-.5 px-3 hover:bg-yellow-600" id="add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i></button>
+                            <button class="add add-to-cart-btn bg-[#ee6846] text-white py-.5 px-3 hover:bg-[#ee6846]" id="add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i></button>
                         </div>
                     </div>
 

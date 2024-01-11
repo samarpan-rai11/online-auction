@@ -23,38 +23,44 @@
     </div>
 
     <div class="flex pt-5 pb-4 justify-around">
-        <a href="/" class="py-3 px-4 text-2xl font-bold">Auction</a>
+        <a href="/" class="py-3 px-4 text-2xl font-bold text-[#0f2e40]"><span class="text-[#ee6846]">AU</span>CTION</a>
         <form action="{% url 'product:search' %}" method="GET get">   
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
             <div class="relative mx-12" id="search-bar">
                 <!-- the name attribute in input tag should be same as query field used variable -->
                 <input type="text" value="{{ query }}" id="default-search" class="block p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50" placeholder="Search Category, Products..." style="min-width: 400px;" name="query" required>
-                <button type="submit" class="absolute end-2.5 bottom-2.5 bg-[#fcbe00] hover:bg-[#fcac10] font-medium rounded-lg text-sm px-4 py-2">Search</button>
+                <button type="submit" class="absolute end-2.5 bottom-2.5 bg-[#ee6846] hover:bg-[#ee5836] font-medium rounded-lg text-white text-sm px-4 py-2">Search</button>
             </div>
         </form>
         <div>
-            <a href="{% url 'core:cart-list' %}" class="flex py-3 px-4 text-xl font-medium hover:text-rose-600 text-gray-500"><img src="https://nest.apexcode.info/static/assets/imgs/theme/icons/icon-cart.svg" class="mr-1" alt="">Cart<span id="cart-number" class="cart-items-count text-sm antialiased text-black bg-yellow-400 px-2.5 py-1">{{ request.session.cart_data_obj|length }}</span></a>
+            <a href="{% url 'core:cart-list' %}" class="flex py-3 px-4 text-xl font-medium hover:text-[#ee6846] text-gray-500"><img src="https://nest.apexcode.info/static/assets/imgs/theme/icons/icon-cart.svg" class="mr-1 text-[#0f2e40]" alt="">Cart<span id="cart-number" class="cart-items-count text-sm antialiased text-white bg-[#ee6846] px-2.5 py-1">{{ request.session.cart_data_obj|length }}</span></a>
         </div>
     </div>
 
     <!-- navigation bar -->
-    <nav class="bg-gray-700 text-gray-100 py-4 px-6 flex justify-around items-center border-y border-gray-200 shadow-lg">
+    <nav class="bg-[#0f2e40] text-gray-100 py-4 px-6 flex justify-around items-center border-y border-gray-200 shadow-lg">
     
         <div class="space-x-6">
-            <a href="/" class="text-lg font-semibold hover:text-gray-400">Home</a>
-            <a href="{% url 'product:shop' %}" class="text-lg font-semibold hover:text-gray-400">Shop</a>
-            <a href="{% url 'product:bid' %}" class="text-lg font-semibold hover:text-gray-400">Bid</a>
-            <a href="{% url 'core:vendor-list' %}" class="text-lg font-semibold hover:text-gray-400">Vendors</a>
-            <a href="#about" class="text-lg font-semibold hover:text-gray-400">About</a>
+            <a href="/" class="text-lg font-semibold hover:text-[#ee6846]">Home</a>
+            <a href="{% url 'product:shop' %}" class="text-lg font-semibold hover:text-[#ee6846]">Shop</a>
+            <a href="{% url 'product:bid' %}" class="text-lg font-semibold hover:text-[#ee6846]">Bid</a>
+            <a href="{% url 'core:vendor-list' %}" class="text-lg font-semibold hover:text-[#ee6846]">Vendors</a>
+            <a href="#about" class="text-lg font-semibold hover:text-[#ee6846]">About</a>
         </div>
             
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'product:new' %}" class="text-lg font-semibold hover:text-gray-400">New Product</a>  
+        {% if request.user.is_authenticated %} 
+            <div class="dropdown">
+                <span class="dropbtn text-lg font-semibold hover:text-[#ee6846]">Add <i class="fa-solid fa-plus"></i></span>
+                <div class="dropdown-content">
+                    <a href="{% url 'product:new' %}">New Product</a>
+                    <a href="#">Auction</a>
+                </div>
+            </div>
         {% endif %}
 
         {% if request.user.is_authenticated %}
             <div class="dropdown">
-                <span class="dropbtn px-3 bg-emerald-500 hover:bg-emerald-600"><i class="fas fa-user"></i> &nbsp;{{ request.user.username }}</span>
+                <span class="dropbtn text-lg font-semibold">&nbsp;<i class="fas fa-user"></i> &nbsp;{{ request.user.username }}</span>
                 <div class="dropdown-content">
                     <a href="{% url 'core:profile' %}"><i class="fas fa-user"></i> &nbsp;Profile</a>
                     <a href="{% url 'core:dashboard' %}"><i class="fa-solid fa-layer-group"></i> &nbsp;Dashboard</a>
@@ -62,7 +68,7 @@
                 </div>
             </div>
         {% else %}
-            <a href="{% url 'userauth:signup' %}" class="px-4 py-1 text-lg font-medium bg-sky-500 text-white rounded-md hover:bg-sky-700">Sign up</a>
+            <a href="{% url 'userauth:signup' %}" class="px-4 py-1 text-lg font-medium bg-[#ef6540] text-white rounded-md hover:bg-[#f07a5d]">Sign up</a>
         {% endif %}
  
     </nav>
@@ -91,7 +97,7 @@
         {% endblock %}
     </main>
 
-    <footer class="py-6 px-6 flex justify-between bg-gray-700">
+    <footer class="py-6 px-6 flex justify-between bg-[#0f2e40]">
         <div class="w-2/3 pr-10">
             <h3 class="mb-5 font-semibold text-gray-200">About</h3>
 
