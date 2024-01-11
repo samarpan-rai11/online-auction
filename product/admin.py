@@ -6,7 +6,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ['category','title','price','on_stock']
 
 class AuctionAdmin(admin.ModelAdmin):
-    list_display = ['categori','name','bid','on_stock','auction_status']
+    list_display = ['categori','name','bid','live','auction_status']
 
 class VendorAdmin(admin.ModelAdmin):
     list_display = ['title','address','contact','user']
@@ -26,10 +26,13 @@ class UserProfileAdmin(admin.ModelAdmin):
 class CouponCodeAdmin(admin.ModelAdmin):
     list_display = ['code','discount']
 
+class BidTAdmin(admin.ModelAdmin):
+    list_display = ['auction','end_time']
+
 admin.site.register(Category)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Auction, AuctionAdmin)
-admin.site.register(BidT)
+admin.site.register(BidT, BidTAdmin)
 admin.site.register(Auctioneer, AuctioneerAdmin)
 admin.site.register(Vendor, VendorAdmin)
 admin.site.register(Order, OrderAdmin)

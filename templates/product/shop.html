@@ -24,7 +24,7 @@
             <div class="mb-3">
                 {% for category in categories %}
                         <li class="flex text-center list-none py-1 px-2 rounded-md mx-4{% if category.id == category_id %} bg-[#fcac10] text-white{% endif %}">
-                            <img src="{{ category.image.url }}" alt="image" style="height: 25px; width: 30px;" class="rounded-full mr-2">
+                            <img src="{{ category.image.url }}" alt="image" style="height: 25px; width: 30px;" class="rounded-full mr-1">
                             <a href="{% url 'product:shop' %}?query={{ query }}&category={{ category.id }}">{{ category.name }} ({{ category.products.all.count }})</a>
                         </li>
                 {% endfor %}

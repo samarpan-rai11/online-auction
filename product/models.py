@@ -4,6 +4,7 @@ from datetime import datetime
 from taggit.managers import TaggableManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 
 # Create your models here.
 
@@ -43,7 +44,7 @@ class Category(models.Model):
 
 class Vendor(models.Model):
     title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='vendor_images', blank=True)
+    image = models.ImageField(upload_to='vendor_images', default='user-default.png')
     description = models.TextField(blank=True, null=True)
 
     address = models.CharField(max_length=100, default="1")
@@ -61,7 +62,7 @@ class Vendor(models.Model):
 
 class Auctioneer(models.Model):
     title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='auctioneer_images', blank=True,default='user-efault.png')
+    image = models.ImageField(upload_to='auctioneer_images', blank=True,default='user-default.png')
     description = models.TextField(blank=True, null=True)
 
     address = models.CharField(max_length=100, default="1")
@@ -84,11 +85,10 @@ class Product(models.Model):
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=0)
     old_price = models.DecimalField(max_digits=10, decimal_places=0,default=0)
-    image = models.ImageField(upload_to='product_images', blank=True)
+    image = models.ImageField(upload_to='product_images', blank=False, null=False)
     
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, null=True, related_name='vendor')
     is_sold = models.BooleanField(default=False)
-    created_by = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
 
     tags = TaggableManager(blank=True)
     on_stock = models.BooleanField(default=True)
@@ -113,14 +113,15 @@ class Auction(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     bid = models.DecimalField(max_digits=10, decimal_places=0)
-    image = models.ImageField(upload_to='product_images', blank=True)
+    image = models.ImageField(upload_to='auction_images', default='default-product-image.png')
 
     auctioneer = models.ForeignKey(Auctioneer, on_delete=models.CASCADE, null=True, related_name='auctioneer')
     duration= models.PositiveIntegerField(choices=AUCTION_DURATION, blank=True, null=True)
 
     auction_status = models.CharField(choices=STATUS_CHOICE, max_length=10, default="in_review")
-    made_by = models.ForeignKey(User, related_name='auction', on_delete=models.CASCADE)
-    on_stock = models.BooleanField(default=True)
+
+
+    live = models.BooleanField(default=True)
 
     tags = TaggableManager(blank=True)
 
@@ -248,3 +249,29 @@ def save_user_profile(sender, instance, **kwargs):
 
 post_save.connect(create_user_profile, sender=User)
 post_save.connect(save_user_profile, sender=User)
+
+
+
+
+
+############################################################################################################################################################################################################
+#This signal will automatically create instance of BidT when user creates Auction
+@receiver(post_save, sender=Auction)
+def bid_time(sender, instance, created, **kwargs):
+    if created:
+        for duration, _ in AUCTION_DURATION:
+            if instance.duration == duration:
+                end_time = timezone.now() + timezone.timedelta(days=duration)
+                break
+        else:
+            raise ValueError("Invalid auction duration")
+
+        BidT.objects.create(
+            start_time=timezone.now(),
+            end_time=end_time,
+            auction=instance,
+        )
+
+
+# Connect the signals
+post_save.connect(bid_time, sender=Auction)

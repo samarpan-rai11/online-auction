@@ -15,10 +15,10 @@
         <div class="flex">
             <p class="mt-3 text-2xl mr-5 font-medium"><span class="text-gray-400">Current Bid: </span>${{ auction.bid }}</p>
         </div>
-        <p class="text-gray-500 mt-1"><strong>Seller: </strong>{{ auction.made_by.username }}</p>
+        <p class="text-gray-500 mt-1"><strong>Auctioneer: </strong>{{ auction.auctioneer }}</p>
         <p class="text-gray-500 mt-1 mb-2"><strong>Tags:</strong>
             {% for tag in auction.tags.all %}
-                <a href="{% url 'core:tags' tag.slug %}">
+                <a href="#">
                     #{{ tag.name }},
                 </a>
             {% endfor %}

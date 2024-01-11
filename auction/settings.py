@@ -122,7 +122,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# this is so that aution time is set correctly
+TIME_ZONE = 'Asia/Kathmandu'
+USE_TZ = True
+
 
 USE_I18N = True
 

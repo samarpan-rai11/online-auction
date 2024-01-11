@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
     products = Product.objects.filter(is_sold=False,).order_by("-date")[:4]
-    auctions = Auction.objects.all().order_by("-date")[:4]
+    auctions = Auction.objects.filter(live=True).order_by("-date")[:4]
     categories = Category.objects.all()
 
     return render(request,"index.html",{

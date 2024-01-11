@@ -103,7 +103,7 @@ def shop_view(request):
 # this is for auction list page
 def bid_view(request):
     categories = Category.objects.all()
-    auctions = Auction.objects.filter(on_stock=True).order_by("-date")
+    auctions = Auction.objects.filter(live=True).order_by("-date")
     auctioneers = Auctioneer.objects.all()
 
     auctioneer_id = request.GET.get('auctioneer', 0)
