@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Auction, Bid, Auctioneer, Vendor, Order, CartOrder, Payment, UserProfile, ProductReview, CouponCode
+from .models import Category, Product, Auction, BidT, Auctioneer, Vendor, Order, CartOrder, Payment, UserProfile, ProductReview, CouponCode
 # Register your models here.
 
 class ProductAdmin(admin.ModelAdmin):
@@ -29,7 +29,7 @@ class CouponCodeAdmin(admin.ModelAdmin):
 admin.site.register(Category)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Auction, AuctionAdmin)
-admin.site.register(Bid)
+admin.site.register(BidT)
 admin.site.register(Auctioneer, AuctioneerAdmin)
 admin.site.register(Vendor, VendorAdmin)
 admin.site.register(Order, OrderAdmin)

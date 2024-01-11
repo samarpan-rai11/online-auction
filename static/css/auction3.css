@@ -1,0 +1,129 @@
+*{
+    font-family: 'Quicksand', sans-serif;
+}
+.card1 .go-arrow {
+    position: absolute;
+    top: -3px;
+    right: 4px;
+    color: white;
+    font-family: courier, sans;
+}
+
+.card1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 8rem;
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+  
+    &:before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: -13px;
+      right: -13px;
+      background: #0284c7;
+      height: 34px;
+      width: 34px;
+      border-radius: 25px;
+      transform: scale(1);
+      transform-origin: 50% 50%;
+      transition: transform 0.25s ease-out;
+    }
+  
+    &:hover:before {
+      transform: scale(21);
+    }
+  }
+
+.card1:hover {
+    p {
+      transition: all 0.3s ease-out;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    h3 {
+      transition: all 0.3s ease-out;
+      color: #ffffff;
+    }
+    strong {
+      transition: all 0.3s ease-out;
+      color: #ffffff;
+    }
+  }
+
+.container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3;
+    justify-content: space-evenly;
+}
+
+.container .card{
+    position: relative;
+    width: 15rem;
+    height: 22rem;
+    transition: transform .2s;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-bottom: 1rem;
+}
+
+.container .card:hover{
+    transform: scale(1.05);
+}
+
+.container .card img{
+    object-fit: contain;
+    height: 14.063rem;
+    width: 100%;
+    transition: all ease-in-out .4s;
+}
+
+.card img:hover {
+    transform: scale(1.07) rotate(2deg);
+}
+
+#price{
+    position: relative;
+    top: -0.25rem;
+    font-size: 9px;
+}
+
+#auction-live{
+  position: absolute;
+  top: 2%;
+  text-transform: none;
+  font-size: 9px;
+}
+
+#clockdiv{
+  font-family: sans-serif;
+  color: #fff;
+  font-weight: 100;
+  text-align: center;
+  font-size: 30px;
+}
+
+#clockdiv > div{
+  padding: 10px;
+  border-radius: 3px;
+  background: #10b981;
+  display: inline-block;
+}
+
+#clockdiv div > span{
+  padding: 10px;
+  border-radius: 3px;
+  background: #059669;
+  display: inline-block;
+}
+
+.smalltext{
+  padding-top: 5px;
+  font-size: 17px;
+} 

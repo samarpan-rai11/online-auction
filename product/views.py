@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Avg
-from .models import Product, Auction, ProductReview, Vendor, Auctioneer, Category
+from .models import Product, Auction, ProductReview, Vendor, Auctioneer, Category, BidT
 from .forms import NewProductForm
 from core.forms import ProductReviewForm
 from django.db.models import Q
@@ -43,9 +43,15 @@ def auction_detail(request, pk):
     auction = get_object_or_404(Auction, pk=pk)
     related_auctions = Auction.objects.filter(categori=auction.categori).exclude(pk=pk)[0:4]
 
+    # auction.auction is used to access the related BidT object through the one-to-one relationship.
+    bid_time= auction.auction
+    end_time = bid_time.end_time if bid_time else None
+
+
     return render(request, 'product/auction_detail.html', {
         'auction': auction,
         'related_auctions': related_auctions,
+        'endingtime': end_time,
     })
 
 

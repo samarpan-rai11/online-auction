@@ -61,7 +61,7 @@ class Vendor(models.Model):
 
 class Auctioneer(models.Model):
     title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='auctioneer_images', blank=True)
+    image = models.ImageField(upload_to='auctioneer_images', blank=True,default='user-efault.png')
     description = models.TextField(blank=True, null=True)
 
     address = models.CharField(max_length=100, default="1")
@@ -131,16 +131,18 @@ class Auction(models.Model):
         return self.name
     
 
+class BidT(models.Model):
+    start_time =  models.DateTimeField(auto_now=True)
+    end_time =  models.DateTimeField(auto_now=False,default=datetime.now)
 
-class Bid(models.Model):
-    bidder = models.ForeignKey(User, on_delete=models.CASCADE)
-    auction = models.ForeignKey(Auction, on_delete=models.CASCADE,related_name='bids')
-    bid_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    bid_time = models.DateTimeField(auto_now_add=True)
+    auction = models.OneToOneField(Auction, on_delete=models.CASCADE, related_name="auction")
 
-    def __str__(self):
-        return f"{self.bidder.username} - {self.bid_amount}"
+    class Meta():
+        verbose_name_plural = "Bid Time"
     
+    
+    def __str__(self):
+        return self.auction.name
     
 
 ########################## Order, Cart , Payment ###################
