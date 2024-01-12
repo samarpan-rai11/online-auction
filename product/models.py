@@ -146,6 +146,22 @@ class BidT(models.Model):
         return self.auction.name
     
 
+
+class Bids(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    # listingid is for the id of the auction that user bids for 
+    listingid = models.IntegerField()
+    bid = models.IntegerField()
+
+    class Meta():
+        verbose_name_plural = "Bids"
+
+
+
+class Winner(models.Model):
+    bid_win_list = models.ForeignKey(Auction, on_delete = models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 ########################## Order, Cart , Payment ###################
 ########################## Order, Cart , Payment ###################
 ########################## Order, Cart , Payment ###################

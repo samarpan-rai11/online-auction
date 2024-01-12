@@ -13,7 +13,7 @@
         <h1 class="mb-2 text-[#ee6846] text-3xl font-medium">{{ auction.name }}</h1>
         <hr>
         <div class="flex">
-            <p class="mt-3 text-2xl mr-5 font-medium"><span class="text-gray-400">Current Bid: </span class="text-[#0f2e40]">${{ auction.bid }}</p>
+            <p class="mt-3 text-2xl mr-5 font-medium"><span class="text-gray-400">Current Bid: </span class="text-[#0f2e40]">${{ current_bid }}</p>
         </div>
         <p class="text-gray-500 mt-1"><strong>Auctioneer: </strong>{{ auction.auctioneer }}</p>
         <p class="text-gray-500 mt-1 mb-2"><strong>Tags:</strong>
@@ -45,14 +45,22 @@
               <div class="smalltext font-medium">Seconds</div>
             </div>
         </div>
-        <div class="flex mt-4 justify-evenly">
+        <div class="flex my-4 justify-evenly">
             <div>
-                <input id="bid-input" name="qty" value="{{auction.bid}}" class="border p-2 rounded-lg">
-                  
-                <button onclick="var result = document.getElementById('bid-input'); var sst = result.value; if( !isNaN( sst )) result.value= parseInt(result.value)+parseInt(5); return false;" class="increase items-count px-3 py-2 bg-[#0f2e40] rounded-lg text-white" type="button"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+                <form method="get GET" action ="{% url 'product:bids' %}">
+                    <input id="bid-input" name= "bid_amnt" value="{{ current_bid }}" class="border p-2 rounded-lg">
+                      
+                    <button onclick="var result = document.getElementById('bid-input'); var sst = result.value; if( !isNaN( sst )) result.value= parseInt(result.value)+parseInt(5); return false;" class="increase items-count px-3 py-2 bg-[#0f2e40] rounded-lg text-white" type="button"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+                    
+                    <button type="submit" name="auct_d" value ="{{ auction.id }}" class="inline-block py-2 border border-[#ee6846] font-medium text-[#ee6846] rounded-md hover:bg-[#ee6846] px-6 text-center hover:text-white ml-5"><i class="fa fa-gavel"></i> &nbsp;Bid</button>
+                </form>
             </div>
+        </div>
 
-            <button class="inline-block py-2 border border-[#ee6846] font-medium text-[#ee6846] rounded-md hover:bg-[#ee6846] px-6 text-center hover:text-white"><i class="fa fa-gavel"></i> &nbsp;Bid</button>
+
+        <div class="flex justify-center mt-8">
+            <span class="py-2 mr-3 text-emerald-500 text-xl font-medium">Want to predict the bid ?</span>
+            <button class="inline-block py-2 font-medium text-white bg-[#ee6846] rounded-md hover:bg-[#ee5646] px-6 text-center hover:text-white"><i class="fa fa-gavel"></i> &nbsp;Predict</button>
         </div>
     </div>
 
@@ -168,7 +176,7 @@ var x = setInterval(function(){
         minutesSpan.innerHTML="00";
         secondsSpan.innerHTML="00";
         if(winner){
-            document.getElementById('winner').textContent="The Winner is " +winner;
+            document.getElementById('winner').textContent="The Winner is " + winner;
         }else{
 	        document.getElementById('winner').textContent="No Winner declared";
         }

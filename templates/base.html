@@ -16,6 +16,10 @@
 
     <title>{% block title %} {% endblock %} Online Auction</title>
     <link rel="stylesheet" href="{% static 'css/base7.css' %}" />
+
+
+    <link rel="icon" href="{% static 'auction.png' %}" type="image/x-icon">
+
 </head>
 
 <body style="font-family: 'Quicksand', sans-serif;">
@@ -53,6 +57,7 @@
                 <span class="dropbtn text-lg font-semibold hover:text-[#ee6846]">Add <i class="fa-solid fa-plus"></i></span>
                 <div class="dropdown-content">
                     <a href="{% url 'product:new' %}">New Product</a>
+                    <hr>
                     <a href="#">Auction</a>
                 </div>
             </div>
@@ -63,12 +68,18 @@
                 <span class="dropbtn text-lg font-semibold">&nbsp;<i class="fas fa-user"></i> &nbsp;{{ request.user.username }}</span>
                 <div class="dropdown-content">
                     <a href="{% url 'core:profile' %}"><i class="fas fa-user"></i> &nbsp;Profile</a>
+                    <hr>
                     <a href="{% url 'core:dashboard' %}"><i class="fa-solid fa-layer-group"></i> &nbsp;Dashboard</a>
+                    <hr>
                     <a href="{% url 'userauth:logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp;Sign out</a>
                 </div>
             </div>
         {% else %}
-            <a href="{% url 'userauth:signup' %}" class="px-4 py-1 text-lg font-medium bg-[#ef6540] text-white rounded-md hover:bg-[#f07a5d]">Sign up</a>
+        <div>
+            <a href="{% url 'userauth:login' %}" class="px-4 py-1 text-lg font-medium bg-[#ef6540] text-white rounded-md hover:bg-[#f07a5d] mr-4">Log in</a>
+            
+            <a href="{% url 'userauth:signup' %}" class="px-4 py-1 text-lg font-medium border border-[#ef6540] text-[#ef6540] hover:text-white rounded-md hover:bg-[#ef6540]">Sign up</a>
+        </div>
         {% endif %}
  
     </nav>
@@ -89,7 +100,7 @@
     <script>
          setTimeout(function () {
             $('#flash-message').fadeOut();
-        }, 3000);
+        }, 5000);
     </script>
     
     <main>
