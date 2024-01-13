@@ -5,8 +5,8 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/auction3.css' %}" />
 <div class="flex mt-4 justify-evenly">
-    <div class="mr-2">
-        <img src="{{ auction.image.url }}" class="rounded-md ml-4" style="max-width: 25rem;">
+    <div>
+        <img src="{{ auction.image.url }}" style="height: 380px; width: 400px; object-fit: contain;">
     </div>
 
     <div class="col-span-2 p-5 rounded-xl" style="min-width: 34.375rem;">

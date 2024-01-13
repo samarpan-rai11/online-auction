@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from datetime import datetime
 from taggit.managers import TaggableManager
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.utils import timezone
 
@@ -216,6 +216,11 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/',default='user-default.png')
     contact = models.CharField(max_length=70,default="+123 456 789", blank=True)
+
+    is_vendor = models.BooleanField(default=False)
+    is_auctioneer = models.BooleanField(default=False)
+    is_customer = models.BooleanField(default=False)
+
     verified = models.BooleanField(default=False)
 
     def __str__(self):
@@ -245,7 +250,6 @@ class ProductReview(models.Model):
 ########################## Coupon Code ##############################
 #####################################################################
 
-
 class CouponCode(models.Model):
     code = models.CharField(max_length=100)
     discount = models.IntegerField()
@@ -253,6 +257,8 @@ class CouponCode(models.Model):
 
     def __str__(self):
         return self.code
+
+ 
     
 
 ### This signal will automatically create instance of UserProfile when user is registerd(signup). 
@@ -261,17 +267,30 @@ class CouponCode(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
+        
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     # there is a one-to-one relationship between the User model and a UserProfile model, and profile is the related name for the one-to-one field in the User model. 
-    instance.profile.save()
+    if hasattr(instance, 'profile'):
+        instance.profile.save()
 
 
 post_save.connect(create_user_profile, sender=User)
 post_save.connect(save_user_profile, sender=User)
 
 
+
+##########################################################################################################################################
+# these signals are there so that when Auctioneer or Vendor is deleted the userprofile of these users are also deleted
+@receiver(post_delete, sender=Auctioneer)
+def delete_related_user_and_profile(sender, instance, **kwargs):
+    instance.user.delete()
+
+
+@receiver(post_delete, sender=Vendor)
+def delete_related_user_and_profile(sender, instance, **kwargs):
+    instance.user.delete()
 
 
 

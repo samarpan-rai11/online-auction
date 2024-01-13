@@ -112,6 +112,12 @@ h2{
   border-radius: 100%;
 }
 
+/* #det-img{
+  height: 240px;
+  width: 350px;
+  object-fit: contain;
+} */
+
 .pdetail{
   width: 900px;
 }

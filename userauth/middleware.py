@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 from django.urls import reverse
 
+
 class PreventLoginSignupAccessMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -10,10 +11,9 @@ class PreventLoginSignupAccessMiddleware:
 
         # Check if the user is logged in
         if request.user.is_authenticated:
-            # Define the URLs that logged-in users should be redirected from
+            # URLs that logged-in users should be redirected from
             restricted_urls = [reverse('userauth:login'), reverse('userauth:signup')]
 
-            # Redirect the user if they try to access a restricted URL
             if request.path in restricted_urls:
                 return redirect('core:index')
 

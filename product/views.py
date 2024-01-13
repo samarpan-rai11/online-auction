@@ -15,6 +15,8 @@ def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     related_products = Product.objects.filter(category=product.category, is_sold=False).exclude(pk=pk)[0:4]
 
+    vendors = Vendor.objects.all()
+
     #this means this product should be equal to ProductReview product field
     reviews = ProductReview.objects.filter(product=product).order_by("-date") 
 
@@ -34,6 +36,7 @@ def product_detail(request, pk):
         'p': product,
         'average_rating': average_rating,
         'reviews': reviews,
+        'vendors': vendors,
         'make_review': make_review,
         'review_form': review_form,
         'related_products': related_products,

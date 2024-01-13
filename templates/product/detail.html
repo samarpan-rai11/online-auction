@@ -10,7 +10,7 @@
 
 <div class="flex mt-4 justify-evenly">
     <div class="mr-2">
-        <img src="{{ p.image.url }}" class="rounded-md ml-4" style="max-width: 25rem;">
+        <img src="{{ p.image.url }}" class="rounded-md ml-4" id="det-image" style="height: 380px; width: 400px; object-fit: contain;">
     </div>
 
     <div class="col-span-2 p-6 rounded-xl mr-3 pdetail">
@@ -75,16 +75,16 @@
                 </div>
                 <div class="flex align-middle mb-4 justify-center">
                     <img src="{{ p.vendor.image.url }}" alt="image" style="height: 70px; width: 70px; object-fit: cover;" class="rounded-full mr-4">
-                    <p class="font-semibold flex justify-center items-center text-xl text-[#ee6846]">
+                    <a href="{% url 'core:vendor-detail' p.vendor.id %}" class="font-semibold flex justify-center items-center text-xl text-[#ee6846]">
                         {{ p.vendor }}
-                    </p>
+                    </a>
                 </div>
                 <hr class="mb-3">
                 <div class="mb-1 flex items-center justify-center">
                     <i class="fa-solid fa-location-dot text-[#ee6846]"></i> &nbsp;<span class="font-medium mr-1">Address:</span> <span class="ml-1">{{ p.vendor.address }}</span>
                 </div>
                 <div class="flex items-center justify-center">
-                    <i class="fa fa-phone text-[#ee6846]"></i> &nbsp;<span class="font-medium mr-1">Contact:</span> <span class="ml-1">{{ p.vendor.contact }}</span>
+                    <i class="fa-solid fa-headphones text-[#ee6846]"></i> &nbsp;<span class="font-medium mr-1">Contact:</span> <span class="ml-1">{{ p.vendor.contact }}</span>
                 </div>
             </div>
             {% endif %}
@@ -92,7 +92,7 @@
     </div>
 </div>
 
-<div class="mt-8 bg-gray-100 p-4">
+<div class="mt-8 bg-gray-100 py-4 px-8">
     <strong class="text-gray-500 text-xl">Description:</strong>
     {% if p.description %}
     <p class="text-gray-700 mt-2">

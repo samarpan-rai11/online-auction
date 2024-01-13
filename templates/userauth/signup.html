@@ -69,11 +69,16 @@
 
           {% endif %}
 
-          <div>
+          <div class="flex flex-col w-full">
             {{ signup_form.username }}
             {{ signup_form.email }}
             {{ signup_form.password1 }}
             {{ signup_form.password2 }}
+            <div class="text-gray-600">
+              {{ signup_form.user_type }}
+            </div>
+
+            
           </div>
           
           {% if form.errors or form.non_field_errors %}

@@ -122,3 +122,9 @@ h2{
   text-transform: none;
   font-size: 9px;
 }
+
+#c-product, #c-auction{
+  height: 300px;
+  width: 400px;
+  object-fit: contain;
+}

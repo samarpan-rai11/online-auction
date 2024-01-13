@@ -28,6 +28,17 @@
                 <p class="text-2xl font-medium">Contact</p>
                 <input type="text" class="mt-2 mb-4 p-3 border rounded-lg text-center text-emerald-600 text-xl" name="" value="Contact - {{ profile.contact }}" readonly>
                 
+                <div class="text-center mb-4 text-xl">
+                    <p class="text-2xl font-medium">Type</p>
+                    {% if profile.is_vendor %}
+                        <input type="text" class=" mb-2 rounded-lg text-center text-emerald-600 text-xl" name="" value="Vendor" readonly>
+                    {% elif profile.is_auctioneer %}
+                        <input type="text" class=" mb-2 rounded-lg text-center text-emerald-600 text-xl" name="" value="Auctioneer" readonly>
+                    {% else %}
+                        <input type="text" class=" mb-2 rounded-lg text-center text-emerald-600 text-xl" name="" value="Customer" readonly>
+                    {% endif %}
+                </div>
+
                 <div class="text-center">
                     {% if profile.verified %}
                         ✅ &nbsp; Verfied User 

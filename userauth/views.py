@@ -13,6 +13,7 @@ def signup(request):
         signup_form = SignUpForm(request.POST)
         if signup_form.is_valid():
             user = signup_form.save()
+            
             username = signup_form.cleaned_data.get('username')
             messages.success(request, f"Hey {username}, Your account was created successfully.")
             return redirect('userauth:login')  # Redirect to your home page after signup

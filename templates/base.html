@@ -52,16 +52,25 @@
             <a href="#about" class="text-lg font-semibold hover:text-[#ee6846]">About</a>
         </div>
             
+        <!-- showing different options based on user type -->
         {% if request.user.is_authenticated %} 
-            <div class="dropdown">
-                <span class="dropbtn text-lg font-semibold hover:text-[#ee6846]">Add <i class="fa-solid fa-plus"></i></span>
-                <div class="dropdown-content">
-                    <a href="{% url 'product:new' %}">New Product</a>
-                    <hr>
-                    <a href="#">Auction</a>
+        <div class="dropdown">
+                {% if request.user.profile.is_vendor %}
+                    <span class="dropbtn text-lg font-semibold hover:text-[#ee6846]">Add <i class="fa-solid fa-plus"></i></span>
+                        <div class="dropdown-content">
+                            <a href="{% url 'product:new' %}">New Product</a>
+                {% endif %}
+                    
+                {% if request.user.profile.is_auctioneer %}
+                    <span class="dropbtn text-lg font-semibold hover:text-[#ee6846]">Add <i class="fa-solid fa-plus"></i></span>
+                        <div class="dropdown-content">
+                            <a href="#">New Auction</a>
+                {% endif %}
                 </div>
             </div>
         {% endif %}
+
+        
 
         {% if request.user.is_authenticated %}
             <div class="dropdown">

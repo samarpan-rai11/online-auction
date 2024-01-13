@@ -1,48 +1,59 @@
 {% extends 'base.html' %}
-
-{% block title %}{{ vendor.title }}{% endblock %}
+{% load static %}
+{% block title %}{{ vendor.title }} |{% endblock %}
 
 {% block content %}
-<div class="grid grid-cols-5 gap-6">
-    <div class="col-span-3">
-        <img src="{{ vendor.image.url }}" class="rounded-md ml-4 mt-4">
+<link rel="stylesheet" href="{% static 'css/vendor.css' %}" />
+
+<div class="flex justify-around mt-5">
+    <div>
+        <img src="{{ vendor.image.url }}" class="mt-4 detail-vendor">
     </div>
 
-    <div class="col-span-2 mt-4 mr-4 p-6 bg-gray-100 rounded-xl">
-        <h1 class="mb-6 text-2xl font-medium">{{ vendor.title }}</h1>
+    <div class="mt-4 p-6 bg-gray-100 rounded-xl desc">
+        <h1 class="mb-6 text-center text-2xl font-medium">{{ vendor.title }}</h1>
         <p class="text-gray-900">{{ vendor.description }}</p>
-        <p class="text-gray-700 mt-4">{{ vendor.address }}</p>
-        <p class="text-gray-700">{{ vendor.contact }}</p>
+
+        <div class="text-center mt-3">
+            <p class="text-gray-700 mt-4"><i class="fa-solid fa-location-dot"></i> <span class="font-semibold" >Address:</span> {{ vendor.address }}</p>
     
- 
-        <a href="#" class="inline-block mt-6 px-4 py-3 text-lg font-semibold bg-sky-500 text-white rounded-xl hover:bg-sky-700">Contact seller</a>
+            <p class="text-gray-700"><i class="fa-solid fa-headphones"></i> <span class="font-semibold"> Contact:</span> {{ vendor.contact }}</p>
+
+        </div>
     </div>
 </div>
 
-<div class="mt-6 mx-4 mb-4 px-6 py-12 bg-gray-100 rounded-xl">
-    <h2 class="mb-12 text-xl text-center">This vendor has <span class="text-emerald-500">{{ products.all.count }}</span> products for you.</h2>
+<h2 class="mt-12 text-xl text-center">This vendor has <span class="text-emerald-500">{{ products.all.count }}</span> products for you.</h2>
 
-    <div class="flex flex-col">
-        {% for product in products %}
-        <div class="mb-4 shadow-[rgba(0,_0,_0,_0.5)_0px_3px_8px] rounded-md flex" style="max-width: 750px; max-height:230px">
-            <div>
-                <a href="{% url 'product:detail' product.id %}">
-                    <img src="{{ product.image.url }}" style="max-width: 230px; max-height: 230px;" class="rounded-tl-md rounded-bl-md border-2 bg-white object-contain"> 
-                </a>
-            </div>
-
-            <div class="p-6 rounded-b-xl ml-4">
-                <a href="{% url 'product:detail' product.id %}" class="text-2xl font-medium hover:text-rose-700">{{ product.title }}</a>
-                <p class="my-3">{{ product.description|truncatechars:50 }}</p>
-                <!---- The number 50 based on the desired length -->
-                <div class="flex mb-5">
-                    <p class="text-3xl font-medium mr-5">${{ product.price }}</p>
-                    <s class="text-xl font-medium text-gray-400 relative -bottom-2">${{ product.old_price }}</s>
-                </div>
-                <a href="#" class="bg-emerald-500 p-2 rounded-md text-white text-sm hover:bg-emerald-700">Add to Cart &rarr;</a>
-            </div>
+<div class="flex justify-around">
+    {% if products %}
+        <div>
+            <img src="{% static 'assets/vbanner.png' %}" alt="banner" id="v-banner" class="mt-9 mb-5">
         </div>
-        {% endfor %}
+    {% endif %}
+    <div class="mb-4 px-6 py-9 grid justify-around">
+        <div>
+            {% for product in products %}
+            <div class="mb-4 shadow-[rgba(0,_0,_0,_0.5)_0px_3px_8px] rounded-md flex card">
+                <div>
+                    <a href="{% url 'product:detail' product.id %}">
+                        <img src="{{ product.image.url }}" class="rounded-tl-md rounded-bl-md border-2 bg-white object-contain" id="img-product"> 
+                    </a>
+                </div>
+    
+                <div class="p-6 rounded-b-xl ml-4">
+                    <a href="{% url 'product:detail' product.id %}" class="text-2xl font-medium hover:text-rose-700">{{ product.title }}</a>
+                    <p class="my-3">{{ product.description|truncatechars:70 }}</p>
+                    <!---- The number 50 based on the desired length -->
+                    <div class="flex mb-5">
+                        <p class="text-2xl font-medium mr-5">${{ product.price }}</p>
+                        <s class=" font-medium text-gray-400 relative -bottom-1.5">${{ product.old_price }}</s>
+                    </div>
+                    <a href="#" class="bg-emerald-500 p-2 rounded-md text-white text-sm hover:bg-emerald-700">Add to Cart &rarr;</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}
