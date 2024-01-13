@@ -115,7 +115,9 @@ class Auction(models.Model):
     image = models.ImageField(upload_to='auction_images', default='default-product-image.png')
 
     auctioneer = models.ForeignKey(Auctioneer, on_delete=models.CASCADE, null=True, related_name='auctioneer')
+
     duration= models.PositiveIntegerField(choices=AUCTION_DURATION, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now=True)
 
     auction_status = models.CharField(choices=STATUS_CHOICE, max_length=10, default="in_review")
 
@@ -130,7 +132,7 @@ class Auction(models.Model):
     def __str__(self):
         return self.name
     
-    
+
 
 class BidT(models.Model):
     start_time =  models.DateTimeField(auto_now=True)

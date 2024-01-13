@@ -61,7 +61,9 @@ def auction_detail(request, pk):
     bid_time= auction.auction
     end_time = bid_time.end_time if bid_time else None
 
-    winner_name = request.GET.get('winner', None)
+    # In auction_detail view
+    winner_name = request.session.get('winner_name', None)
+    
 
     return render(request, 'product/auction_detail.html', {
         'auction': auction,
@@ -109,7 +111,7 @@ def bids(request):
         request.session['winner_name'] = winner_name
 
         # Redirect to the auction_detail view with winner_name as a query parameter
-        redirect_url = reverse('product:auction_detail', args=[auct_id]) + f'?winner={winner_name}'
+        redirect_url = reverse('product:auction_detail', args=[auct_id])
     
         return redirect(redirect_url)
     else:

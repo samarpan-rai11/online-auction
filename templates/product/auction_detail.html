@@ -25,7 +25,7 @@
         </p>
         <hr> 
 
-        <h1 id="winner" class="display-4 text-3xl font-bold text-center mt-4 text-[#FF004D]" ></h1>
+        <h1 id="winner" class="display-4 text-4xl font-bold text-center mt-5 text-emerald-500" ></h1>
         <!-- Auction Timer -->
         <div id="clockdiv" class="mt-2 flex justify-evenly px-6 py-3">
             <div class="text-center">
@@ -54,11 +54,14 @@
                     
                     <button type="submit" name="auct_d" value ="{{ auction.id }}" class="inline-block py-2 border border-[#ee6846] font-medium text-[#ee6846] rounded-md hover:bg-[#ee6846] px-6 text-center hover:text-white ml-5" id="bid-btn"><i class="fa fa-gavel"></i> &nbsp;Bid</button>
                 </form>
+                <div class="text-3xl mt-3">
+                    <p class="font-semibold text-rose-600" id="demo"></p>
+                </div>
             </div>
         </div>
 
 
-        <div class="flex justify-center mt-8">
+        <div class="flex justify-center mt-8" id="prediction">
             <span class="py-2 mr-3 text-emerald-500 text-xl font-medium">Want to predict the bid ?</span>
             <button class="inline-block py-2 font-medium text-white bg-[#ee6846] rounded-md hover:bg-[#ee5646] px-6 text-center hover:text-white"><i class="fa fa-gavel"></i> &nbsp;Predict</button>
         </div>
@@ -138,8 +141,6 @@
 
 winner="{{winner_name}}"
 
-console.log(winner)
-
 var endingtime = "{{ endingtime|date:'M j, Y G:i:s' }}";
 
 var countDownDate = new Date(endingtime).getTime();
@@ -185,13 +186,18 @@ var x = setInterval(function(){
 	        document.getElementById('winner').textContent="No Winner declared";
         }
 
+        // hiding every button that makes bid
 	    document.getElementById("bid-input").disabled = true;
+	    document.getElementById("bid-input").style.display = "none";
 	    document.getElementById("Increase").style.display = "none";
 	    document.getElementById("bid-btn").style.display = "none";
-	    var bidbutton=document.getElementById("bid-input");
+	    document.getElementById("prediction").style.display = "none";
+	    var bidbutton= document.getElementById("bid-input");
+
 	    if( bidbutton.disabled === true )
 	    {
-		    document.getElementById("demo").innerHTML = "The Auction has Ended";
+            console.log("Print this")
+		    document.getElementById("demo").innerHTML = "This Auction has Ended";
 	    }
     }
 },100); 
