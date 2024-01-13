@@ -63,7 +63,7 @@ def auction_detail(request, pk):
 
     # In auction_detail view
     winner_name = request.session.get('winner_name', None)
-    
+
 
     return render(request, 'product/auction_detail.html', {
         'auction': auction,
@@ -107,10 +107,9 @@ def bids(request):
 
         messages.success(request, f"Congratulations, {request.user}! Your bid has been successfully placed. 🎉 Thank you for participating in the auction.")
 
-        # Store the winner's name in the session
+        # storing the winner's name in the session
         request.session['winner_name'] = winner_name
 
-        # Redirect to the auction_detail view with winner_name as a query parameter
         redirect_url = reverse('product:auction_detail', args=[auct_id])
     
         return redirect(redirect_url)
@@ -120,36 +119,6 @@ def bids(request):
         return redirect(reverse('product:auction_detail', args=[auct_id]))
     
     return auction_detail(request, auct_id)
-
-
-
-# shows message abt winner when bid is closed
-def winner(request):
-    bid_id = request.GET["auct_d"]
-    bids_present = Bids.objects.filter(listingid = bid_id)
-    biddesc = Auction.objects.get(pk = bid_id, live = True)
-    max_bid = minbid(biddesc.starting_bid, bids_present)
-    try:
-        # checks if anyone other than list_owner win the bid
-        winner_object = Bids.objects.get(bid = max_bid, listingid = bid_id)
-        winner_obj = Auction.objects.get(pk = bid_id)
-        win = Winner(bid_win_list = winner_obj, user = winner_object.user)
-        winners_name = winner_object.user
-    
-    except:
-        #if no-one placed a bid, and if bid is closed by list_owner, owner wins the bid
-        winner_obj = Auction.objects.get(starting_bid = max_bid, pk = bid_id)
-        win = Winner(bid_win_list = winner_obj, user = winner_obj.user)
-        winners_name = winner_obj.user
-
-    #Check Django Documentary for Updating attributes based on existing fields.
-    biddesc.live = False
-    biddesc.save()
-
-    # saving winner details
-    win.save()
-    messages.success(request, f"{winners_name} won {win.bid_win_list.title}.")
-    return auction_detail(request, winners_name)
 
 
 

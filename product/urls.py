@@ -8,7 +8,6 @@ urlpatterns = [
     path('<int:pk>/', views.product_detail, name='detail'),
     path('auction/<int:pk>/', views.auction_detail, name='auction_detail'),
 
-    path("winner", views.winner, name="winner"),
     path('bidlist', views.bids, name='bids'),
     
     path('new/', views.new, name='new'),
