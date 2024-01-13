@@ -4,11 +4,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Avg
 from django.urls import reverse
 from django.contrib import messages
-from .models import Product, Auction, ProductReview, Vendor, Auctioneer, Category, Bids, Winner
-from .forms import NewProductForm
+from .models import Product, Auction, ProductReview, Vendor, Auctioneer, Category, Bids
+from .forms import NewProductForm, NewAuctionForm
 from core.forms import ProductReviewForm
 from django.db.models import Q
-from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -146,6 +145,30 @@ def new(request):
     return render(request, 'product/new.html', {
         'form': form,
         'title': 'New product',
+    })
+
+
+
+@login_required
+def new_auction(request):
+    auctioneer_instance, created = Auctioneer.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = NewAuctionForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            auction = form.save(commit=False)
+            auction.auctioneer = auctioneer_instance
+            auction.save()
+
+            return redirect('product:auction_detail', pk=auction.id)
+        else:
+            print(form.errors)
+    else:
+        form = NewAuctionForm()
+
+    return render(request, 'product/new_auction.html', {
+        'form': form,
+        'title': 'New auction',
     })
 
 

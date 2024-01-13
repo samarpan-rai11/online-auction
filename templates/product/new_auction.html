@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}New Product |{% endblock %}
+{% block title %}New Auction |{% endblock %}
+
 
 {% block content %}
 <div class="w-1/2 my-8 mx-auto p-8 bg-gray-100 rounded-xl">
-  <h1 class="mb-6 text-3xl text-[#0f2e40] text-center font-semibold">Add a product</h1>
+  <h1 class="mb-6 text-3xl text-[#0f2e40] text-center font-semibold">Add an Auction</h1>
 
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
