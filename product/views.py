@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Avg
 from django.urls import reverse
 from django.contrib import messages
-from .models import Product, Auction, ProductReview, Vendor, Auctioneer, Category, Bids
+from .models import Product, Auction, ProductReview, Vendor, Auctioneer, Category, Bids, Winner
 from .forms import NewProductForm
 from core.forms import ProductReviewForm
 from django.db.models import Q
@@ -61,13 +61,26 @@ def auction_detail(request, pk):
     bid_time= auction.auction
     end_time = bid_time.end_time if bid_time else None
 
+    winner_name = request.GET.get('winner', None)
+
     return render(request, 'product/auction_detail.html', {
         'auction': auction,
         'related_auctions': related_auctions,
         'endingtime': end_time,
         "current_bid": minbid(biddesc.bid, bids_present),
+        'winner_name': winner_name,
     })
 
+
+
+def determine_winner(auct_id):
+    try:
+        # Get the user with the highest bid for the given listing
+        winner_object = Bids.objects.filter(listingid=auct_id).order_by('-bid').first()
+        winner_name = winner_object.user.username if winner_object else None
+        return winner_name
+    except Bids.DoesNotExist:
+        return None
 
 
 @login_required
@@ -83,19 +96,58 @@ def bids(request):
     startingbid = Auction.objects.get(pk = auct_id)
     min_req_bid = startingbid.bid
     min_req_bid = minbid(min_req_bid, bids_present)
-
+    
     if int(bid_amnt) > int(min_req_bid):
         mybid = Bids(user = request.user, listingid = auct_id , bid = bid_amnt)
         mybid.save()
+
+        winner_name = determine_winner(auct_id)
+
         messages.success(request, f"Congratulations, {request.user}! Your bid has been successfully placed. 🎉 Thank you for participating in the auction.")
 
-        return redirect(reverse('product:auction_detail', args=[auct_id]))
+        # Store the winner's name in the session
+        request.session['winner_name'] = winner_name
+
+        # Redirect to the auction_detail view with winner_name as a query parameter
+        redirect_url = reverse('product:auction_detail', args=[auct_id]) + f'?winner={winner_name}'
+    
+        return redirect(redirect_url)
     else:
         messages.warning(request, f"Sorry, {request.user} ! Your bid should be higher than ${min_req_bid}.")
 
         return redirect(reverse('product:auction_detail', args=[auct_id]))
-
+    
     return auction_detail(request, auct_id)
+
+
+
+# shows message abt winner when bid is closed
+def winner(request):
+    bid_id = request.GET["auct_d"]
+    bids_present = Bids.objects.filter(listingid = bid_id)
+    biddesc = Auction.objects.get(pk = bid_id, live = True)
+    max_bid = minbid(biddesc.starting_bid, bids_present)
+    try:
+        # checks if anyone other than list_owner win the bid
+        winner_object = Bids.objects.get(bid = max_bid, listingid = bid_id)
+        winner_obj = Auction.objects.get(pk = bid_id)
+        win = Winner(bid_win_list = winner_obj, user = winner_object.user)
+        winners_name = winner_object.user
+    
+    except:
+        #if no-one placed a bid, and if bid is closed by list_owner, owner wins the bid
+        winner_obj = Auction.objects.get(starting_bid = max_bid, pk = bid_id)
+        win = Winner(bid_win_list = winner_obj, user = winner_obj.user)
+        winners_name = winner_obj.user
+
+    #Check Django Documentary for Updating attributes based on existing fields.
+    biddesc.live = False
+    biddesc.save()
+
+    # saving winner details
+    win.save()
+    messages.success(request, f"{winners_name} won {win.bid_win_list.title}.")
+    return auction_detail(request, winners_name)
 
 
 

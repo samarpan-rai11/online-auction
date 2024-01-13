@@ -25,7 +25,7 @@
         </p>
         <hr> 
 
-        <h1 id="winner" class="display-4 text-2xl font-semibold text-center mt-4 text-[#FF004D]" ></h1>
+        <h1 id="winner" class="display-4 text-3xl font-bold text-center mt-4 text-[#FF004D]" ></h1>
         <!-- Auction Timer -->
         <div id="clockdiv" class="mt-2 flex justify-evenly px-6 py-3">
             <div class="text-center">
@@ -50,9 +50,9 @@
                 <form method="get GET" action ="{% url 'product:bids' %}">
                     <input id="bid-input" name= "bid_amnt" value="{{ current_bid }}" class="border p-2 rounded-lg">
                       
-                    <button onclick="var result = document.getElementById('bid-input'); var sst = result.value; if( !isNaN( sst )) result.value= parseInt(result.value)+parseInt(5); return false;" class="increase items-count px-3 py-2 bg-[#0f2e40] rounded-lg text-white" type="button"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+                    <button onclick="var result = document.getElementById('bid-input'); var sst = result.value; if( !isNaN( sst )) result.value= parseInt(result.value)+parseInt(5); return false;" class="increase items-count px-3 py-2 bg-[#0f2e40] rounded-lg text-white" type="button" id="Increase"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
                     
-                    <button type="submit" name="auct_d" value ="{{ auction.id }}" class="inline-block py-2 border border-[#ee6846] font-medium text-[#ee6846] rounded-md hover:bg-[#ee6846] px-6 text-center hover:text-white ml-5"><i class="fa fa-gavel"></i> &nbsp;Bid</button>
+                    <button type="submit" name="auct_d" value ="{{ auction.id }}" class="inline-block py-2 border border-[#ee6846] font-medium text-[#ee6846] rounded-md hover:bg-[#ee6846] px-6 text-center hover:text-white ml-5" id="bid-btn"><i class="fa fa-gavel"></i> &nbsp;Bid</button>
                 </form>
             </div>
         </div>
@@ -78,7 +78,7 @@
                     <p class="mb-1 text-[#0f2e40] font-semibold text-2xl">Auctioneer</p>
                 </div>
                 <div class="flex align-middle mb-2 justify-center">
-                    <img src="{{ auction.auctioneer.image.url }}" alt="image" style="height: 70px; width: 70px; object-fit: cover;" class="rounded-full mr-4">
+                    <img src="{{ auction.auctioneer.image.url }}" alt="image" style="height: 70px; width: 70px; object-fit: cover;" class="rounded-full mr-2">
                     <p class="font-semibold flex justify-center items-center text-xl text-[#ee6846]">
                         {{ auction.auctioneer }}
                     </p>
@@ -136,6 +136,10 @@
 
 <script defer>
 
+winner="{{winner_name}}"
+
+console.log(winner)
+
 var endingtime = "{{ endingtime|date:'M j, Y G:i:s' }}";
 
 var countDownDate = new Date(endingtime).getTime();
@@ -182,6 +186,8 @@ var x = setInterval(function(){
         }
 
 	    document.getElementById("bid-input").disabled = true;
+	    document.getElementById("Increase").style.display = "none";
+	    document.getElementById("bid-btn").style.display = "none";
 	    var bidbutton=document.getElementById("bid-input");
 	    if( bidbutton.disabled === true )
 	    {

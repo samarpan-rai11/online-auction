@@ -106,7 +106,6 @@ class Product(models.Model):
 
 
 
-
 class Auction(models.Model):
     categori = models.ForeignKey(Category, related_name='auctions', on_delete=models.CASCADE)
 
@@ -130,6 +129,7 @@ class Auction(models.Model):
 
     def __str__(self):
         return self.name
+    
     
 
 class BidT(models.Model):
@@ -198,6 +198,7 @@ class CartOrder(models.Model):
         return f"{self.order.product} - {self.product.title}"
 
 
+
 class Payment(models.Model):
     order = models.OneToOneField(Order, on_delete=models.CASCADE)
     payment_amount = models.DecimalField(max_digits=10, decimal_places=2)
@@ -219,9 +220,9 @@ class UserProfile(models.Model):
         return self.user.username
     
 
+#####################################################################
 ############################ Product Review #########################
-############################ Product Review #########################
-############################ Product Review #########################
+#####################################################################
 
 
 class ProductReview(models.Model):
@@ -238,7 +239,9 @@ class ProductReview(models.Model):
         return self.rating    
 
 
+#####################################################################
 ########################## Coupon Code ##############################
+#####################################################################
 
 
 class CouponCode(models.Model):
