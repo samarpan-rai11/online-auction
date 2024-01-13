@@ -94,7 +94,7 @@ class Product(models.Model):
     on_stock = models.BooleanField(default=True)
     product_status = models.CharField(choices=STATUS_CHOICE, max_length=10, default="in_review")
 
-    date = models.DateTimeField(default=datetime.now,blank=True)
+    date = models.DateTimeField(default=timezone.now,blank=True)
     update = models.DateTimeField(null=True,blank=True)
 
     def __str__(self):

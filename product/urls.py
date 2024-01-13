@@ -10,7 +10,7 @@ urlpatterns = [
 
     path('bidlist', views.bids, name='bids'),
     
-    path('new/', views.new, name='new'),
+    path('create/', views.new, name='new'),
 
     # shop page
     path('shop/',views.shop_view,name='shop'),

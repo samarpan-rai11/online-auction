@@ -8,6 +8,7 @@ from .models import Product, Auction, ProductReview, Vendor, Auctioneer, Categor
 from .forms import NewProductForm
 from core.forms import ProductReviewForm
 from django.db.models import Q
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -127,15 +128,18 @@ def bids(request):
 
 @login_required
 def new(request):
+    vendor_instance, created = Vendor.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         form = NewProductForm(request.POST, request.FILES)
 
-    #     if form.is_valid():
-    #         product = form.save(commit=False)
-    #         product.created_by = request.user
-    #         product.save()
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.vendor = vendor_instance
+            product.save()
 
-    #         return redirect('detail', pk=product.id)
+            return redirect('product:detail', pk=product.id)
+        else:
+            print(form.errors)
     else:
         form = NewProductForm()
 
