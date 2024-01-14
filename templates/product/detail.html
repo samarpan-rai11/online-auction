@@ -30,7 +30,7 @@
             <span class="mt-3 text-3xl font-medium text-[#0f2e40]">$</span><p class="mt-3 text-3xl mr-5 font-medium current-price current-price-{{ p.id }} text-[#0f2e40]">{{ p.price }}</p>
             <s class="text-xl font-medium text-gray-400 relative -bottom-4">${{ p.old_price }}</s>
         </div>
-        <p class="text-gray-500 mt-1 "><strong>Seller: </strong><span class="text-emerald-600">{{ p.created_by.username }}</span></p>
+        <p class="text-gray-500 mt-1 "><strong>Vendor: </strong><span class="text-emerald-600">{{ p.vendor }}</span></p>
         <p class="text-gray-500 mt-1 mb-2"><strong>Tags:</strong>
             {% for tag in p.tags.all %}
                 <a href="{% url 'core:tags' tag.slug %}" class="text-emerald-600">
