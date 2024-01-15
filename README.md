@@ -1,4 +1,6 @@
-# This is an Online Auction Website
+# This is an Online Auction + E-commerce Website
+
+This project integrates features from both an auction system and a traditional e-commerce platform. Customers have the flexibility to either make direct purchases of desired products or participate in bidding for the items they seek. 
 
 Some screenshots of the project
 

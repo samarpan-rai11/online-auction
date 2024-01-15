@@ -55,7 +55,7 @@ def minbid(min_bid, present_bid):
 
 def auction_detail(request, pk):
     auction = get_object_or_404(Auction, pk=pk)
-    related_auctions = Auction.objects.filter(categori=auction.categori).exclude(pk=pk)[0:4]
+    related_auctions = Auction.objects.filter(categori=auction.categori,live=True).exclude(pk=pk)[0:4]
 
     biddesc = Auction.objects.get(pk = pk, live = True)
     bids_present = Bids.objects.filter(listingid = pk)
