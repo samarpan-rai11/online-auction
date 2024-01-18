@@ -20,7 +20,7 @@ Clone the repo or download it
 ---
 
 Create virtual environment in python within the auction folder
-### For Mach
+### For Mac
 ```
 python -m venv .
 ```
@@ -29,7 +29,7 @@ python -m venv .
 ```
 python3 -m venv env
 ```
-
+---
 
 Activate the virtual environment
 ### For Mac
@@ -40,7 +40,7 @@ source bin/activate
 ```
 env\Scripts\activate
 ```
-
+---
 
 Install the requirements
 ```
