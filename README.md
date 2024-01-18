@@ -18,17 +18,27 @@ Some screenshots of the project
 
 Clone the repo or download it 
 ---
-### For Mac/Linux Users
 
 Create virtual environment in python within the auction folder
+### For Mach
 ```
 python -m venv .
 ```
 
+### For Windows
+```
+python3 -m venv env
+```
+
 
 Activate the virtual environment
+### For Mac
 ```
 source bin/activate
+```
+### For Windows
+```
+env\Scripts\activate
 ```
 
 
@@ -50,39 +60,5 @@ python manage.py runserver
 ```
 ---
 
-### For Windows Users
-
-Install python and pip first
-
-For pip:
-```
-python3 get-pip.py
-```
 
 
-Create virtual environment in python within the auction folder
-```
-python3 -m venv env
-```
-
-Activate the virtual environment
-```
-env\Scripts\activate
-```
-
-Install the requirements
-```
-pip install -r requirements.txt
-```
-
-
-Migrate all the migrations
-```
-python manage.py migrate
-```
-
-
-Finally run the server
-```
-python manage.py runserver
-```
