@@ -56,3 +56,44 @@
     left: 50%; /* Adjust as needed */
     transform: translate(-50%, -50%);
 }
+
+.text{
+    height:18px;
+    margin-top: 11px;
+    margin-left: 180px;
+    border-radius: 14px;
+    text-align: center;
+}
+
+
+.end{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-content: space-evenly;
+    margin-left: 89px;
+    margin-right:89px;
+    padding-top: 26px;
+}
+
+.current{
+    margin-top:4px;
+    display:flex;
+    margin-left: 38px;
+}
+
+.deco{
+    color:#0f2e40;
+    
+}
+.deco:hover{
+    color:#2695ff;
+    cursor: pointer;
+}
+
+#company, #auction{
+    background-color: #0b2433;
+    width: 55px;
+    height: 3px;
+    display: block;
+    border-radius: 5px;
+}
