@@ -41,7 +41,9 @@ class SignUpForm(UserCreationForm):
         ('auctioneer', 'Auctioneer'),
     ]
 
-    user_type = forms.ChoiceField(choices=USER_TYPE_CHOICES, widget=forms.RadioSelect, required=True)
+    user_type = forms.ChoiceField(choices=USER_TYPE_CHOICES, widget=forms.RadioSelect(attrs={
+        'class': 'font-semibold text-[#0f2e40] p-2'
+    }), required=True)
 
 
     def clean(self):

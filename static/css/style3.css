@@ -20,11 +20,22 @@
   margin: 1rem auto auto auto;
   position: relative;
   width: 800px;
-  min-height: 560px;
+  min-height: 575px;
   background: #fff;
   box-shadow: 0 5px 15px rgba(35, 34, 34, 0.35);
-  border-radius: 15px;
-  overflow: hidden;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+#login{
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#login:hover{
+  background-color: white;
+  color:#0f2e40;
 }
 
 .wrapper a {
@@ -41,6 +52,15 @@
   transition: all 0.6s ease-in-out;
 }
 
+#hom{
+  font-size: 30px;
+}
+
+#hom:hover{
+  color: #14394e;
+}
+
+
 .wrapper form {
   height: 100%;
   background: #fff;
@@ -49,38 +69,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-
-.socials {
-  margin: 20px 0;
-}
-
-.socials a {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid #ccc;
-  border-radius: 20%;
-  margin: 0 3px;
-  transition: 0.6s;
-}
-
-.socials a:hover {
-  background: #DB4437;
-  color: #fff;
-  border-color: #DB4437;
-}
-
-.socials #twitter:hover {
-  background: #14171A;
-  border-color: #14171A;
-}
-
-.socials #facebook:hover {
-  background: #4267B2;
-  border-color: #4267B2;
 }
 
 .wrapper span {
@@ -93,12 +81,20 @@
   outline: none;
   padding: 10px 15px;
   margin: 8px 0;
-  border-radius: 8px;
-  font-size: 13px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.wrapper input:focus{
+  border: 0.5px solid #0f2e40;
+}
+
+#forgot{
+  color: #ee6846;
 }
 
 .wrapper button {
-  background: #262f4e;
+  background: #ee6846;
   padding: 10px 45px;
   border: 1px solid transparent;
   margin-top: 10px;
@@ -112,13 +108,14 @@
 }
 
 .wrapper button:hover {
-  background: #4c5e98;
+  background: #df5533;
 }
 
 .signin {
   left: 0;
   width: 50%;
   z-index: 2;
+  color: #0f2e40;
 }
 
 .toggle-wrapper {
@@ -128,7 +125,7 @@
   width: 50%;
   height: 100%;
   overflow: hidden;
-  border-radius: 15px 0 0 15px;
+  border-radius: 10px 0 0 10px;
   z-index: 1000;
   transition: all 0.6s ease-in-out;
 }
@@ -137,7 +134,7 @@
   position: relative;
   height: 100%;
   width: 200%;
-  background: #262f4e;
+  background: #0f2e40;
   color: #fff;
   left: -100%;
   transition: all 0.6s ease-in-out;
@@ -176,7 +173,7 @@
 }
 
 .wrapper.active .toggle-wrapper {
-  border-radius: 0 15px 15px 0;
+  border-radius: 0 10px 10px 0;
   transform: translateX(-100%);
 }
 
@@ -212,6 +209,7 @@
   opacity: 1;
   z-index: 5;
   animation: anim 0.6s linear;
+  color: #0f2e40;
 }
 
 @keyframes anim {
