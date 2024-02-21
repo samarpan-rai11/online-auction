@@ -139,11 +139,8 @@
 
 <script defer>
 
-winners = "{{winners_name}}"
-console.log(winners)
-
-winner="{{winner_name}}"
-
+var winner="{{ winner_name|escapejs }}"
+console.log(winner+" is Winner")
 var endingtime = "{{ endingtime|date:'M j, Y G:i:s' }}";
 
 var countDownDate = new Date(endingtime).getTime();

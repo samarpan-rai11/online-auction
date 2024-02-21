@@ -160,10 +160,6 @@ class Bids(models.Model):
         verbose_name_plural = "Bids"
 
 
-
-class Winner(models.Model):
-    bid_win_list = models.ForeignKey(Auction, on_delete = models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 ########################## Order, Cart , Payment ###################
 ########################## Order, Cart , Payment ###################
 ########################## Order, Cart , Payment ###################

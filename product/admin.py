@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Auction, BidT, Auctioneer, Vendor, Order, CartOrder, Payment, UserProfile, ProductReview, CouponCode, Bids, Winner
+from .models import Category, Product, Auction, BidT, Auctioneer, Vendor, Order, CartOrder, Payment, UserProfile, ProductReview, CouponCode, Bids
 # Register your models here.
 
 class ProductAdmin(admin.ModelAdmin):
@@ -32,8 +32,6 @@ class BidTAdmin(admin.ModelAdmin):
 class BidsAdmin(admin.ModelAdmin):
     list_display = ['listingid','bid','user']
 
-class WinnerAdmin(admin.ModelAdmin):
-    list_display = ['bid_win_list','user']
 
 admin.site.register(Category)
 admin.site.register(Product, ProductAdmin)
@@ -48,6 +46,5 @@ admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(CouponCode, CouponCodeAdmin)
 admin.site.register(ProductReview, ProductReviewAdmin)
 admin.site.register(Bids, BidsAdmin)
-admin.site.register(Winner, WinnerAdmin)
 
 

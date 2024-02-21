@@ -60,12 +60,30 @@ def auction_detail(request, pk):
     biddesc = Auction.objects.get(pk = pk, live = True)
     bids_present = Bids.objects.filter(listingid = pk)
 
+    max_bid = minbid(biddesc.bid, bids_present)
+
     # auction.auction is used to access the related BidT object through the one-to-one relationship.
     bid_time= auction.auction
     end_time = bid_time.end_time if bid_time else None
 
     # In auction_detail view
-    winner_name = request.session.get('winner_name', None)
+    # winner_name = request.session.get('winner_name', None)
+
+
+    try:
+        winner_objects = Bids.objects.filter(bid=max_bid)  
+        # Retrieve queryset of winner objects
+        if winner_objects.exists():  
+            # Check if there are any winner objects
+            winner_object = winner_objects.first()  # Retrieve the first winner object from the queryset
+            winner_name = winner_object.user
+        else:
+        # Handle the case where there are no winners
+            winner_name = None
+    
+    except:
+  
+        winner_name = None
 
 
     return render(request, 'product/auction_detail.html', {
