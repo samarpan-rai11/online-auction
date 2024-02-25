@@ -3,9 +3,10 @@ from django.template.loader import render_to_string
 from product.models import Category, Product, Auction, Vendor, CouponCode, Order, UserProfile
 from core.models import ContactUs
 from taggit.models import Tag
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 
 def index(request):
@@ -148,7 +149,7 @@ def delete_from_cart(request):
             cart_data = request.session['cart_data_obj']
             del request.session['cart_data_obj'][product_id]
             request.session['cart_data_obj'] = cart_data
-        
+    
     cart_total_price = 0
     if 'cart_data_obj' in request.session:
         for p_id, item in request.session['cart_data_obj'].items():

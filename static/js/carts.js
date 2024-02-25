@@ -23,6 +23,7 @@ $(document).ready(function(){
                 $(".cart-items-count").text(response.totalcartitems)
                 $("#cart-list").html(response.data)
                 console.log("Deleted")
+                location.reload() // this is most important code here this will reload so we won't have to manually do it to remove more items
             }
         })
     })
@@ -56,6 +57,7 @@ $(document).ready(function(){
                 $(".cart-items-count").text(response.totalcartitems)
                 $("#cart-list").html(response.data)
                 console.log("Updated")
+                location.reload()
             }
         })
     })

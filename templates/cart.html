@@ -8,8 +8,8 @@
     var product_amount = "{{ cart_total_price }}";
     var coupon_discount = "{{ coupon.discount }}";
 </script>
-<script src="{% static 'js/function6.js' %}" defer></script>
-<script src="{% static 'js/coupon2.js' %}" defer></script>
+<script src="{% static 'js/carts.js' %}" defer></script>
+<script src="{% static 'js/coupon.js' %}" defer></script>
 
 <main id="cart-list">
     <div class="mt-8 mb-10 ">
@@ -132,7 +132,7 @@
                 {% if valid_coupon %}
                     <div class="mb-2 flex justify-between font-medium mx-5 text-rose-500">
                         Coupon Discount
-                        <p>{{coupon.discount}}%</p>
+                        <p>-{{coupon.discount}}%</p>
                     </div>
 
                 <hr>
