@@ -13,3 +13,4 @@ pictures
 package.json
 package-lock.json
 static/js/node_modules
+node_modules
