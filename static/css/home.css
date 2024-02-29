@@ -2,6 +2,33 @@ h2{
     text-align: center;
 }
 
+.category-container{
+  position: relative;
+  justify-content: space-evenly;
+}
+
+.category-container .category-card{
+  position: relative;
+  width: 15rem;
+  height: 17.5rem;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: transform .2s;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-bottom: 2rem;
+}
+
+.category-container .category-card:hover{
+  transform: scale(1.03);
+}
+
+.category-container .category-card img{
+  object-fit: contain;
+  height: 14rem;
+  width: 100%;
+  transition: all ease-in-out .4s;
+}
+
 .card1 .go-arrow {
     position: absolute;
     top: -3px;

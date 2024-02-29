@@ -5,6 +5,8 @@ from . import views
 app_name = 'product'
 
 urlpatterns = [
+    path('auction-category-list/', views.category_list, name='category'),
+    path('product-category-list/', views.category_list_p, name='category-p'),
     path('<int:pk>/', views.product_detail, name='detail'),
     path('auction/<int:pk>/', views.auction_detail, name='auction_detail'),
 

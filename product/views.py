@@ -11,6 +11,23 @@ from django.db.models import Q
 
 
 # Create your views here.
+def category_list(request):
+    categories = Category.objects.all()
+
+    return render(request, 'product/category-list.html', {
+        "categories": categories,
+    })
+
+
+def category_list_p(request):
+    categories = Category.objects.all()
+
+    return render(request, 'product/category-list-p.html', {
+        "categories": categories,
+    })
+
+
+
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     related_products = Product.objects.filter(category=product.category, is_sold=False).exclude(pk=pk)[0:4]

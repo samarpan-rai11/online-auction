@@ -15,7 +15,7 @@
 
     <title>{% block title %} {% endblock %} Online Auction</title>
     <script src="https://cdn.tailwindcss.com" defer></script>
-    <link rel="stylesheet" href="{% static 'css/base7.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tw-output.css' %}" />
 
 
@@ -43,34 +43,25 @@
     </div>
 
     <!-- navigation bar -->
-    <nav class="bg-[#0f2e40] text-gray-100 py-4 px-6 flex justify-around items-center border-y border-gray-200 shadow-lg">
+    <nav class="bg-[#0f2e40] text-gray-100 py-4 flex justify-between items-center border-y border-gray-200 shadow-lg">
     
-        <div class="space-x-6">
+        <div class="space-x-6 flex">
             <a href="/" class="text-lg font-semibold hover:text-[#ee6846]">Home</a>
+            <div class="dropdown">
+                <span class="dropbtn text-lg font-semibold">Category</span>
+                <div class="dropdown-content">
+                    <div class="dropdown">
+                        <a href="{% url 'product:category' %}">Auction</a><hr>
+                        <a href="{% url 'product:category-p' %}">Product</a>
+                        <hr>
+                    </div>
+                </div>
+            </div>
             <a href="{% url 'product:shop' %}" class="text-lg font-semibold hover:text-[#ee6846]">Shop</a>
             <a href="{% url 'product:bid' %}" class="text-lg font-semibold hover:text-[#ee6846]">Bid</a>
             <a href="{% url 'core:vendor-list' %}" class="text-lg font-semibold hover:text-[#ee6846]">Vendors</a>
             <a href="#about" class="text-lg font-semibold hover:text-[#ee6846]">About</a>
         </div>
-            
-        <!-- showing different options based on user type -->
-        {% if request.user.is_authenticated %} 
-        <div class="dropdown">
-                {% if request.user.profile.is_vendor %}
-                    <span class="dropbtn text-lg font-semibold hover:text-[#ee6846]">Add <i class="fa-solid fa-plus"></i></span>
-                        <div class="dropdown-content">
-                            <a href="{% url 'product:new' %}">New Product</a>
-                {% endif %}
-                    
-                {% if request.user.profile.is_auctioneer %}
-                    <span class="dropbtn text-lg font-semibold hover:text-[#ee6846]">Add <i class="fa-solid fa-plus"></i></span>
-                        <div class="dropdown-content">
-                            <a href="{% url 'product:new_auction' %}">New Auction</a>
-                {% endif %}
-                </div>
-            </div>
-        {% endif %}
-
         
 
         {% if request.user.is_authenticated %}
@@ -81,6 +72,19 @@
                     <hr>
                     <a href="{% url 'core:dashboard' %}"><i class="fa-solid fa-layer-group"></i> &nbsp;Dashboard</a>
                     <hr>
+                    <!-- showing different options based on user type -->
+                    {% if request.user.is_authenticated %} 
+                    <div class="dropdown">
+                            {% if request.user.profile.is_vendor %}
+                                <a href="{% url 'product:new' %}"><i class="fa-solid fa-plus"></i> &nbsp; Add Product</a>
+                            {% endif %}
+                                
+                            {% if request.user.profile.is_auctioneer %}
+                                <a href="{% url 'product:new_auction' %}"><i class="fa-solid fa-plus"></i> &nbsp;Add Auction</a>
+                            {% endif %}
+                        </div>
+                        <hr>
+                    {% endif %}
                     <a href="{% url 'userauth:logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp;Sign out</a>
                 </div>
             </div>
