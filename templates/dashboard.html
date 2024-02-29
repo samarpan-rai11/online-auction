@@ -6,7 +6,7 @@
     <div class="p-4 text-center my-10">
         <h2 class="text-4xl font-bold mb-2">Hello {{ request.user }}</h2>
         <hr>
-        <p class="mt-2 font-medium">From you account dashboard. You can easily check & view your recent orders and other settings</p>
+        <p class="mt-2 font-medium">From your account dashboard, You can easily check & view your recent orders and other settings</p>
     </div>
 
     <div class="p-4 text-center mb-10">
@@ -16,7 +16,7 @@
             <table class="w-full text-center p-2">
                 <thead class="bg-gray-100">
                     <tr>
-                        <th class="p-3">Image</th>
+                        <th class="p-3">Order ID</th>
                         <th class="p-3">Product Title</th>
                         <th class="py-3 px-5">Date</th>
                         <th class="py-3 px-5">Order Status</th>
@@ -41,13 +41,17 @@
 
                             <td class="px-3 py-3" id="qty">
                                 {% if o.paid_status %}
-                                    ✅
+                                    <span class="text-2xl text-emerald-500">
+                                        ✓
+                                    </span>
                                 {% else %}
-                                    ❌
+                                    <span class="text-2xl text-red-500">
+                                        ✘
+                                    </span>
                                 {%endif%}
                             </td>
 
-                            <td class="text-emerald-500 px-3 py-3">
+                            <td class="px-3 py-3">
                                 ${% widthratio o.product.price 1 o.quantity %}
                             </td>
                         </tr>

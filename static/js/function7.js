@@ -1,7 +1,8 @@
 console.log("This is working")
 
-const monthNames = ["Jan", "Feb", "Mar","Apr","May","Jun","Jul",      
-                    "Aug","Sept","Oct","Nov","Dec"];
+const monthNames = [
+    "Jan", "Feb", "Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"
+];
 
 
 //This is for dynamic review of the product 
@@ -90,7 +91,7 @@ $(".add-to-cart-btn").on("click", function(){
             console.log("Adding product to cart...")
         },
         success:function(response){
-            this_val.html("&#10003;")
+            this_val.html("✓")
             console.log("Added product to cart")
             $(".cart-items-count").text(response.totalcartitems)
             // this_val.attr('disabled',false);

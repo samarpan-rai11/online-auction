@@ -29,7 +29,7 @@
                 <input type="text" class="mt-2 mb-4 p-3 border rounded-lg text-center text-emerald-600 text-xl" name="" value="Contact - {{ profile.contact }}" readonly>
                 
                 <div class="text-center mb-4 text-xl">
-                    <p class="text-2xl font-medium">Type</p>
+                    <p class="text-2xl font-medium mb-1">Type</p>
                     {% if profile.is_vendor %}
                         <input type="text" class=" mb-2 rounded-lg text-center text-emerald-600 text-xl" name="" value="Vendor" readonly>
                     {% elif profile.is_auctioneer %}
@@ -40,10 +40,15 @@
                 </div>
 
                 <div class="text-center">
+                    <p class="text-2xl font-medium">Verified</p>
                     {% if profile.verified %}
-                        ✅ &nbsp; Verfied User 
+                        <span class="text-2xl text-emerald-500">
+                            ✓
+                        </span> 
                     {% else %}
-                        ❌ &nbsp; Not Verified User
+                        <span class="text-2xl text-red-500">
+                            ✘
+                        </span>
                     {% endif %}
                 </div>
             </div>
