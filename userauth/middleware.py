@@ -1,5 +1,22 @@
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.http import JsonResponse
+
+
+class SetJSONContentTypeMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+        
+        # Check if the response is a JsonResponse
+        if isinstance(response, JsonResponse):
+            # Set Content-Type header to application/json
+            response['Content-Type'] = 'application/json'
+
+        return response
+
 
 
 class PreventLoginSignupAccessMiddleware:

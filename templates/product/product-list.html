@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}{{category}} list |{% endblock %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+<div class="m-5">
+    <h1 class="text-2xl font-semibold text-center mb-3">{{category}} list</h1>
+    <p class="text-center mb-10">We found <span class="text-emerald-500">{{product.count}}</span> {{category}} for you.</p>
+
+
+    <div class="container gap-2" id="p-section">
+        {% for p in product %}
+            <div class="card">
+                <div class="detail">
+                    <div>
+                        <img src="{{ p.image.url }}" class="rounded-t-xl border-1" id="product">
+                        <!-- we are making all hidden input so that function.js can take the value of the product and add to cart from homepage -->
+                        <div class="text-center" id="home-cart">
+                            <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.id }}" class="product-pid-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.image.url }}"
+                            class="product-image-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.id }}" class="product-id-{{ p.id }}">
+
+                            <input type="hidden" value="{{ p.title }}" class="product-title-{{ p.id }}">
+
+                            <button class="add add-to-cart-btn bg-[#ee6846] text-white py-.5 px-3 hover:bg-[#ee5856]" id="add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-regular fa-cart-shopping" ></i></button>
+                        </div>
+                    </div>
+
+                    <a href="{% url 'product:detail' p.id %}" class="px-5 pt-3 border-t-2 bg-white w-70 card1">
+                        <h3 class="text-xl font-medium text-center mb-2">{{ p.title }}</h3>
+                        <p class="text-gray-800 font-semibold text-center text-xl"><span id="price">$</span><span class="current-price-{{ p.id }}">{{ p.price }}</span><s class="ml-2 text-sm text-gray-400">${{ p.old_price }}</s></p>
+                        <div class="go-arrow">
+                            →
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

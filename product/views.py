@@ -4,10 +4,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Avg
 from django.urls import reverse
 from django.contrib import messages
-from .models import Product, Auction, ProductReview, Vendor, Auctioneer, Category, Bids
+from .models import Product, Auction, ProductReview, Vendor, Auctioneer, Category, Bids, Winner
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .forms import NewProductForm, NewAuctionForm
 from core.forms import ProductReviewForm
 from django.db.models import Q
+import json
+from .utils import predict_price 
 
 
 # Create your views here.
@@ -24,6 +28,26 @@ def category_list_p(request):
 
     return render(request, 'product/category-list-p.html', {
         "categories": categories,
+    })
+
+
+def auction_list_view(request, pk):
+    category = Category.objects.get(pk=pk)
+    auction = Auction.objects.filter(live=True, categori=category)
+    
+    return render(request, 'product/auction-list.html', {
+        'category': category,
+        'auction': auction,
+    })
+
+
+def product_list_view(request, pk):
+    category = Category.objects.get(pk=pk)
+    product = Product.objects.filter(on_stock=True, category=category)
+    
+    return render(request, 'product/product-list.html', {
+        'category': category,
+        'product': product,
     })
 
 
@@ -70,7 +94,48 @@ def minbid(min_bid, present_bid):
 
 
 
+def predict_bid_price(request):
+    if request.method == 'POST':
+        print(request.POST)
+        bid = request.POST.get('bid')
+        bidtime = request.POST.get('bid_time')
+        openbid = request.POST.get('open_bid')
+        item = request.POST.get('item')
+        auction_type = request.POST.get('auction_type')
+    perdections = [11]
+    perdections = predict_price({
+        'bid':bid,
+        'bidtime':bidtime,
+        'openbid':openbid,
+        'item':item,
+        'auction_type':auction_type    }
+    )
+    return JsonResponse({
+        'price':perdections[0]
+    },safe=False)
+
+
+
 def auction_detail(request, pk):
+    predicted_price = None
+
+    if request.method == 'POST':
+        print(request.POST)
+        bid = request.POST.get('bid')
+        bidtime = request.POST.get('bid_time')
+        openbid = request.POST.get('open_bid')
+        item = request.POST.get('item')
+        auction_type = request.POST.get('auction_type')
+        
+        perdictions = predict_price({
+        'bid':bid,
+        'bidtime':bidtime,
+        'openbid':openbid,
+        'item':item,
+        'auction_type':auction_type    }
+        )
+        predicted_price = perdictions[0]
+
     auction = get_object_or_404(Auction, pk=pk)
     related_auctions = Auction.objects.filter(categori=auction.categori,live=True).exclude(pk=pk)[0:4]
 
@@ -84,8 +149,7 @@ def auction_detail(request, pk):
     end_time = bid_time.end_time if bid_time else None
 
     # In auction_detail view
-    # winner_name = request.session.get('winner_name', None)
-
+    half_duration = auction.duration/2
 
     try:
         winner_objects = Bids.objects.filter(bid=max_bid)  
@@ -99,7 +163,6 @@ def auction_detail(request, pk):
             winner_name = None
     
     except:
-  
         winner_name = None
 
 
@@ -109,6 +172,8 @@ def auction_detail(request, pk):
         'endingtime': end_time,
         "current_bid": minbid(biddesc.bid, bids_present),
         'winner_name': winner_name,
+        'predicted_price': predicted_price,
+        'half_duration': half_duration,
     })
 
 
@@ -340,4 +405,22 @@ def payment_completed(request):
         'totalcartitems': len(request.session['cart_data_obj']),
         'cart_total_price': cart_total_price,
     })
+
+
+def create_winner(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        auction_id = data.get('auctionId')
+        winner_name = data.get('winner')
+
+        try:
+            auction = Auction.objects.get(pk=auction_id)
+            winner = Winner.objects.create(auction=auction, winner_name=winner_name)
+            return JsonResponse({'status': 'success'})
+        except Auction.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Auction does not exist'}, status=400)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
+
+
 

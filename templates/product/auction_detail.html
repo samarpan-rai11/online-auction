@@ -47,7 +47,7 @@
         </div>
         <div class="flex my-4 justify-evenly">
             <div>
-                <form method="get GET" action ="{% url 'product:bids' %}">
+                <form  method="get GET" action ="{% url 'product:bids' %}" name="userbid">
                     <input id="bid-input" name= "bid_amnt" value="{{ current_bid }}" class="border p-2 rounded-lg">
                       
                     <button onclick="var result = document.getElementById('bid-input'); var sst = result.value; if( !isNaN( sst )) result.value= parseInt(result.value)+parseInt(5); return false;" class="increase items-count px-3 py-2 bg-[#0f2e40] rounded-lg text-white" type="button" id="Increase"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
@@ -60,11 +60,35 @@
             </div>
         </div>
 
+    
+            <div class="justify-center mt-8" id="prediction">
+                <div class="flex justify-evenly" id="prediction_div">
+                    <span class="py-2 mr-3 text-emerald-500 text-xl font-medium">Want to predict the bid ?</span>
+    
+                    <form action="" method="post" >
+                        {% csrf_token %}
+                        <input type="text" name="bid" class="border" value="{{auction.bid}}" hidden readonly>
+            
+                        <input type="text"  name="bid_time" class="border" hidden value="{{half_duration}}" readonly>
+            
+                        <input type="text" name="open_bid" class="border" hidden value="{{current_bid}}" readonly>
+            
+                        <input type="text" name="item" class="border" value="{{auction.categori}}" hidden readonly>
+            
+                        <input type="text" name="auction_type" class="border" value="{{auction.duration}}" hidden readonly>
+            
+                        <button class="inline-block py-2 font-medium text-white bg-[#ee6846] rounded-md hover:bg-[#ee5646] px-6 text-center hover:text-white"><i class="fa fa-gavel"></i> &nbsp;Predict</button>
+                    </form>
+                </div>
+                <br>
 
-        <div class="flex justify-center mt-8" id="prediction">
-            <span class="py-2 mr-3 text-emerald-500 text-xl font-medium">Want to predict the bid ?</span>
-            <button class="inline-block py-2 font-medium text-white bg-[#ee6846] rounded-md hover:bg-[#ee5646] px-6 text-center hover:text-white"><i class="fa fa-gavel"></i> &nbsp;Predict</button>
-        </div>
+    
+                {% if predicted_price %}
+                    <h1 class="text-xl text-center font-medium">We predict the Auction might be sold on <span class="text-emerald-500">${{predicted_price|floatformat:2}}</span></h1>
+                {% endif %}
+            </div>
+
+
     </div>
 
     <div>
@@ -138,69 +162,87 @@
 </div>
 
 <script defer>
+    var winner="{{ winner_name|escapejs }}"
+    console.log(winner+" is Winner")
+    var endingtime = "{{ endingtime|date:'M j, Y G:i:s' }}";
+    console.log("time:",endingtime);
+    var auctionId = "{{ auction.id }}"; // Access auction ID from Django 
+    console.log("Auction ID:", auctionId);
+    var currentBid = "{{ current_bid }}"
+    console.log("Current Bid:", currentBid);
 
-var winner="{{ winner_name|escapejs }}"
-console.log(winner+" is Winner")
-var endingtime = "{{ endingtime|date:'M j, Y G:i:s' }}";
-
-var countDownDate = new Date(endingtime).getTime();
-//for 1000ms
-var x = setInterval(function(){
-	function formatNumberWithTwoDigits(number) {
-        return number < 10 ? '0' + number : number;
-    }
- 
-    var now = new Date().getTime();
-    var difference = countDownDate - now;
-  
-
-    // Time calculations for days, hours, minutes and seconds
-    var days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    var hours = Math.floor(
-	    (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-  
-    var daysSpan = document.querySelector('.days');
-    var hoursSpan = document.querySelector('.hours');
-    var minutesSpan = document.querySelector('.minutes');
-    var secondsSpan = document.querySelector('.seconds');
-
-    daysSpan.innerHTML=formatNumberWithTwoDigits(days);
-    hoursSpan.innerHTML=formatNumberWithTwoDigits(hours);
-    minutesSpan.innerHTML=formatNumberWithTwoDigits(minutes);
-    secondsSpan.innerHTML=formatNumberWithTwoDigits(seconds);
-
-
-    if (difference < 0) {
-	    clearInterval(x);
-	    daysSpan.innerHTML="00";
-        hoursSpan.innerHTML="00";
-        minutesSpan.innerHTML="00";
-        secondsSpan.innerHTML="00";
-        if(winner){
-            document.getElementById('winner').textContent="The Winner is " + winner;
-        }else{
-	        document.getElementById('winner').textContent="No Winner declared";
+    var countDownDate = new Date(endingtime).getTime();
+    //for 1000ms
+    var x = setInterval(function(){
+        function formatNumberWithTwoDigits(number) {
+            return number < 10 ? '0' + number : number;
         }
+    
+        var now = new Date().getTime();
+        var difference = countDownDate - now;
+    
 
-        // hiding every button that makes bid
-	    document.getElementById("bid-input").disabled = true;
-	    document.getElementById("bid-input").style.display = "none";
-	    document.getElementById("Increase").style.display = "none";
-	    document.getElementById("bid-btn").style.display = "none";
-	    document.getElementById("prediction").style.display = "none";
-	    var bidbutton= document.getElementById("bid-input");
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        var hours = Math.floor(
+            (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-	    if( bidbutton.disabled === true )
-	    {
-            console.log("Print this")
-		    document.getElementById("demo").innerHTML = "This Auction has Ended";
-	    }
-    }
-},100); 
+    
+        var daysSpan = document.querySelector('.days');
+        var hoursSpan = document.querySelector('.hours');
+        var minutesSpan = document.querySelector('.minutes');
+        var secondsSpan = document.querySelector('.seconds');
+
+        daysSpan.innerHTML=formatNumberWithTwoDigits(days);
+        hoursSpan.innerHTML=formatNumberWithTwoDigits(hours);
+        minutesSpan.innerHTML=formatNumberWithTwoDigits(minutes);
+        secondsSpan.innerHTML=formatNumberWithTwoDigits(seconds);
+
+
+        if (difference < 0) {
+            clearInterval(x);
+            daysSpan.innerHTML="00";
+            hoursSpan.innerHTML="00";
+            minutesSpan.innerHTML="00";
+            secondsSpan.innerHTML="00";
+            if(winner){
+                document.getElementById('winner').textContent="The Winner is " + winner;
+
+                // Send AJAX request to Django view to create Winner instance
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/create_winner/", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xhr.onload = function () {
+                    if (xhr.status == 200) {
+                        console.log("Winner instance created successfully");
+                    } else {
+                        console.error("Failed to create Winner instance");
+                    }
+                };
+                xhr.send(JSON.stringify({ auctionId: auctionId, winner: winner }));
+                }
+            else{
+                document.getElementById('winner').textContent="No Winner declared";
+            }
+
+            // hiding every button that makes bid
+            document.getElementById("bid-input").disabled = true;
+            document.getElementById("bid-input").style.display = "none";
+            document.getElementById("Increase").style.display = "none";
+            document.getElementById("bid-btn").style.display = "none";
+            document.getElementById("prediction").style.display = "none";
+            var bidbutton= document.getElementById("bid-input");
+
+            if( bidbutton.disabled === true )
+            {
+                console.log("Print this")
+                document.getElementById("demo").innerHTML = "This Auction has Ended";
+            }
+        }
+    },100); 
 </script>
 
 {% endblock %}

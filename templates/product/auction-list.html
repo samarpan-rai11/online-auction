@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}{{category}} list |{% endblock %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+<div class="m-5">
+    <h1 class="text-2xl font-semibold text-center mb-3">{{category}} list</h1>
+    <p class="text-center mb-10">We found <span class="text-emerald-500">{{auction.count}}</span> {{category}} for you.</p>
+
+
+    <div class="container gap-2" id="p-section">
+        {% for a in auction %}
+        <div class="card">
+            <a href="{% url 'product:auction_detail' a.id %}" class="detail">
+                <div>
+                    <img src="{{ a.image.url }}" class="rounded-t-xl border-1" id="product">
+                    <span class="ml-2 bg-rose-600 text-white py-1 px-3 rounded-md" id="auction-live"><i class="far fa-dot-circle"> Live</i></span>
+                </div>
+                
+                <div class="p-6 border-t-2 bg-white w-70 card1">
+                    <h3 class="text-xl text-center font-medium mb-2">{{ a.name }}</h3>
+                    <div class="flex">
+                        <strong class="text-gray-900">Opening Bid:</strong>
+                        <p class="text-gray-700 text-center ml-2"><span id="price">$</span>{{ a.bid }}</p>
+                        <div class="go-arrow">
+                            →
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

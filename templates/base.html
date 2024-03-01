@@ -29,7 +29,7 @@
 
     <div class="flex pt-5 pb-4 justify-around">
         <a href="/" class="py-3 px-4 text-2xl font-bold text-[#0f2e40]"><span class="text-[#ee6846]">AU</span>CTION</a>
-        <form action="{% url 'product:search' %}" method="GET get">   
+        <form action="{% url 'product:search' %}" method="GET get" name="search">   
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
             <div class="relative mx-12" id="search-bar">
                 <!-- the name attribute in input tag should be same as query field used variable -->
@@ -127,7 +127,7 @@
             <p class="font-semibold text-xl">
                 Browse through our products library!
             </p>
-            <form action="{% url 'product:search' %}" method="GET get">   
+            <form action="{% url 'product:search' %}" method="GET get" name="search-bar">   
                 <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
                 <div class="relative" id="search-bar">
                     <!-- the name attribute in input tag should be same as query field used variable -->

@@ -62,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'userauth.middleware.PreventLoginSignupAccessMiddleware',
+    'userauth.middleware.SetJSONContentTypeMiddleware',
 ]
 
 ROOT_URLCONF = 'auction.urls'

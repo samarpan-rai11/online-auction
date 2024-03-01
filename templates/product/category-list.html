@@ -15,7 +15,7 @@
     <div class="grid grid-cols-4 gap-3 category-container px-10">
         {% for c in categories %}
             <div class="category-card">
-                <a href="#" class="detail">
+                <a href="{% url 'product:auction-list' c.id %}" class="detail">
                     <div>
                         <img src="{{ c.image.url }}" class="rounded-t-xl border-1">
                     </div>

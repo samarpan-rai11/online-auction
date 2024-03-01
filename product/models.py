@@ -182,28 +182,16 @@ class Order(models.Model):
 
 
 
-class CartOrder(models.Model):
-    orders = models.ForeignKey(Order, on_delete=models.CASCADE, default=1)
+class Auction_Win(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
+    auction = models.ForeignKey(Auction, on_delete=models.CASCADE,default=1)
+    paid_status = models.BooleanField(default=False)
 
-    invoice_no = models.CharField(max_length=100,default="001")
-    item = models.CharField(max_length=200,default=0)
-    image = models.CharField(max_length=200,default="")
-
-    quantity = models.IntegerField(default=0)
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2,default=0)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.order.product} - {self.product.title}"
+        return f"{self.user.username} - {self.auction.name}"
 
-
-
-class Payment(models.Model):
-    order = models.OneToOneField(Order, on_delete=models.CASCADE)
-    payment_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_time = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Payment for Order {self.order.id}"
 
 
 
@@ -253,6 +241,16 @@ class CouponCode(models.Model):
 
     def __str__(self):
         return self.code
+    
+
+
+class Winner(models.Model):
+    auction = models.ForeignKey(Auction, on_delete=models.CASCADE)
+    winner_name = models.CharField(max_length=100)
+    winner_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"Winner of {self.auction}: {self.winner_name}"
 
  
     

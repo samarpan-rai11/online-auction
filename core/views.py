@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
-from product.models import Category, Product, Auction, Vendor, CouponCode, Order, UserProfile
+from product.models import Category, Product, Auction, Vendor, CouponCode, Order, UserProfile, Auction_Win
 from core.models import ContactUs
 from taggit.models import Tag
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -12,7 +12,7 @@ from django.urls import reverse
 def index(request):
     products = Product.objects.filter(is_sold=False,).order_by("-date")[:4]
     auctions = Auction.objects.filter(live=True).order_by("-date")[:4]
-    categories = Category.objects.all()
+    categories = Category.objects.all()[:5]
 
     return render(request,"index.html",{
         'categories': categories,
@@ -205,9 +205,11 @@ def update_cart(request):
 @login_required
 def customer_dashboard(request):
     orders = Order.objects.filter(user=request.user)
+    auction_win = Auction_Win.objects.filter(user=request.user)
 
     return render(request,'dashboard.html',{
         'orders':orders,
+        'auction_wins':auction_win,
     })
 
 

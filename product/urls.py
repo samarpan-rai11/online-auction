@@ -5,8 +5,15 @@ from . import views
 app_name = 'product'
 
 urlpatterns = [
+    #for bid prediction
+    path('predict_bid/',views.predict_bid_price,name="predict_bid"),
+
     path('auction-category-list/', views.category_list, name='category'),
     path('product-category-list/', views.category_list_p, name='category-p'),
+
+    path('product-list/<int:pk>', views.product_list_view, name='product-list'),
+    path('auction-list/<int:pk>', views.auction_list_view, name='auction-list'),
+
     path('<int:pk>/', views.product_detail, name='detail'),
     path('auction/<int:pk>/', views.auction_detail, name='auction_detail'),
 

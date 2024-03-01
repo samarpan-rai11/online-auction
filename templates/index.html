@@ -27,7 +27,7 @@
                 <div class="p-6 border-t-2 bg-white w-70 card1">
                     <h3 class="text-xl text-center font-medium mb-2">{{ auction.name }}</h3>
                     <div class="flex">
-                        <strong class="text-gray-900">Current Bid:</strong>
+                        <strong class="text-gray-900">Opening Bid:</strong>
                         <p class="text-gray-700 text-center ml-2"><span id="price">$</span>{{ auction.bid }}</p>
                         <div class="go-arrow">
                             →
@@ -43,15 +43,15 @@
 
 <div class="mt-6 px-6 py-12">
     <h2 class="mb-12 text-3xl text-center text-[#0f2e40] font-semibold">Auction Categories</h2>
-    <div class="grid grid-cols-3 gap-3">
+    <a href="{% url 'product:category' %}" class="underline flex flex-row-reverse text-xl hover:text-rose-600">See all</a>
+    <div class="grid grid-cols-5 gap-3">
         {% for category in categories %}
         <div>
             <div class="p-6 bg-white rounded-xl text-center">
-                <a href="#" class="hover:text-rose-600">
-                    <img src="{{ category.image.url }}" class="border-1" id="c-auction">
+                <a href="{% url 'product:auction-list' category.id %}" class="hover:text-rose-600 text-center">
+                    <img src="{{ category.image.url }}" class="border rounded-full" id="c-auction">
                     <span class="text-2xl font-medium mt-2">{{ category.name }}</span>
                 </a>
-                <p class="text-gray-500 text-center">{{ category.auctions.count }} items</p>
             </div>
         </div>
         {% endfor %}
@@ -103,16 +103,17 @@
 
 <div class="mt-6 px-6 py-12">
     <h2 class="mb-12 text-3xl text-[#0f2e40] text-center font-semibold">Product Categories</h2>
+    
+    <a href="{% url 'product:category-p' %}" class="underline flex flex-row-reverse text-xl hover:text-rose-600">See all</a>
 
-    <div class="grid grid-cols-3 gap-3">
+    <div class="grid grid-cols-5 gap-3">
         {% for category in categories %}
             <div>
                 <div class="p-6 bg-white rounded-xl text-center">
-                    <a href="#" class="hover:text-rose-600">
-                        <img src="{{ category.image.url }}" class=" border-1" id="c-product" alt="Image">
+                    <a href="{% url 'product:product-list' category.id %}" class="hover:text-rose-600">
+                        <img src="{{ category.image.url }}" class=" border rounded-full" id="c-product" alt="Image">
                         <span class="text-2xl font-medium mt-2">{{ category.name }}</span>
                     </a>
-                    <p class="text-gray-500 text-center">{{ category.products.count }} items</p>
                 </div>
             </div>
         {% endfor %}

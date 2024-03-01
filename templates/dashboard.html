@@ -5,13 +5,11 @@
 <div>
     <div class="p-4 text-center my-10">
         <h2 class="text-4xl font-bold mb-2">Hello {{ request.user }}</h2>
-        <hr>
         <p class="mt-2 font-medium">From your account dashboard, You can easily check & view your recent orders and other settings</p>
     </div>
 
     <div class="p-4 text-center mb-10">
         <h2 class="text-4xl font-bold mb-4">Your Orders</h2>
-        <hr class="mb-5">
         {% if orders %}
             <table class="w-full text-center p-2">
                 <thead class="bg-gray-100">
@@ -32,7 +30,7 @@
                                 {{o.id}}
                             </td>
                             <td>
-                                <p> <a href="{% url 'product:detail' o.id %}" class="hover:text-rose-700">{{ o.product|truncatechars:30 }}</a></p>
+                                <p>{{ o.product|truncatechars:30 }}</p>
                             </td>
 
                             <td class="pl-4 pr-3 py-3">{{ o.order_date }}</td>
@@ -60,6 +58,56 @@
             </table>
         {% else %}
             <p class="text-xl font-medium mb-4">You don't have any Orders</p>
+        {% endif %}
+    </div>
+
+    <div class="p-4 text-center mb-10">
+        <h2 class="text-4xl font-bold mb-4">Auction Wins</h2>
+        {% if auction_wins %}
+            <table class="w-full text-center p-2">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="p-3">Auction No.</th>
+                        <th class="p-3">Auction</th>
+                        <th class="py-3 px-5">Date</th>
+                        <th class="py-3 px-5">Paid Status</th>
+                        <th class="py-3 px-5">Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for a in auction_wins %}
+                        <tr class="border-b">
+                            <td id="product-thumbnail" class="image p-3">
+                                {{a.id}}
+                            </td>
+                            <td>
+                                <p>{{ a.auction|truncatechars:30 }}</p>
+                            </td>
+
+                            <td class="pl-4 pr-3 py-3">{{ a.order_date }}</td>
+
+                            <td class="px-3 py-3" id="qty">
+                                {% if a.paid_status %}
+                                    <span class="text-2xl text-emerald-500">
+                                        ✓
+                                    </span>
+                                {% else %}
+                                    <span class="text-2xl text-red-500">
+                                        ✘
+                                    </span>
+                                {%endif%}
+                            </td>
+
+                            <td class="px-3 py-3">
+                                ${{ a.auction.bid  }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-xl font-medium mb-4">You don't have any Auction Win.</p>
         {% endif %}
     </div>
 </div>

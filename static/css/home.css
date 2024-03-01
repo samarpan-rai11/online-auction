@@ -151,7 +151,7 @@ h2{
 }
 
 #c-product, #c-auction{
-  height: 300px;
-  width: 400px;
+  height: 10rem;
+  width: 10rem;
   object-fit: contain;
 }
