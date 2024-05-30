@@ -16,49 +16,6 @@ Some screenshots of the project
 
 ![](assets/ss/ss5.png)
 
-Clone the repo or download it 
----
-
-Create virtual environment in python within the auction folder
-### For Mac
-```
-python -m venv .
-```
-
-### For Windows
-```
-python3 -m venv env
-```
----
-
-Activate the virtual environment
-### For Mac
-```
-source bin/activate
-```
-### For Windows
-```
-env\Scripts\activate
-```
----
-
-Install the requirements
-```
-pip install -r requirements.txt
-```
-
-
-Migrate all the migrations
-```
-python manage.py migrate
-```
-
-
-Finally run the server
-```
-python manage.py runserver
-```
----
 
 
 
