@@ -53,22 +53,35 @@ git clone https://github.com/samarpan-rai11/auction-marketplace.git
 cd auction-ecommerce-platform
 ```
 
-2. Install Python dependencies
+2. Create and activate a virtual environment
+```bash
+# Create virtual environment
+python -m venv auction_env
+
+# Activate virtual environment
+# On Windows:
+auction_env\Scripts\activate
+
+# On macOS/Linux:
+source auction_env/bin/activate
+```
+
+3. Install Python dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Set up the database and run migrations
+4. Set up the database and run migrations
 ```bash
 python manage.py migrate
 ```
 
-4. Install frontend dependencies (if applicable)
+5. Install frontend dependencies (if applicable)
 ```bash
 npm install
 ```
 
-5. Start the development server
+6. Start the development server
 ```bash
 python manage.py runserver
 ```
